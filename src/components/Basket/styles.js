@@ -50,10 +50,8 @@ const styles = StyleSheet.create({
 
     content: {
         backgroundColor: '#f0f8ff',
-        // elevation: 4,
-        // borderRadius: 30,
         marginTop: '2%',
-        height: '70%',
+        height: '63.5%',
         marginLeft: '3%',
         width: '93%',
         textAlign: 'center',
@@ -69,10 +67,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.58,
         shadowRadius: 16.00,
-        elevation: 1000,
-        borderRadius: 30,
         marginTop: '1%',
-        // marginBottom: '2%',
         marginLeft: '3%',
         width: '93%',
         textAlign: 'center',
@@ -82,7 +77,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     touchable: {
-        fontSize: 22,
+        fontSize: 18,
         color: 'black',
         width: 70,
         textAlign: 'center',
@@ -140,7 +135,7 @@ const styles = StyleSheet.create({
 
     addText: {
         zIndex: 99999,
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold',
         color: 'white',
     },
@@ -148,12 +143,15 @@ const styles = StyleSheet.create({
         zIndex: 99999,
         color: 'white',
         height: 40,
-        marginLeft:"60%",
-        marginTop: 10,
-        backgroundColor: '#db524b',
+        display:'flex',
+        lineHeight: 40,
+        padding:4,
+        alignItems: 'center',
+        marginLeft:"11%",
+        marginTop: '8%',
+        backgroundColor: '#FF0000',
         borderRadius: 20,
         width: 300,
-        alignItems: 'center',
     },
 });
 

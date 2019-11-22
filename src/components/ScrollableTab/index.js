@@ -58,32 +58,39 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
 
     return (
         <ScrollableTabView
-            tabBarUnderlineStyle={{borderRadius: 25}}
+            tabBarUnderlineStyle={{borderRadius: 25,}}
             tabBarBackgroundColor={'white'}
-            tabBarActiveTextColor={'red'}
+            tabBarActiveTextColor={'#0A3695'}
+            tabBarTextStyle={{fontSize: 25}}
             style={{width: '100%', borderRadius: 50}}
             disableTabBarOnLayout={true}
-            tabBarInactiveTextColor={'blue'}
+            tabBarInactiveTextColor={'#161616'}
+            tabBarUnderlineStyle={{ height: 3,
+                backgroundColor: '#0A3695',
+                borderRadius: 2,
+                }}
+
         >
             {
                 filteredTabs.map(tab => (
-                    <View style={{height: '90%'}} tabLabel={tab.title} disable={true} key={tab.title}>
+                    <View style={{height: '100%', backgroundColor: '#F7F7F9'}} tabLabel={tab.title} disable={true} key={tab.title}>
                         <View style={styles.content}>
                             <ScrollView style={styles.scrollView}>
                                 <View style={{height: '100%'}}>
                                     {selectedProducts && selectedProducts.filter(p => p.type === tab.id).map((element, elIndex) => {
                                         return <View style={styles.content1}>
-                                            <Image style={{width: 100, height: 100, marginLeft: 10}}
+                                            <Image style={{width: 120, height: 100, marginLeft: 10}}
                                                    source={require('./images/www.jpg')}
                                             />
                                             <View style={{
+                                                width: '80%',
                                                 flexDirection: 'row',
                                                 display: 'flex',
                                                 justifyContent: 'space-between'
                                             }}>
 
-                                                <View style={{marginLeft:'7%'}}>
-                                                    <Text style={{fontSize: 22, color: 'blue'}}>
+                                                <View style={{marginLeft:'2%'}}>
+                                                    <Text style={{fontSize: 22, color: '#0A3695', marginTop: 5, fontWeight:'bold'}}>
                                                         {element.name}
                                                     </Text>
                                                     <View style={{
@@ -91,7 +98,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                         display: 'flex',
                                                         justifyContent: 'space-between'
                                                     }}>
-                                                        <Text style={{fontSize: 20, color: 'black'}}>
+                                                        <Text style={{fontSize: 18, color: 'black'}}>
                                                             Չափսը՝
                                                         </Text>
                                                         <TouchableOpacity>
@@ -103,23 +110,26 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                     <View style={{
                                                         flexDirection: 'row',
                                                         display: 'flex',
-                                                        justifyContent: 'space-between'
+                                                        justifyContent: 'space-between',
+                                                        alignItems: 'center',
+                                                        marginTop: 5
                                                     }}>
                                                         <Text
                                                             style={{
-                                                                fontSize: 20,
+                                                                fontSize: 18,
                                                                 color: 'black',
-                                                                marginTop: 10,
-                                                                marginRight: 20
+                                                                // marginTop: 10,
+                                                                marginRight: 10
                                                             }}>
                                                             Քանակը՝
                                                         </Text>
                                                         <Text style={{
-                                                            fontSize: 25,
+                                                            fontSize: 18,
                                                             textAlign: 'center',
                                                             width: 80,
                                                             flexDirection: 'row',
                                                             alignItems: 'center',
+                                                            justifyContent: 'center'
 
                                                         }}> {element.count.toString()} </Text>
 
@@ -136,13 +146,13 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                             flexDirection: 'row',
                                                             display: 'flex',
                                                             justifyContent: 'space-between',
-                                                            marginTop: 15
+                                                            marginTop: 30
                                                         }}>
-                                                            <Text style={{fontSize: 20, color: 'black', width: 150}}>ԶԵղչված
+                                                            <Text style={{fontSize: 18, color: 'black', width: 150}}>ԶԵղչված
                                                                 Գին՝</Text>
                                                             <Text style={{
-                                                                fontSize: 20,
-                                                                color: 'red',
+                                                                fontSize: 18,
+                                                                color: '#FF0000',
                                                                 height: 30,
                                                                 width: 120
                                                             }}> 150 դրամ</Text>
@@ -153,24 +163,24 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                         display: 'flex',
                                                         justifyContent: 'space-around',
                                                         marginLeft: '15%',
-                                                        marginTop: 20
+                                                        // marginTop: 20
                                                     }}>
                                                         <Text style={{
-                                                            fontSize: 20,
+                                                            fontSize: 18,
                                                             color: 'black',
-                                                            width: 100
+                                                            width: 90
                                                         }}> Գինը՝</Text>
                                                         <Text style={{
                                                             fontSize: 24,
-                                                            color: 'blue',
+                                                            color: '#0A3695',
                                                             // left: 158,
                                                             height: 40,
-                                                            width: 120
+                                                            width: 130
                                                         }}> 290 դրամ</Text>
                                                     </View>
                                                 </View>
                                                 <TouchableOpacity onPress={() => removeSelectedProduct(element.id)}>
-                                                    <Image style={{width: 20, height: 20, marginTop: 10}}
+                                                    <Image style={{ marginTop: 17}}
                                                            source={require('./images/close.png')}
                                                     />
                                                 </TouchableOpacity>
@@ -182,36 +192,48 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                             </ScrollView>
 
                         </View>
-                        <View style={{marginLeft: '60%', marginTop: 20}}>
-                            <Text style={{fontSize: 18, }}>Գին`</Text>
-                            <Text style={{fontSize: 18}}>Զեղչված գին`</Text>
-                        </View>
+                        <View style={{
+                            flexDirection: 'row',
+                            marginLeft:'6%',
+                            width:'93%'
+                        }}>
+
                         <View style={{
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: 'center',
-                            marginLeft: '42%'
                         }}>
+                            <View>
+                            <View style={{marginTop: '16%', marginLeft: 8  }}>
+                                <Text style={{fontSize: 18}}>Գին`</Text>
+                                <Text style={{fontSize: 18}}>Զեղչված գին`</Text>
+                            </View>
 
-                            <Text style={{fontSize: 26, color: 'black'}}> Ընդհանուր՝</Text>
+                                <View  style={{
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                }}>
+                            <Text style={{fontSize: 24, color: 'black',fontWeight:'bold',}}> Ընդհանուր՝</Text>
                             <Text style={{
                                 flexDirection:'row',
                                 textAlign:'center',
                                 fontSize: 24,
-                                color: 'white',
+                                color: '#0A3695',
+                                fontWeight:'bold',
                                 left: 20,
-                                height: 40,
-                                backgroundColor: '#072C7D',
-                                borderRadius: 20,
+                                height: 30,
                                 width: 140
                             }}> 570 դրամ</Text>
+                                </View>
+                            </View>
+
                         </View>
-                        <TouchableOpacity
-                            style={styles.addButton}>
-                            <Text style={styles.addText}>
-                                Հաստատել
-                            </Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.addButton}>
+                                <Text style={styles.addText}>
+                                    Հաստատել
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 ))
             }

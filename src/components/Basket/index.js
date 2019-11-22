@@ -4,7 +4,6 @@ import styles from './styles';
 import {connect} from "react-redux";
 import ScrollableTab from "../ScrollableTab";
 const Basket = ({selectedProducts}) => {
-    console.log(selectedProducts, 'basketi');
     const [value, onChangeText] = useState('0');
 
     return (
@@ -14,8 +13,8 @@ const Basket = ({selectedProducts}) => {
                 <View style={styles.pickerView1}>
                     <Picker
                         // selectedValue={}
-                        style={{color: 'blue',}}
-                        itemStyle={styles.pickerItemStyle}
+                        style={{color: '#0A3695',}}
+                        itemStyle={{fontSize: 30, color:  'red'}}
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({language: itemValue})
                         }>
@@ -26,7 +25,7 @@ const Basket = ({selectedProducts}) => {
                 <View style={styles.pickerView}>
                     <Picker
                         // selectedValue={}
-                        style={{color: 'blue', fontSize: 50}}
+                        style={{color: '#0A3695', fontSize: 40}}
                         itemStyle={styles.pickerItemStyle}
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({language: itemValue})
