@@ -21,7 +21,6 @@ const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts, ..
             setLoaderProd(true);
             getProducts();
         } else {
-console.log('............................')
             onNavigateProducts()
         }
     };

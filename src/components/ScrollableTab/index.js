@@ -89,30 +89,28 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                 justifyContent: 'space-between'
                                             }}>
 
-                                                <View style={{marginLeft:'2%'}}>
-                                                    <Text style={{fontSize: 22, color: '#0A3695', marginTop: 5, fontWeight:'bold'}}>
-                                                        {element.name}
+                                                <View style={{marginLeft:'2%',}}>
+                                                    <Text style={{fontSize: 22, color: '#0A3695', marginTop: 5, fontWeight:'bold',}}>
+                                                        {element.name.split(' ',2) }
                                                     </Text>
                                                     <View style={{
                                                         flexDirection: 'row',
                                                         display: 'flex',
-                                                        justifyContent: 'space-between'
+                                                        justifyContent: 'space-between',
                                                     }}>
                                                         <Text style={{fontSize: 18, color: 'black'}}>
                                                             Չափսը՝
                                                         </Text>
-                                                        <TouchableOpacity>
                                                             <Text style={styles.touchable}>
                                                                 {element.size}
                                                             </Text>
-                                                        </TouchableOpacity>
                                                     </View>
                                                     <View style={{
                                                         flexDirection: 'row',
                                                         display: 'flex',
                                                         justifyContent: 'space-between',
                                                         alignItems: 'center',
-                                                        marginTop: 5
+                                                        marginTop: 5,
                                                     }}>
                                                         <Text
                                                             style={{
@@ -131,7 +129,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                             alignItems: 'center',
                                                             justifyContent: 'center'
 
-                                                        }}> {element.count.toString()} </Text>
+                                                        }}>    {element.count.toString()} մ </Text>
 
                                                     </View>
                                                 </View>

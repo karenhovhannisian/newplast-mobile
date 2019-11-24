@@ -34,14 +34,21 @@ const styles = StyleSheet.create({
         height: 100
     },
     pickerView: {
-        marginLeft: '10%',
+        marginLeft: '3%',
+        height: 50,
+        width: '20%',
+        backgroundColor: 'white',
+        borderRadius: 35
+    },
+    pickerView2: {
+        marginLeft: '3%',
         height: 50,
         width: '20%',
         backgroundColor: 'white',
         borderRadius: 35
     },
     pickerView1: {
-        marginLeft: '40%',
+        marginLeft: '20%',
         height: 50,
         width: '20%',
         backgroundColor: 'white',
@@ -60,16 +67,32 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
     },
     content1: {
-        shadowColor: "red",
-        shadowOffset: {
-            width: 0,
-            height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.00,
-        marginTop: '1%',
-        marginLeft: '3%',
-        width: '93%',
+        // shadowColor: "black",
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 0,
+        // },
+        // borderRadius: 15,
+        // shadowOpacity: 0.58,
+        // shadowRadius: 16.00,
+        // marginTop: '1%',
+        // elevation: 3,
+
+        // borderWidth: 1,
+borderRadius: 10,
+borderColor: '#ddd',
+// borderBottomWidth: 0,
+// shadowColor: '#000',
+// shadowOffset: {width: 0, height: 2},
+// shadowOpacity: 0.8,
+// shadowRadius: 2,
+// elevation: 1,
+marginRight: 5,
+marginTop: 10,
+
+
+        // marginLeft: '1%',
+        width: '100%',
         textAlign: 'center',
         flexDirection: 'row',
         backgroundColor: 'white',

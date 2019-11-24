@@ -103,10 +103,11 @@ const styles = StyleSheet.create({
         // left: 0,
         // top: -35,
         // width:'80%',
+        width:350,
         zIndex: 99999
     },
     productsName: {
-        width: 350,
+        width: 500,
         fontSize: responsiveFontSize(1),
         color: '#072C7D',
         fontWeight: 'bold',

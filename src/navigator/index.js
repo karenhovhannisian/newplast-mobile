@@ -26,6 +26,10 @@ const Navigator = createStackNavigator({
     orderCreate: {
         screen: CreateOrder, navigationOptions: ({navigation }) => ({
             title: `Պատվերի ստեղծում`,
+            headerStyle: {
+                // backgroundColor: '#f4511e',
+                // height: 80
+            },
             headerRight: (
                 <>
                     <TouchableOpacity onPress={() => navigation.navigate('Basket')}>

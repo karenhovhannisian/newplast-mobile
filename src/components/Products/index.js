@@ -222,11 +222,5 @@ const mapStateToProps = (state) => ({
     price: state.ProductsReducer.price,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    // getProducts: () => dispatch(getProducts()),
-    getPrice: (value, productId) => dispatch(getPrice(value, productId)),
-    getBalance: () => dispatch(getBalance()),
-    adProducts: (product) => dispatch(adProducts(product))
-});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Products)
