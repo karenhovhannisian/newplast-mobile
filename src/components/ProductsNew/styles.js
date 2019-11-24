@@ -91,19 +91,20 @@ const styles = StyleSheet.create({
         height: '90%'
     },
     renderItemContent: {
-        // flexDirection: 'row',
+        justifyContent: 'center',
+        width: '50%',
+    },
+    renderItemContentResponsive: {
+        // alignItems: 'center',
+        width: '85%',
+        flexDirection:'row',
         justifyContent: 'space-between',
-        // width: '50%',
-        marginLeft: 70,
+        marginLeft: '5%',
         marginTop: 20,
         // position: 'relative',
     },
     productsNameContainer: {
-        // position: 'absolute',
-        // left: 0,
-        // top: -35,
-        // width:'80%',
-        width:350,
+        width:'60%',
         zIndex: 99999
     },
     productsName: {
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     },
     costContainer: {
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
     },
     costText: {
         fontSize: 18,
@@ -137,7 +138,7 @@ const styles = StyleSheet.create({
         // marginTop: -50
     },
     costCount: {
-        left: 400,
+        left: 420,
         height: 60,
         marginBottom:-60,
         backgroundColor: '#072C7D',

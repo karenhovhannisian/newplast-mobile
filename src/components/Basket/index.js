@@ -31,7 +31,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                             setSelectedManager(itemValue)
                         }>
                         {managerList && managerList.map(man => {
-                            return <Picker.Item  color={'#0A3695'} label = {man.men} value={man.codn} />
+                            return <Picker.Item  color={'#0A3695'} label = {man.men} value={man.men} />
                         })}
 
                     </Picker>

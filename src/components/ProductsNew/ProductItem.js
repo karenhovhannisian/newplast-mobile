@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useRef} from 'react';
-import {Text, Image, View, TouchableHighlight, Modal, TouchableOpacity} from 'react-native';
+import {Text, Image, View, TouchableHighlight, Modal, TouchableOpacity, Dimensions} from 'react-native';
 import {normalize} from '../../Common/metrics';
 import {Dropdown} from 'react-native-material-dropdown';
 import styles from "./styles";
@@ -29,10 +29,14 @@ const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex
     const [count, setCount] = useState(null);
     const [prices, setPrices] = useState(price ? price : null);
     const [imageZoom, setImageZoom] = useState(false);
+    const [itemWidth, setItemWidth] = useState(Dimensions.get('window').width);
 
     const onChangeSize = (value) => {
         changeProductSize(value);
         getPrice(value, product.item.products_id);
+    };
+  const onLayout = () => {
+      setItemWidth( Dimensions.get('window').width)
     };
 
     const getImageSource = (id) => {
@@ -107,13 +111,15 @@ const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex
         </Modal>
         <Image style={styles.containerC4Image}
                source={require("./images/c4.png")}/>
-        <TouchableOpacity onPress={openImageZoomModal}>
-            <Image style={{width: normalize(100), height: 300, marginTop: 100, marginRight: 40}}
-                   source={icon}
-            />
-        </TouchableOpacity>
 
-        <View style={styles.renderItemContent}>
+        <View style={itemWidth< 810 ? styles.renderItemContent: styles.renderItemContentResponsive} onLayout={onLayout}>
+            <View>
+            <TouchableOpacity onPress={openImageZoomModal}>
+                <Image style={{width: normalize(100), height: 300, marginTop: 100, marginRight: 40}}
+                       source={icon}
+                />
+            </TouchableOpacity>
+            </View>
             <View style={styles.productsNameContainer}>
                 <Text style={styles.productsName}>
                     {product.item.pxumb_name ? product.item.pxumb_name.trim() : ""}
@@ -146,20 +152,19 @@ const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex
                     <Text style={styles.costCountText}> {prices ? prices.split('.0000') : null} դրամ </Text>
                 </View> : null}
                 <ProductsCheckBox activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>
-            </View>
 
-
-            <View style={styles.costContainer}>
-                <TouchableHighlight onPress={addProduct}
-                                    disabled={!canSubmit}
-                                    style={canSubmit && activeTypeIndex !== null ? styles.addToCartButton : styles.addToCartButtonOp}>
-                    <Text style={styles.addToCartText}>
-                        Ավելացնել զամբյուղ
-                        <Image
-                            style={styles.addToCartImg}
-                            source={require("./images/shoping.png")}/>
-                    </Text>
-                </TouchableHighlight>
+                <View style={styles.costContainer}>
+                    <TouchableHighlight onPress={addProduct}
+                                        disabled={!canSubmit}
+                                        style={canSubmit && activeTypeIndex !== null ? styles.addToCartButton : styles.addToCartButtonOp}>
+                        <Text style={styles.addToCartText}>
+                            Ավելացնել զամբյուղ
+                            <Image
+                                style={styles.addToCartImg}
+                                source={require("./images/shoping.png")}/>
+                        </Text>
+                    </TouchableHighlight>
+                </View>
             </View>
         </View>
 

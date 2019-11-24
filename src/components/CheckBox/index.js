@@ -5,7 +5,7 @@ import {Text, Image, View} from 'react-native';
 const ProductsCheckBox = ({activeTypeIndex, setActiveTypeIndex}) => {
 
     return (
-        <View style={{flexDirection: 'row', alignItems: 'center', width: 370, marginTop: 15, zIndex:99999}}>
+        <View style={{flexDirection: 'row', alignItems: 'center', width: 400, marginTop: 15, marginRight:50}}>
             <View style={{flexDirection: 'row', alignItems: 'center', width: 90, marginRight: 20}}>
                 <Text  onPress={() => {
                     activeTypeIndex === 0 ? setActiveTypeIndex(null) : setActiveTypeIndex(0)
@@ -50,8 +50,8 @@ const ProductsCheckBox = ({activeTypeIndex, setActiveTypeIndex}) => {
                     onPress={() => activeTypeIndex === 2 ? setActiveTypeIndex(null) : setActiveTypeIndex(2)}
                 />
             </View>
-            <View onPress={() => activeTypeIndex === 3 ? setActiveTypeIndex(null) : setActiveTypeIndex(3)}
-                  style={{flexDirection: 'row', alignItems: 'center', width: 90,marginLeft: 0, }}>
+            <View
+                  style={{flexDirection: 'row', alignItems: 'center', width: 90 }}>
                 <Text onPress={() => activeTypeIndex === 3 ? setActiveTypeIndex(null) : setActiveTypeIndex(3)}
                       style={{fontSize: 20, color: '#161616', fontWeight: 'bold'}}>C5</Text>
                 <CheckBox

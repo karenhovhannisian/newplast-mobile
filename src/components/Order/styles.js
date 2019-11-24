@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     text: { margin: 6,textAlign: 'center', fontSize: 18, color: '#072C7D',fontWeight:'bold'  },
     texts: {margin: 6, paddingTop:30 , paddingBottom:30 ,fontWeight: '100',textAlign: 'center', alignItems: 'center',  fontSize: 20,color:'#072C7D' },
     row: { flexDirection: 'row', backgroundColor: '#F7F7F9', width: '100%',borderBottomColor: '#BAC5DC',borderBottomWidth: 1,justifyContent: 'space-around',alignItems:'center' },
-    btn: { width: '100%', height: 40,padding:3, borderWidth: 2,  borderRadius: 35, marginLeft: 0, borderColor:'#072C7D',alignItems:'center',flexDirection:'row' },
+    btn: { width: '100%', height: 40,padding:15, borderWidth: 2,  borderRadius: 35, marginLeft: 0, borderColor:'#072C7D',alignItems:'center',flexDirection:'row' },
     btnText: { textAlign: 'center',justifyContent: 'center', color: '#072C7D', fontSize: 15, alignItems:'center'},
     dataWrapper: { marginTop: -1, height:'90%' },
     headerTable: { height: 60, backgroundColor: '#C1CFEC', width: '100%',flexDirection: 'row',justifyContent: 'space-between',alignItems:'center' },

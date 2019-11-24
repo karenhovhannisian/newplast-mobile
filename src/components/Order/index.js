@@ -113,7 +113,6 @@ const Order = ({oldOrders}) => {
                 </View>
 
             </View>
-            {/*<Footer/>*/}
             <Modal
                 animationType="slide"
                 transparent={false}

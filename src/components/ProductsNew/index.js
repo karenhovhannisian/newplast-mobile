@@ -13,7 +13,7 @@ const Products = ({ products }) => {
     const [doAnimation, setDoAnimation] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [sliderWidth, setSliderWidth] = useState(Dimensions.get('window').width - 150);
+    const [sliderWidth, setSliderWidth] = useState(Dimensions.get('window').width);
 
     const config = {
         velocityThreshold: 0.3,
@@ -32,7 +32,7 @@ const Products = ({ products }) => {
 
         >
             <TouchableOpacity
-                style={{position: 'absolute', top: 200, left:20, elevation:50}}
+                style={{position: 'absolute', top: '40%', left:0, elevation:50}}
                 onPress={() => currentIndex && setCurrentIndex(currentIndex - 1)}>
                 <Image
                     source={require("./images/left.png")}/>
@@ -40,7 +40,7 @@ const Products = ({ products }) => {
             <View style={styles.container}>
 
             <View style={{
-                width: sliderWidth
+                width: '100%'
             }}>
 
                 <ProductItem currentIndex={currentIndex} product={{item: products[currentIndex], index: currentIndex}}/>
@@ -72,7 +72,7 @@ const Products = ({ products }) => {
                 </TouchableHighlight>
             </Modal>
             <TouchableOpacity
-                style={{position: 'absolute',top: 200,  right: 20, elevation:24}}
+                style={{position: 'absolute',top: '40%',  right: 0, elevation:24}}
                 onPress={() => currentIndex < products.length && setCurrentIndex(currentIndex + 1)}>
                 <Image
                     source={require("./images/right.png")}/>
