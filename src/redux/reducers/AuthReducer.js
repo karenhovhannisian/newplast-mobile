@@ -6,7 +6,6 @@ const defaultState = {
 };
 
 const AuthReducer = (state = defaultState, action) => {
-    console.log(action, 'action')
     const {type} = action;
     switch (type) {
         case  SIGN_IN_SUCCESS:

@@ -1,9 +1,9 @@
 import MakeActionCreator from "../../helpers/utilities/MakeActionCreator";
 
 export const GET_PRODUCTS = "GET_PRODUCTS";
-export const getProducts = MakeActionCreator(GET_PRODUCTS, 'products');
+export const getProducts = MakeActionCreator(GET_PRODUCTS, );
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
-export const getProductsSuccess = MakeActionCreator(GET_PRODUCTS_SUCCESS, 'loaderProducts' );
+export const getProductsSuccess = MakeActionCreator(GET_PRODUCTS_SUCCESS );
 
 export const GET_BALANCE = "GET_BALANCE";
 export const getBalance = MakeActionCreator(GET_BALANCE);
@@ -23,4 +23,4 @@ export const getPriceSuccess = MakeActionCreator(GET_PRICE_SUCCESS, 'price' );
 
 
 export const DELETE_SELECTED_PRODUCT = "DELETE_SELECTED_PRODUCT";
-export const deleteSelectedProduct = MakeActionCreator(DELETE_SELECTED_PRODUCT, 'elIndex' );
+export const deleteSelectedProduct = MakeActionCreator(DELETE_SELECTED_PRODUCT, 'elIndex', 'size' );

@@ -14,7 +14,6 @@ const LoggedInLayout = (props) => {
         });
     }, []);
 
-    console.log("LoggedIN layout")
 
 
     return (

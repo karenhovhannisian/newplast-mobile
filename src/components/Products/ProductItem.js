@@ -1,41 +1,51 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {Text, Image, View, TouchableHighlight, Modal, TouchableOpacity, Dimensions} from 'react-native';
 import {normalize} from '../../Common/metrics';
 import {Dropdown} from 'react-native-material-dropdown';
-import styles from "./styles";
+import styles from "../ProductsNew/styles";
 import Stepper from "../Stepper";
 import ProductsCheckBox from "../CheckBox";
-import {adProducts, getPrice} from "../../redux/actions";
+import {adProducts} from "../../redux/actions";
 import {connect} from "react-redux";
 import ImageViewer from 'react-native-image-zoom-viewer';
+import axios from "axios";
 
 
-const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex }) => {
+const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
 
-    useEffect(() => {
-        setPrices(price)
-    }, [price]);
-    useEffect(() => {
-        setIndex(currentIndex);
-        setActiveTypeIndex(null);
-        setCount(0);
-        changeProductSize('');
-        setPrices(null)
-    }, [currentIndex]);
-
+    const [imageZoom, setImageZoom] = useState(false);
     const [activeTypeIndex, setActiveTypeIndex] = useState(null);
-    const [index, setIndex] = useState(null);
     const [productSize, changeProductSize] = useState('');
     const [count, setCount] = useState(null);
-    const [prices, setPrices] = useState(price ? price : null);
-    const [imageZoom, setImageZoom] = useState(false);
+    const [price, setProductPrice] = useState(null);
+    const [quantityPrice, setQuantityPrice] = useState(null);
+    const [mnac, setMnac] = useState(null);
+    const [chdzmnac, setChdzmnac] = useState(null);
     const [itemWidth, setItemWidth] = useState(Dimensions.get('window').width);
 
     const onChangeSize = (value) => {
         changeProductSize(value);
-        getPrice(value, product.item.products_id);
+        getProductPrice(value, product.item.products_id);
     };
-  const onLayout = () => {
+
+    const  getProductPrice = async (value, id) => {
+        const options = {
+            method: "POST",
+            url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,apr_mnacs, where psize=${value} and p.products_id=${id}`,
+            credentials: "include",
+            headers:{
+                'Content-Type': "application/json",
+            }
+        };
+        const response = await axios.post(options.url);
+        setProductPrice(response.data[0].gin);
+        setQuantityPrice(response.data[0].miavor)
+        setMnac(response.data[0].mnacord)
+        setChdzmnac(response.data[0].chdzmnac)
+    }
+
+
+    const onLayout = () => {
       setItemWidth( Dimensions.get('window').width)
     };
 
@@ -43,22 +53,22 @@ const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex
         let imageUrl = null;
         switch (id) {
             case 0:
-                imageUrl = require('./images/PEGFPE.jpg');
+                imageUrl = require('../ProductsNew/images/PEGFPE.jpg');
                 break;
             case 1:
-                imageUrl = require('./images/www.jpg');
+                imageUrl = require('../ProductsNew/images/www.jpg');
                 break;
             case 2:
-                imageUrl = require('./images/PPRALPEX.jpg');
+                imageUrl = require('../ProductsNew/images/PPRALPEX.jpg');
                 break;
             case 3:
-                imageUrl = require('./images/PPRC.jpg');
+                imageUrl = require('../ProductsNew/images/PPRC.jpg');
                 break;
             case 4:
-                imageUrl = require('./images/PPRGFPPR.jpg');
+                imageUrl = require('../ProductsNew/images/PPRGFPPR.jpg');
                 break;
             default:
-                imageUrl = require('./images/www.jpg');
+                imageUrl = require('../ProductsNew/images/www.jpg');
         }
         return imageUrl;
     };
@@ -71,19 +81,16 @@ const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex
         addProductToBasket(
             {
                 name: product.item.pxumb_name ? product.item.pxumb_name.trim() : "",
-                id: product.products_id,
+                id: product.item.products_id ? product.item.products_id : '',
                 count: count,
                 size: productSize,
-                type: activeTypeIndex
+                type: activeTypeIndex,
+                quantityPrice: quantityPrice
             }
         );
-        setCount(0);
-        setPrices(null);
-        setActiveTypeIndex(null);
-        changeProductSize('')
     };
 
-    let data = product.item.sizes.split(',').map(label => ({label, value: label}));
+    let data =  product.item.sizes.split(',').map(label => ({label, value: label}));
     let icon = getImageSource(product.index);
 
     const arr = [
@@ -96,7 +103,8 @@ const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex
         },
     ];
 
-    const canSubmit = productSize && count;
+    const canSubmit = productSize && count && activeTypeIndex !==null ;
+
     return (<View style={styles.renderItemContainer}>
         <Modal
             visible={imageZoom}
@@ -106,11 +114,10 @@ const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex
                 backgroundColor='white'
                 imageUrls={arr}/>
                 <TouchableOpacity style={{position: 'absolute', right: 15, top:15}} onPress={() => setImageZoom(false)}>
-                    <Image source={require("./images/clos.png")}/>
+                    <Image source={require("../ProductsNew/images/clos.png")}/>
                 </TouchableOpacity>
         </Modal>
-        <Image style={styles.containerC4Image}
-               source={require("./images/c4.png")}/>
+
 
         <View style={itemWidth< 810 ? styles.renderItemContent: styles.renderItemContentResponsive} onLayout={onLayout}>
             <View>
@@ -122,7 +129,7 @@ const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex
             </View>
             <View style={styles.productsNameContainer}>
                 <Text style={styles.productsName}>
-                    {product.item.pxumb_name ? product.item.pxumb_name.trim() : ""}
+                    { product.item.pxumb_name ? product.item.pxumb_name.trim() : ""}
                 </Text>
                 <Text style={styles.chooseSize}>
                     Ընտրեք չափսը
@@ -141,27 +148,29 @@ const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex
                 </View>
 
                 <View style={{width: 300, marginBottom: 10}}>
-                    <Text style={styles.balanceText}>Մնացորդ՝ </Text>
-                    <Text style={styles.balanceText}>Չձևակերպված մնացորդ՝ </Text>
+                    <Text style={styles.balanceText}>Մնացորդ՝ {mnac ? mnac.split('.0000') : ''} </Text>
+                    <Text style={styles.balanceText}>Չձևակերպված մնացորդ՝ {chdzmnac ? chdzmnac : ''} </Text>
                 </View>
 
                 <Stepper
                     value={count}
                     onChangeCount={(value) => setCount(value)}/>
-                {prices ? <View style={styles.costCount}>
-                    <Text style={styles.costCountText}> {prices ? prices.split('.0000') : null} դրամ </Text>
-                </View> : null}
+                {price ?
+                    <View style={styles.costCount}>
+                    <Text style={styles.costCountText}> {price ? price.split('.0000') : null} դրամ </Text>
+                </View>
+                    : null}
                 <ProductsCheckBox activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>
 
                 <View style={styles.costContainer}>
                     <TouchableHighlight onPress={addProduct}
                                         disabled={!canSubmit}
-                                        style={canSubmit && activeTypeIndex !== null ? styles.addToCartButton : styles.addToCartButtonOp}>
+                                        style={canSubmit ? styles.addToCartButton : styles.addToCartButtonOp}>
                         <Text style={styles.addToCartText}>
                             Ավելացնել զամբյուղ
                             <Image
                                 style={styles.addToCartImg}
-                                source={require("./images/shoping.png")}/>
+                                source={require("../ProductsNew/images/shoping.png")}/>
                         </Text>
                     </TouchableHighlight>
                 </View>
@@ -172,14 +181,12 @@ const ProductItem = ({product, addProductToBasket, price, getPrice, currentIndex
 
 };
 
-
 const mapStateToProps = (state) => ({
-    price: state.ProductsReducer.price,
+    selectedProducts: state.ProductsReducer.selectedProducts,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getPrice: (value, productId) => dispatch(getPrice(value, productId)),
-    addProductToBasket: (product) => dispatch(adProducts(product))
+    addProductToBasket: (value) => dispatch(adProducts(value))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductItem)
+export default connect(mapStateToProps,mapDispatchToProps) (ProductItem)

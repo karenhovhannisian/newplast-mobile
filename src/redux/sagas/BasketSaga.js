@@ -10,12 +10,13 @@ function* getManagerList({}) {
             credentials: "include",
         };
         const response = yield call(axios, options);
-        console.log(response.data, 'response');
         yield put(getManagerListSuccess(response.data));
     } catch (err) {
         console.log(err);
     }
 }
+
+
 
 function* getCustomerList({}) {
     try {
@@ -25,7 +26,6 @@ function* getCustomerList({}) {
             credentials: "include",
         };
         const response = yield call(axios, options);
-        console.log(response.data, 'response');
         yield put(getCustomerListSuccess(response.data));
     } catch (err) {
         console.log(err);
@@ -36,3 +36,5 @@ export default function* sendDataSaga() {
     yield takeLatest(GET_MANAGER_LIST, getManagerList);
     yield takeLatest(GET_CUSTOMER_LIST, getCustomerList);
 };
+
+

@@ -1,11 +1,11 @@
-import {StyleSheet} from "react-native";
+import {Dimensions, StyleSheet} from "react-native";
 import {Colors} from "react-native/Libraries/NewAppScreen";
 import {
     responsiveHeight,
     responsiveWidth,
     responsiveFontSize
 } from "react-native-responsive-dimensions";
-
+const SCREEN_WIDTH = Dimensions.get("window").width;
 const styles = StyleSheet.create({
     scrollView: {
         backgroundColor: Colors.lighter,
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
     },
     containerC4Image: {
         position: 'absolute',
-        left: -10,
+        left: 86,
+        elevation:24,
         top: 50,
         zIndex: 99999
     },
@@ -96,10 +97,10 @@ const styles = StyleSheet.create({
     },
     renderItemContentResponsive: {
         // alignItems: 'center',
-        width: '85%',
+        width: '100%',
         flexDirection:'row',
         justifyContent: 'space-between',
-        marginLeft: '5%',
+        marginLeft: '15%',
         marginTop: 20,
         // position: 'relative',
     },
@@ -126,6 +127,7 @@ const styles = StyleSheet.create({
         marginTop:10
     },
     costContainer: {
+        marginTop:10,
         fontWeight: 'bold',
         textAlign: 'center',
     },
@@ -138,7 +140,8 @@ const styles = StyleSheet.create({
         // marginTop: -50
     },
     costCount: {
-        left: 420,
+        left: 401,
+        marginTop:0,
         height: 60,
         marginBottom:-60,
         backgroundColor: '#072C7D',
@@ -161,9 +164,11 @@ const styles = StyleSheet.create({
         width: 80,
         height: 80,
         position: 'absolute',
-        right: -30,
+        right: -35,
+        // elevation: 24,
         top: 80,
-        zIndex: 99999,
+
+        // zIndex: 99999,
     },
     modalVisibleClose: {
         width: 50,
@@ -174,8 +179,30 @@ const styles = StyleSheet.create({
         top: 12,
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
 
+
+
+    scrollPage: {
+        width: SCREEN_WIDTH,
+        padding: 20
+    },
+    screen: {
+        height: 600,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 25,
+        backgroundColor: "white"
+    },
+    text: {
+        fontSize: 45,
+        fontWeight: "bold"
+    },
+
+
+    box: {
+width:'100%'
+    }
 
 });
 

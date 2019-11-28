@@ -3,7 +3,8 @@ import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator,
 import styles from "./styles";
 import {getOldOrders, getProducts} from "../../redux/actions";
 import {connect} from "react-redux";
-const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts, ...props,}) => {
+import LogOut from "../LogOut";
+const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts, ...props}) => {
     const {navigate} = props.navigation;
 
     const [loaderProd, setLoaderProd] = useState(false);
@@ -91,6 +92,7 @@ const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts, ..
                     <TouchableOpacity onPress={() => navigate('Debt')}>
                         <Image
                             style={{
+                                transform: [{rotate: '-45deg'}],
                                 width: 150,
                                 height: 150
                             }}
@@ -98,6 +100,7 @@ const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts, ..
                         />
                     </TouchableOpacity>
                 </View>
+                <LogOut navigation={props.navigation} />
             </View>
         </ImageBackground>
 

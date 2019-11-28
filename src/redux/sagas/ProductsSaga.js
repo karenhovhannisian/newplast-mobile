@@ -15,9 +15,7 @@ function* getProducts({}) {
             }
         };
         const response = yield call(axios, options);
-        console.log(response.data,'responseresponseresponseresponseresponse')
       yield cache.setItem("hello", response.data, function(err) {
-
       });
         yield put(getProductsSuccess());
 

@@ -75,25 +75,6 @@ const Debt = () => {
                 </View>
 
             </View>
-
-            <View style={styles.containers}>
-                <TouchableOpacity onPress={() => navigate('orderCreate')} style={{width: 180, alignItems: 'center', justifyContent: 'center'}}>
-                    <Image
-                        source={require('./images/1.png')}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity style={{width: 180, alignItems: 'center', justifyContent: 'center'}}>
-                    <Image
-                        source={require('./images/2.png')}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity style={{width: 180, alignItems: 'center', justifyContent: 'center'}}>
-                    <Image
-                        source={require('./images/3.png')}
-                    />
-                </TouchableOpacity>
-            </View>
-
             <Modal
                 animationType="slide"
                 transparent={false}

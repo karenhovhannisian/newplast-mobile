@@ -1,13 +1,16 @@
-import React, {useState, useRef} from 'react';
-import {Image, View, Modal, TouchableHighlight, Dimensions, TouchableOpacity} from 'react-native';
+import React, {useState, useRef, useEffect} from 'react';
+import {Image, View, Modal, TouchableHighlight, Dimensions, TouchableOpacity,Animated, Easing} from 'react-native';
 import Filters from "../Filters";
 import styles from "./styles";
 import {connect} from "react-redux";
-import ProductItem from "./ProductItem";
+import ProductItem from "../Products/ProductItem";
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 
-const Products = ({ products }) => {
+const Products2 = ({ products }) => {
+    const spinValue = new Animated.Value(0);
+
+
 
     const carousel = useRef(null);
     const [doAnimation, setDoAnimation] = useState(false);
@@ -20,6 +23,21 @@ const Products = ({ products }) => {
         directionalOffsetThreshold: 80
     };
 
+    useEffect(() => {
+        Animated.timing(spinValue, {
+            toValue: 50,
+            easing: Easing.elastic(2),
+            duration: 600
+        }).start();     }, [currentIndex]);
+
+
+    const interpolatedRotateAnimation = spinValue.interpolate({
+        inputRange: [0, 1,2],
+        outputRange: [0,0,0],
+        extrapolateLeft: 'identity',
+        extrapolateRight: 'clamp'
+    });
+
     return (
 
         <GestureRecognizer
@@ -31,6 +49,8 @@ const Products = ({ products }) => {
             config={config}
 
         >
+            <Image style={styles.containerC4Image}
+                   source={require("./images/c4.png")}/>
             <TouchableOpacity
                 style={{position: 'absolute', top: '40%', left:0, elevation:50}}
                 onPress={() => currentIndex && setCurrentIndex(currentIndex - 1)}>
@@ -39,13 +59,15 @@ const Products = ({ products }) => {
             </TouchableOpacity>
             <View style={styles.container}>
 
-            <View style={{
-                width: '100%'
-            }}>
+            <Animated.View style={{
+                transform: [{translateX: spinValue},
+                    {rotate: interpolatedRotateAnimation}
+                ]}
+            }>
 
                 <ProductItem currentIndex={currentIndex} product={{item: products[currentIndex], index: currentIndex}}/>
 
-            </View>
+            </Animated.View>
                 <TouchableHighlight onPress={() => {
                     setModalVisible(!modalVisible)
                 }}
@@ -86,4 +108,4 @@ const mapStateToProps = (state) => ({
     products: state.ProductsReducer.products
 });
 
-export default connect(mapStateToProps)(Products)
+export default connect(mapStateToProps)(Products2)

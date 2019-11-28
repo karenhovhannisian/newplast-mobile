@@ -1,8 +1,7 @@
 import React from "react";
 import {ScrollableTabView} from "@valdio/react-native-scrollable-tabview";
-import {Image, ScrollView, Text, TextInput, TouchableHighlight, TouchableOpacity, View} from "react-native";
+import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "../Basket/styles";
-import {Button} from "react-native-elements";
 import {connect} from "react-redux";
 import {deleteSelectedProduct} from "../../redux/actions";
 
@@ -30,11 +29,9 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
 
     const filteredTabs = [];
     tabs.forEach(tab => {
-        console.log(selectedProducts && selectedProducts.map(e => e.type).includes(tab.id))
         if (selectedProducts && selectedProducts.map(e => e.type).includes(tab.id)) {
             filteredTabs.push(tab)
         }
-        // selectedProducts && selectedProducts.map(e => e.type).includes(tab.id)
     });
 
     if (!filteredTabs.length) {
@@ -48,13 +45,12 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
         </View>
     }
 
-    const removeSelectedProduct = (elIndex) => {
-        console.log(elIndex, 'index');
-        deleteSelectedProduct(elIndex)
+    const removeSelectedProduct = (elIndex,size) => {
+        deleteSelectedProduct(elIndex, size)
     };
 
 
-    console.log(filteredTabs);
+    // console.log(filteredTabs);
 
     return (
         <ScrollableTabView
@@ -129,7 +125,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                             alignItems: 'center',
                                                             justifyContent: 'center'
 
-                                                        }}>    {element.count.toString()} մ </Text>
+                                                        }}>    {element.count.toString()} {element.quantityPrice} </Text>
 
                                                     </View>
                                                 </View>
@@ -177,7 +173,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                         }}> 290 դրամ</Text>
                                                     </View>
                                                 </View>
-                                                <TouchableOpacity onPress={() => removeSelectedProduct(element.id)}>
+                                                <TouchableOpacity onPress={() => removeSelectedProduct(element.id, element.size)}>
                                                     <Image style={{ marginTop: 17}}
                                                            source={require('./images/close.png')}
                                                     />
@@ -246,7 +242,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    deleteSelectedProduct: (elIndex) => dispatch(deleteSelectedProduct(elIndex)),
+    deleteSelectedProduct: (elIndex, size) => dispatch(deleteSelectedProduct(elIndex, size)),
 
 });
 

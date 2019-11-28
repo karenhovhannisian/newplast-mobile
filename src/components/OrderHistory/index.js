@@ -2,25 +2,20 @@ import React, {useState} from "react";
 import {View, Text, ScrollView} from "react-native";
 import styles from './styles';
 import {Cell, Row, Table, TableWrapper} from "react-native-table-component";
+import moment from "moment";
 
 const OrderHistory = ({ordersData}) => {
-
-    const [tableHead, setTableHead] = useState(['Պատվերի կոդ՝ ե19-7769', '','2019/10/08']);
-    const [tableData, setTableData] = useState([
-        ['PEX-AL-PEX', '16 մմ', 'x 1', '291 դրամ'],
-        ['PEX-AL-PEX', '16 մմ', 'x 1', '291 դրամ'],
-        ['PEX-AL-PEX', '16 մմ', 'x 1', '291 դրամ'],
-        ['PEX-AL-PEX', '16 մմ', 'x 1', '291 դրամ'],
-        ['PEX-AL-PEX', '16 մմ', 'x 1', '291 դրամ'],
-        ['PEX-AL-PEX', '16 մմ', 'x 1', '291 դրամ'],
-    ]);
-    const [tableHeadData, setTableHeadData] = useState(['Պատվերի անուն', 'Չափս', 'Քանակ', 'Գին']);
+    console.log(ordersData.apr_cank.map(el => el), 'ordersDatasssss');
+    const [tableHead, setTableHead] = useState([`Պատվերի կոդ՝ ${ordersData.patcod}`, '',`${moment(ordersData.sdate).format("MM-DD-YYYY")}`]);
+    const [tableData, setTableData] = useState(ordersData ? ordersData.apr_cank : []);
+    const [tableHeadData, setTableHeadData] = useState(
+        ['Պատվերի անուն', '                                            Չափս', '                                              Քանակ', '          Գին']);
     const [data, setData] = useState([
-        ['Հաճախորդի անուն', 'Ա/Ձ Սզբեկյան Արման',''],
-        ['Կոդ', '120120222',''],
-        ['Տիպ', 'Այո',''],
-        ['Ընդհանուր գին', '2800դրամ',''],
-        ['Զեղչված գին', ' 2250դրամ',''],
+        ['Հաճախորդի անուն', `${ordersData.gyanun}`,''],
+        ['Կոդ', `${ordersData.gycod}`,''],
+        ['Տիպ', `${ordersData.aah}`,''],
+        ['Ընդհանուր գին', `${ordersData.sgumar} դրամ`,''],
+        ['Զեղչված գին', `${ordersData.apr_cank[0].zexch}`,''],
 
     ]);
 
@@ -69,15 +64,11 @@ const OrderHistory = ({ordersData}) => {
                             <Table borderStyle={{ width: 10}}>
                                 {
                                     tableData.map((rowData, index,) => (
-
                                         <TableWrapper key={index} style={styles.row}>
-                                            {
-                                                rowData.map((cellData, cellIndex) => (
-                                                    <Cell key={cellIndex}
-                                                          data={ cellData}
-                                                          textStyle={styles.texts1}/>
-                                                ))
-                                            }
+                                            <Text style={styles.texts2}>{rowData.apranun}</Text>
+                                            <Text style={styles.texts1}>{rowData.gumar}</Text>
+                                            <Text style={styles.texts1}>{rowData.qanak}</Text>
+                                            <Text style={styles.texts1}>{rowData.gin}</Text>
                                         </TableWrapper>
                                     ))
                                 }
@@ -92,3 +83,6 @@ const OrderHistory = ({ordersData}) => {
 };
 
 export default OrderHistory
+
+
+

@@ -23,7 +23,6 @@ cache.getItem("hello", function(err, value){
 });
 
 const ProductsReducer = (state = defaultState, action) => {
-    console.log(action, 'action')
     const {type} = action;
     switch (type) {
         case  GET_PRODUCTS_SUCCESS:
@@ -45,8 +44,7 @@ const ProductsReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 selectedProducts: state.selectedProducts.filter((el) => {
-                    console.log(el)
-                       return  el.id !== action.elIndex
+                       return  (el.id !== action.elIndex) ||  (el.size !== action.size)
                 })
             };
         case  AD_PRODUCTS:

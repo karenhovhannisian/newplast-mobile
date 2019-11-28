@@ -31,9 +31,9 @@ const styles = StyleSheet.create({
     },
     containerTable: {
         width: '95%',
-        height: '40%',
+        height: '41%',
         padding: 20,
-        paddingTop: 15,
+        paddingTop: 8,
     },
     containerTable1: {
         width: '95%',
@@ -69,9 +69,19 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#072C7D'
     },
+    texts2: {
+        width:'25%',
+        margin: 35,
+        fontWeight: '100',
+        textAlign: 'center',
+        alignItems: 'center',
+        fontSize: 20,
+        color: '#072C7D'
+    },
     row: {
         flexDirection: 'row',
         backgroundColor: 'white',
+        justifyContent: 'space-between',
         width: '100%',
         borderBottomColor: '#BAC5DC',
         borderBottomWidth: 1,
@@ -82,6 +92,9 @@ const styles = StyleSheet.create({
     },
     headerTable: {
         height: 60,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        textAlign:'center',
         backgroundColor: '#C1CFEC',
         width: '100%'
     },

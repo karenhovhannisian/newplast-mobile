@@ -70,9 +70,10 @@ const styles = StyleSheet.create({
         height: 65,
         backgroundColor: '#D1D8E7'
     },
-    text: { margin: 6,textAlign: 'center', fontSize: 18, color: '#072C7D',fontWeight:'bold'  },
-    texts: {margin: 6, paddingTop:30 , paddingBottom:30 ,fontWeight: '100',textAlign: 'center', alignItems: 'center',  fontSize: 20,color:'#072C7D' },
-    row: { flexDirection: 'row', backgroundColor: '#F7F7F9', width: '100%',borderBottomColor: '#BAC5DC',borderBottomWidth: 1,justifyContent: 'space-around',alignItems:'center' },
+    text: { margin: 6,textAlign: 'center', fontSize: 18, color: '#072C7D',fontWeight:'bold', width:'95%' },
+    texts: { paddingTop:30 , paddingBottom:30 ,fontWeight: '100',textAlign: 'center', alignItems: 'center',  fontSize: 18,color:'#072C7D' },
+    textss: { paddingTop:30 , paddingBottom:30 ,fontWeight: '100',textAlign: 'center', alignItems: 'center',width:'20%',  fontSize: 18,color:'#072C7D' },
+    row: { flexDirection: 'row', backgroundColor: '#F7F7F9', width: '100%',borderBottomColor: '#BAC5DC',borderBottomWidth: 1,justifyContent: 'space-between',alignItems:'center' },
     btn: { width: '100%', height: 40,padding:15, borderWidth: 2,  borderRadius: 35, marginLeft: 0, borderColor:'#072C7D',alignItems:'center',flexDirection:'row' },
     btnText: { textAlign: 'center',justifyContent: 'center', color: '#072C7D', fontSize: 15, alignItems:'center'},
     dataWrapper: { marginTop: -1, height:'90%' },
