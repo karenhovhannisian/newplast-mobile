@@ -29,11 +29,14 @@ const OrderTableItem = ({oldOrders, rowData, index}) => {
     return (
         <>
             <TableWrapper key={index} style={styles.row}>
-                <Text style={styles.textss}>{rowData.gyanun}</Text>
-                <Text style={styles.texts}>{rowData.gycod}</Text>
-                <Text style={styles.texts}>{moment(rowData.sdate).format("MM-DD-YYYY")}</Text>
-                <Text style={styles.texts}>{rowData.patcod}</Text>
-                {element(index)}
+                <View style={{flexDirection:'row', justifyContent:'space-around', alignItems:'center', width:'100%',margin:0}}>
+                    <Text style={styles.textss}>{rowData.gyanun}</Text>
+                    <Text style={styles.texts}>{rowData.gycod}</Text>
+                    <Text style={styles.texts}>{moment(rowData.sdate).format("MM-DD-YYYY")}</Text>
+                    <Text style={styles.texts}>{rowData.patcod}</Text>
+                    {element(index)}
+                </View>
+
             </TableWrapper>
             <Modal
                 animationType="slide"

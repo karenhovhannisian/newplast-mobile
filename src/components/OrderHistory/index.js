@@ -9,7 +9,7 @@ const OrderHistory = ({ordersData}) => {
     const [tableHead, setTableHead] = useState([`Պատվերի կոդ՝ ${ordersData.patcod}`, '',`${moment(ordersData.sdate).format("MM-DD-YYYY")}`]);
     const [tableData, setTableData] = useState(ordersData ? ordersData.apr_cank : []);
     const [tableHeadData, setTableHeadData] = useState(
-        ['Պատվերի անուն', '                                            Չափս', '                                              Քանակ', '          Գին']);
+        ['Պատվերի անուն', '                                                      Չափս', '                                  Քանակ', '          Գին']);
     const [data, setData] = useState([
         ['Հաճախորդի անուն', `${ordersData.gyanun}`,''],
         ['Կոդ', `${ordersData.gycod}`,''],
@@ -65,10 +65,12 @@ const OrderHistory = ({ordersData}) => {
                                 {
                                     tableData.map((rowData, index,) => (
                                         <TableWrapper key={index} style={styles.row}>
+                                            {/*<View style={{flexDirection:'row', justifyContent:'space-around', alignItems:'center', width:'100%'}}>*/}
                                             <Text style={styles.texts2}>{rowData.apranun}</Text>
                                             <Text style={styles.texts1}>{rowData.gumar}</Text>
                                             <Text style={styles.texts1}>{rowData.qanak}</Text>
                                             <Text style={styles.texts1}>{rowData.gin}</Text>
+                                            {/*</View>*/}
                                         </TableWrapper>
                                     ))
                                 }

@@ -6,16 +6,17 @@ import cache from '../../Common/Cache';
 
 const LogOut = ({showModal, attemptLogOut, navigation}) => {
 
-
-    const {navigate} = navigation
+    const {navigate} = navigation;
     const attemptLogOu = () => {
         attemptLogOut()
     };
 
     const clearCache =() => {
-        cache.clearAll(function(err) {
+        cache.clearAll( function(err) {
+            console.log(err,'error')
         });
-        navigate('Login')
+        navigate('Login');
+        attemptLogOu()
     }
 
     return (

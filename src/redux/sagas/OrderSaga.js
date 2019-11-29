@@ -7,13 +7,13 @@ function* getOldOrders({}) {
     // http://109.75.42.220/service.php?sl=j,WKaren,wkaren,patvera,where l.id>0
     try {
         const options = {
-            method: "GET",
+            method: "POST",
             url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,patvera,where l.id>0`,
             credentials: "include",
         };
         const response = yield call(axios, options);
         console.log(response.data, 'responseresponseresponseresponse');
-        cache.setItem("oldOrders", response.data.slice(0,80), function(err) {});
+        cache.setItem("oldOrders", response.data.slice(0,40), function(err) {});
 
         // yield put(getOldOrdersSuccess(response.data));
     } catch (err) {

@@ -1,8 +1,7 @@
 import {takeLatest, put, call} from "redux-saga/effects";
 import axios from 'axios';
 import {GET_BALANCE, GET_PRICE, GET_PRODUCTS, getBalanceSuccess, getPriceSuccess, getProductsSuccess} from "../actions";
-import cache from '../../Common/Cache';
-
+// import cache from '../../Common/Cache';
 
 function* getProducts({}) {
     try {
@@ -15,9 +14,11 @@ function* getProducts({}) {
             }
         };
         const response = yield call(axios, options);
-      yield cache.setItem("hello", response.data, function(err) {
-      });
-        yield put(getProductsSuccess());
+        // console.log(response.data, 'responsedata')
+      // yield cache.setItem("hello", response.data, function(err) {
+      //     console.log(response.data, 'cacheresponse.data')
+      // });
+        yield put(getProductsSuccess(response.data));
 
     } catch (err) {
         console.log(err);

@@ -3,29 +3,39 @@ import {
     GET_BALANCE_SUCCESS,
     AD_PRODUCTS,
     GET_PRICE_SUCCESS,
-    DELETE_SELECTED_PRODUCT
+    DELETE_SELECTED_PRODUCT, GET_PRODUCTS
 } from "../actions";
 import cache from "../../Common/Cache";
 
 const defaultState = {
     loaderProducts: false,
-    products: [],
+    products: null,
     balance: [],
     selectedProducts: [],
     price: null,
     elIndex: null
 };
 
-cache.getItem("hello", function(err, value){
-    if (value) {
-        defaultState.products = value
-    }
-});
+// cache.getItem("hello", function(err, value){
+//     console.log(defaultState.products, 'value')
+//     if (value) {
+//         defaultState.products = value
+//     } else {
+//         defaultState.products=[]
+//     }
+// });
+
 
 const ProductsReducer = (state = defaultState, action) => {
     const {type} = action;
     switch (type) {
         case  GET_PRODUCTS_SUCCESS:
+            return {
+                ...state,
+                loaderProducts: false,
+                products: action.products,
+            };
+            case  GET_PRODUCTS:
             return {
                 ...state,
                 loaderProducts: true,

@@ -1,19 +1,28 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {Image, View, Modal, TouchableHighlight, Dimensions, TouchableOpacity,Animated, Easing} from 'react-native';
+import {
+    Image,
+    View,
+    Modal,
+    TouchableHighlight,
+    Dimensions,
+    TouchableOpacity,
+    Animated,
+    Easing,
+    Text
+} from 'react-native';
 import Filters from "../Filters";
 import styles from "./styles";
 import {connect} from "react-redux";
 import ProductItem from "../Products/ProductItem";
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import Loader from "react-native-mask-loader/lib";
 
 
 const Products2 = ({ products }) => {
     const spinValue = new Animated.Value(0);
 
-
-
     const carousel = useRef(null);
-    const [doAnimation, setDoAnimation] = useState(false);
+
     const [modalVisible, setModalVisible] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [sliderWidth, setSliderWidth] = useState(Dimensions.get('window').width);
@@ -38,6 +47,9 @@ const Products2 = ({ products }) => {
         extrapolateRight: 'clamp'
     });
 
+    if(!products || !products.length) {
+        return  <Loader/>;
+    }
     return (
 
         <GestureRecognizer
@@ -64,8 +76,7 @@ const Products2 = ({ products }) => {
                     {rotate: interpolatedRotateAnimation}
                 ]}
             }>
-
-                <ProductItem currentIndex={currentIndex} product={{item: products[currentIndex], index: currentIndex}}/>
+                <ProductItem currentIndex={currentIndex} product={{item: products && products[currentIndex], index: currentIndex}}/>
 
             </Animated.View>
                 <TouchableHighlight onPress={() => {
@@ -82,7 +93,7 @@ const Products2 = ({ products }) => {
                 transparent={false}
                 visible={modalVisible}
             >
-                <Filters/>
+                <Filters products={products}/>
                 <TouchableHighlight
                     style={styles.modalVisibleClose}
                     onPress={() => {

@@ -12,7 +12,6 @@ import axios from "axios";
 
 
 const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
-
     const [imageZoom, setImageZoom] = useState(false);
     const [activeTypeIndex, setActiveTypeIndex] = useState(null);
     const [productSize, changeProductSize] = useState('');
@@ -39,11 +38,10 @@ const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
         };
         const response = await axios.post(options.url);
         setProductPrice(response.data[0].gin);
-        setQuantityPrice(response.data[0].miavor)
-        setMnac(response.data[0].mnacord)
+        setQuantityPrice(response.data[0].miavor);
+        setMnac(response.data[0].mnacord);
         setChdzmnac(response.data[0].chdzmnac)
-    }
-
+    };
 
     const onLayout = () => {
       setItemWidth( Dimensions.get('window').width)
@@ -90,9 +88,8 @@ const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
         );
     };
 
-    let data =  product.item.sizes.split(',').map(label => ({label, value: label}));
+    let data = product && product.item && product.item.sizes.split(',').map(label => ({label, value: label}));
     let icon = getImageSource(product.index);
-
     const arr = [
         {
             width: 300,
@@ -129,7 +126,7 @@ const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
             </View>
             <View style={styles.productsNameContainer}>
                 <Text style={styles.productsName}>
-                    { product.item.pxumb_name ? product.item.pxumb_name.trim() : ""}
+                    { product  ? product.item.pxumb_name.trim() : ''}
                 </Text>
                 <Text style={styles.chooseSize}>
                     Ընտրեք չափսը

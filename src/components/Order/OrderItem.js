@@ -15,7 +15,7 @@ const OrderItem = ({oldOrders}) => {
             <View style={styles.containerTable}>
                 <View>
                     <Table borderStyle={{borderColor: 'white', width:150}}>
-                        <Row data={tableHead} style={styles.headerTable} textStyle={styles.text}/>
+                        <Row flexArr={[2.2, 2.4, 1.9, 2.2,1.5]} data={tableHead} style={styles.headerTable} textStyle={styles.text}/>
                     </Table>
 
                     <ScrollView style={styles.dataWrapper}>

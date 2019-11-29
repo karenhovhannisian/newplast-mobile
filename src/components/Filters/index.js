@@ -1,9 +1,30 @@
-import React, {useState} from "react";
-import {Image, Text, View, TouchableHighlight} from 'react-native';
+import React, {useEffect, useState} from "react";
+import {Image, Text, View, TouchableHighlight, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {CheckBox} from "react-native-elements";
 
-const Filters = () => {
+const Filters = ({products}) => {
+
+
+    const groupBy = (list, keyGetter) => {
+        const map = new Map();
+        list.forEach((item) => {
+            const key = keyGetter(item);
+            const collection = map.get(key);
+            if (!collection) {
+                map.set(key, [item]);
+            } else {
+                collection.push(item);
+            }
+        });
+        return map;
+    };
+
+    const pets = products;
+
+    const grouped = groupBy(pets, pet => pet.categories_id);
+    console.log(grouped.get("44"), 'kkkkkkkkkkk');
+
     const filterCategories = [
         {
             name: 'Միաշերտ և բազմաշերտ խողովակներ',
@@ -96,13 +117,17 @@ const Filters = () => {
 
     const [activeIndex, setActiveIndex] = useState(null);
     const [categories, setCategories ] = useState(filterCategories);
+    // console.log(categories,activeIndex,'categories');
 
     const changeFilter = (categoryIndex, subIndex) => {
+
+
         const copyCategories = categories;
         copyCategories[categoryIndex].subCategories[subIndex].checked = !categories[categoryIndex].subCategories[subIndex].checked;
-        // console.log(copyCategories[categoryIndex].subCategories[subIndex].checked);
-        setCategories(copyCategories)
-    }
+        // console.log(copyCategories[categoryIndex].subCategories[subIndex].checked, 'ccccc');
+        // console.log(!categories[categoryIndex].subCategories[subIndex].checked, 'sssssswwwwww');
+        setCategories(categories)
+    };
 
     return (
 
@@ -113,14 +138,13 @@ const Filters = () => {
             <View style={styles.body}>
                 {categories.map((category, categoryIndex) => {
                     return <View style={styles.bodyView}>
-                        <View style={styles.filterCategoriesView}>
+                        <TouchableOpacity onPress={() => setActiveIndex(activeIndex === categoryIndex ? null : categoryIndex)} key={category.name} style={styles.filterCategoriesView}>
                             <Text
-                                onPress={() => setActiveIndex(activeIndex === categoryIndex ? null : categoryIndex)} key={category.name}
                                 style={styles.categoryName}>{category.name}
                             </Text>
                             <Image
                                 source={require("./images/right.png")}/>
-                        </View>
+                        </TouchableOpacity>
                         {activeIndex === categoryIndex ? <View style={{width: '80%'}}>
                             {category.subCategories.map((el, index) => {
                                 return <View

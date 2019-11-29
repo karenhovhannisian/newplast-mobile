@@ -67,13 +67,15 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         alignItems: 'center',
         fontSize: 20,
-        color: '#072C7D'
+        color: '#072C7D',
+        width:'20%',
+
     },
     texts2: {
-        width:'25%',
+        width:'35%',
         margin: 35,
         fontWeight: '100',
-        textAlign: 'center',
+        // textAlign: 'center',
         alignItems: 'center',
         fontSize: 20,
         color: '#072C7D'
@@ -81,8 +83,8 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         backgroundColor: 'white',
-        justifyContent: 'space-between',
-        width: '100%',
+        justifyContent: 'space-around',
+        // width: '100%',
         borderBottomColor: '#BAC5DC',
         borderBottomWidth: 1,
     },

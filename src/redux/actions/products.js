@@ -1,9 +1,9 @@
 import MakeActionCreator from "../../helpers/utilities/MakeActionCreator";
 
 export const GET_PRODUCTS = "GET_PRODUCTS";
-export const getProducts = MakeActionCreator(GET_PRODUCTS, );
+export const getProducts = MakeActionCreator(GET_PRODUCTS,  );
 export const GET_PRODUCTS_SUCCESS = "GET_PRODUCTS_SUCCESS";
-export const getProductsSuccess = MakeActionCreator(GET_PRODUCTS_SUCCESS );
+export const getProductsSuccess = MakeActionCreator(GET_PRODUCTS_SUCCESS, 'products' );
 
 export const GET_BALANCE = "GET_BALANCE";
 export const getBalance = MakeActionCreator(GET_BALANCE);

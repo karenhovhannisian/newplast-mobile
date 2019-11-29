@@ -6,25 +6,22 @@ import {connect} from "react-redux";
 import LogOut from "../LogOut";
 const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts, ...props}) => {
     const {navigate} = props.navigation;
-
+    console.log(loaderProducts, 'ssss');
     const [loaderProd, setLoaderProd] = useState(false);
     const [loaderOldOrders, setLoaderOldOrders] = useState(false);
     const [loaderDept, setLoaderDept] = useState(false);
     useEffect(() => {
-        if (loaderProducts) {
-            onNavigateProducts()
-        }
-
-    }, [loaderProducts]);
-
+            // onNavigateProducts()
+            // getProducts();
+    }, []);
+    console.log(products, 'products');
     const startLoadingProducts = () => {
-        if (products && !products.length) {
-            setLoaderProd(true);
-            getProducts();
-        } else {
-            onNavigateProducts()
-        }
+        getProducts();
+        onNavigateProducts()
+
     };
+
+    console.log(loaderProducts, 'loaderProducts');
 
     const onNavigateProducts = () => {
         setLoaderProd(false);

@@ -5,7 +5,7 @@ import {GET_CUSTOMER_LIST, GET_MANAGER_LIST, getCustomerListSuccess, getManagerL
 function* getManagerList({}) {
     try {
         const options = {
-            method: "GET",
+            method: "POST",
             url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,mens`,
             credentials: "include",
         };
@@ -21,7 +21,7 @@ function* getManagerList({}) {
 function* getCustomerList({}) {
     try {
         const options = {
-            method: "GET",
+            method: "POST",
             url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,gynker`,
             credentials: "include",
         };
