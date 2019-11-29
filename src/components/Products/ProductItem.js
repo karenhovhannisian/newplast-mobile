@@ -105,6 +105,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                 name: product.item.pxumb_name ? product.item.pxumb_name.trim() : "",
                 id: product.item.products_id ? product.item.products_id : '',
                 count: count,
+                price: price,
                 size: productSize,
                 type: activeTypeIndex,
                 quantityPrice: quantityPrice
@@ -194,7 +195,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                 <ProductsCheckBox activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>
 
                 <View style={styles.costContainer}>
-                    <TouchableHighlight onPress={addProduct}
+                    <TouchableOpacity onPress={addProduct}
                                         disabled={!canSubmit}
                                         style={canSubmit ? styles.addToCartButton : styles.addToCartButtonOp}>
                         <Text style={styles.addToCartText}>
@@ -203,7 +204,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                                 style={styles.addToCartImg}
                                 source={require("../ProductsNew/images/shoping.png")}/>
                         </Text>
-                    </TouchableHighlight>
+                    </TouchableOpacity>
                 </View>
             </View>
         </View>

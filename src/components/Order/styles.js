@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         width: '20%',
         backgroundColor: 'white',
         borderRadius: 35,
-        marginLeft:'25%'
+        marginLeft:'20%'
     },
     pickerItemStyle: {
         height: 50,

@@ -170,7 +170,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                             // left: 158,
                                                             height: 40,
                                                             width: 130
-                                                        }}> 290 դրամ</Text>
+                                                        }}> {element.price.split('.0000')} դրամ</Text>
                                                     </View>
                                                 </View>
                                                 <TouchableOpacity onPress={() => removeSelectedProduct(element.id, element.size)}>
