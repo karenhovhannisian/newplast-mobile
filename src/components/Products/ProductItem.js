@@ -1,5 +1,14 @@
-import React, {useState} from 'react';
-import {Text, Image, View, TouchableHighlight, Modal, TouchableOpacity, Dimensions} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+    Text,
+    Image,
+    View,
+    TouchableHighlight,
+    Modal,
+    TouchableOpacity,
+    Dimensions,
+    ActivityIndicator
+} from 'react-native';
 import {normalize} from '../../Common/metrics';
 import {Dropdown} from 'react-native-material-dropdown';
 import styles from "../ProductsNew/styles";
@@ -11,8 +20,21 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import axios from "axios";
 
 
-const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
+const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
+
+    useEffect(() => {
+        setProductPrice(null);
+        setQuantityPrice(null);
+        setMnac(null);
+        setChdzmnac(null)
+        changeProductSize('')
+        setActiveTypeIndex(null)
+        setCount(0)
+    },[product.index]);
+
+
     const [imageZoom, setImageZoom] = useState(false);
+    const [loaderSizes, setLoaderSizes] = useState(false);
     const [activeTypeIndex, setActiveTypeIndex] = useState(null);
     const [productSize, changeProductSize] = useState('');
     const [count, setCount] = useState(null);
@@ -25,6 +47,7 @@ const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
     const onChangeSize = (value) => {
         changeProductSize(value);
         getProductPrice(value, product.item.products_id);
+        setLoaderSizes(true)
     };
 
     const  getProductPrice = async (value, id) => {
@@ -37,6 +60,7 @@ const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
             }
         };
         const response = await axios.post(options.url);
+        setLoaderSizes(false)
         setProductPrice(response.data[0].gin);
         setQuantityPrice(response.data[0].miavor);
         setMnac(response.data[0].mnacord);
@@ -86,6 +110,13 @@ const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
                 quantityPrice: quantityPrice
             }
         );
+        setProductPrice(null);
+        setQuantityPrice(null);
+        setMnac(null);
+        setChdzmnac(null)
+        changeProductSize('')
+        setActiveTypeIndex(null)
+        setCount(null)
     };
 
     let data = product && product.item && product.item.sizes.split(',').map(label => ({label, value: label}));
@@ -131,7 +162,7 @@ const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
                 <Text style={styles.chooseSize}>
                     Ընտրեք չափսը
                 </Text>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between',}}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between',width: 170}}>
                     <Dropdown
                         pickerStyle={{borderBottomColor: 'transparent', borderWidth: 0}}
                         fontSize={22}
@@ -142,6 +173,9 @@ const ProductItem = ({product, addProductToBasket,selectedProducts}) => {
                         textColor={'#072C7D'}
                         rippleCentered={true}
                     />
+                    {loaderSizes ? <View style={{width:10,marginTop:45}}>
+                        <ActivityIndicator size="small" color="#0000ff"/>
+                    </View>: null}
                 </View>
 
                 <View style={{width: 300, marginBottom: 10}}>

@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         // marginTop: -50
     },
     costCount: {
-        left: 401,
+        marginLeft: 410,
         marginTop:0,
         height: 60,
         marginBottom:-60,

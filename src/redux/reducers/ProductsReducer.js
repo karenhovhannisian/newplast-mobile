@@ -3,7 +3,7 @@ import {
     GET_BALANCE_SUCCESS,
     AD_PRODUCTS,
     GET_PRICE_SUCCESS,
-    DELETE_SELECTED_PRODUCT, GET_PRODUCTS
+    DELETE_SELECTED_PRODUCT, GET_PRODUCTS, GET_PRICE
 } from "../actions";
 import cache from "../../Common/Cache";
 
@@ -35,26 +35,26 @@ const ProductsReducer = (state = defaultState, action) => {
                 loaderProducts: false,
                 products: action.products,
             };
-            case  GET_PRODUCTS:
+        case  GET_PRODUCTS:
             return {
                 ...state,
                 loaderProducts: true,
             };
-            case  GET_BALANCE_SUCCESS:
+        case  GET_BALANCE_SUCCESS:
             return {
                 ...state,
                 balance: action.balance,
             };
-            case  GET_PRICE_SUCCESS:
+        case  GET_PRICE_SUCCESS:
             return {
                 ...state,
                 price: action.price,
             };
-            case  DELETE_SELECTED_PRODUCT:
+        case  DELETE_SELECTED_PRODUCT:
             return {
                 ...state,
                 selectedProducts: state.selectedProducts.filter((el) => {
-                       return  (el.id !== action.elIndex) ||  (el.size !== action.size)
+                    return (el.id !== action.elIndex) || (el.size !== action.size)
                 })
             };
         case  AD_PRODUCTS:
