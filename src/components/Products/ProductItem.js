@@ -37,7 +37,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
     const [loaderSizes, setLoaderSizes] = useState(false);
     const [activeTypeIndex, setActiveTypeIndex] = useState(null);
     const [productSize, changeProductSize] = useState('');
-    const [count, setCount] = useState(null);
+    const [count, setCount] = useState(0);
     const [price, setProductPrice] = useState(null);
     const [quantityPrice, setQuantityPrice] = useState(null);
     const [mnac, setMnac] = useState(null);

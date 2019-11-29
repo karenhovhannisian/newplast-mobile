@@ -13,7 +13,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
     },[]);
 
     const [selectedManager, setSelectedManager] = useState('');
-    const [selectedCustomers, setSelectedCustomers] = useState('');
+    const [selectedCustomers, setSelectedCustomers] = useState('Տարածաշրջան');
     const [selectedCustomersName, setSelectedCustomersName] = useState('');
 
 
@@ -30,6 +30,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                         onValueChange={(itemValue, itemIndex) =>
                             setSelectedManager(itemValue)
                         }>
+                        <Picker.Item key={'unselectable'} label='Մենեջեր' value={0} />
                         {managerList && managerList.map(man => {
                             return <Picker.Item  color={'#0A3695'} label = {man.men} value={man.men} />
                         })}
@@ -39,13 +40,13 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                 <View style={styles.pickerView2}>
                     <Picker
                         mode={"dropdown"}
-                        placeholder={'ssss'}
                         selectedValue={selectedCustomers}
                         style={{color: '#0A3695',}}
                         itemStyle={{fontSize: 30, color:  'red'}}
                         onValueChange={(itemValue, itemIndex) =>
                             setSelectedCustomers(itemValue)
                         }>
+                        <Picker.Item key={'unselectable'} label='Տարածաշրջան' value={0} />
                         {
                             customerList && customerList.map(cus => {
                                 return <Picker.Item color={'#0A3695'} label={cus.hacse} value={cus.hacse}/>
@@ -63,13 +64,12 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                         onValueChange={(itemValue, itemIndex) =>
                             setSelectedCustomersName(itemValue)
                         }>
+                        <Picker.Item key={'unselectable'} label='Հաճախորդ' value={0} />
                         {
                             customerList && customerList.map(cus => {
                                 return <Picker.Item color={'#0A3695'} label={cus.anun} value={cus.anun}/>
                             })
                         }
-                        {/*<Picker.Item label="Հաճախորդ" value="Հաճախորդ"/>*/}
-                        {/*<Picker.Item label="------" value="-----"/>*/}
                     </Picker>
                 </View>
             </View>: null}
