@@ -10,14 +10,14 @@ const Debt = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [tableHead, setTableHead] = useState(['Հաճախորդի անուն', 'կոդ', 'ԶԵղչ', 'Պարտք' ]);
     const [tableData, setTableData] = useState([
-        ['zibil zibilyan', '378', '22000 դրամ', '8000 դրամ', ],
-        ['zibil zibilyan', '378', '22000 դրամ', '8000 դրամ', ],
-        ['zibil zibilyan', '378', '22000 դրամ', '8000 դրամ', ],
-        ['zibil zibilyan', '378', '22000 դրամ', '8000 դրամ', ],
-        ['zibil zibilyan', '378', '22000 դրամ', '8000 դրամ', ],
-        ['zibil zibilyan', '378', '22000 դրամ', '8000 դրամ', ],
-        ['zibil zibilyan', '378', '22000 դրամ', '8000 դրամ', ],
-        ['zibil zibilyan', '378', '22000 դրամ', '8000 դրամ', ],
+        ['test test', '378', '22000 դրամ', '8000 դրամ', ],
+        ['test test', '378', '22000 դրամ', '8000 դրամ', ],
+        ['test test', '378', '22000 դրամ', '8000 դրամ', ],
+        ['test test', '378', '22000 դրամ', '8000 դրամ', ],
+        ['test test', '378', '22000 դրամ', '8000 դրամ', ],
+        ['test test', '378', '22000 դրամ', '8000 դրամ', ],
+        ['test test', '378', '22000 դրամ', '8000 դրամ', ],
+        ['test test', '378', '22000 դրամ', '8000 դրամ', ],
     ]);
 
     const element = (data, index) => (

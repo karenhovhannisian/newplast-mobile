@@ -16,9 +16,10 @@ import {connect} from "react-redux";
 import ProductItem from "../Products/ProductItem";
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import Loader from "react-native-mask-loader/lib";
+import {Badge} from "react-native-elements";
 
 
-const Products2 = ({ products }) => {
+const Products2 = ({ products, selectedProducts }) => {
     const spinValue = new Animated.Value(0);
 
     const carousel = useRef(null);
@@ -81,6 +82,10 @@ const Products2 = ({ products }) => {
             config={config}
 
         >
+            <Badge
+                value={selectedProducts.length} status="error"
+                containerStyle={{ position: 'absolute', top: -50, right: 70, elevation:24, }}
+            />
             <Image style={styles.containerC4Image}
                    source={require("./images/c4.png")}/>
             <TouchableOpacity
@@ -136,7 +141,9 @@ const Products2 = ({ products }) => {
 };
 
 const mapStateToProps = (state) => ({
-    products: state.ProductsReducer.products
+    products: state.ProductsReducer.products,
+    selectedProducts: state.ProductsReducer.selectedProducts,
+
 });
 
 export default connect(mapStateToProps)(Products2)

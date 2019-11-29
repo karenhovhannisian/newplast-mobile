@@ -32,25 +32,25 @@ const Order = () => {
                 <View style={styles.pickerView1}>
                     <Picker
                         // selectedValue={}
-                        style={{color: 'blue',}}
+                        style={{color: '#0A3695',}}
                         itemStyle={styles.pickerItemStyle}
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({language: itemValue})
                         }>
                         <Picker.Item label="Տարածաշրջան" value="Տարածաշրջան"/>
-                        <Picker.Item label="JavaScript" value="js"/>
+                        <Picker.Item label="Տարածաշրջան" value="Տարածաշրջան"/>
                     </Picker>
                 </View>
                 <View style={styles.pickerView}>
                     <Picker
                         // selectedValue={}
-                        style={{color: 'blue', fontSize: 50}}
+                        style={{color: '#0A3695', fontSize: 50}}
                         itemStyle={styles.pickerItemStyle}
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({language: itemValue})
                         }>
                         <Picker.Item label="Ժամանակաշրջան" value="Ժամանակաշրջան"/>
-                        <Picker.Item label="JavaScript" value="js"/>
+                        <Picker.Item label="Ժամանակաշրջան" value="Ժամանակաշրջան"/>
                     </Picker>
                 </View>
             </View>

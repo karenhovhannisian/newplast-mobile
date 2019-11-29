@@ -113,10 +113,10 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
         setProductPrice(null);
         setQuantityPrice(null);
         setMnac(null);
-        setChdzmnac(null)
-        changeProductSize('')
-        setActiveTypeIndex(null)
-        setCount(null)
+        setChdzmnac(null);
+        changeProductSize('');
+        setActiveTypeIndex(null);
+        setCount(0)
     };
 
     let data = product && product.item && product.item.sizes.split(',').map(label => ({label, value: label}));
