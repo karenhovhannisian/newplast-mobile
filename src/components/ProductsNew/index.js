@@ -27,6 +27,27 @@ const Products2 = ({ products }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [sliderWidth, setSliderWidth] = useState(Dimensions.get('window').width);
 
+    //
+    // const groupBy = (list, keyGetter) => {
+    //     const map = new Map();
+    //     list.forEach((item) => {
+    //         const key = keyGetter(item);
+    //         const collection = map.get(key);
+    //         if (!collection) {
+    //             map.set(key, [item]);
+    //         } else {
+    //             collection.push(item);
+    //         }
+    //     });
+    //     return map;
+    // };
+    //
+    // const pets = products;
+    //
+    // const grouped = groupBy(pets, pet => pet.categories_id);
+    // console.log(grouped.get("44"), 'kkkkkkkkkkk');
+
+
     const config = {
         velocityThreshold: 0.3,
         directionalOffsetThreshold: 80

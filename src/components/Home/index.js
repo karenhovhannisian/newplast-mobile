@@ -4,24 +4,27 @@ import styles from "./styles";
 import {getOldOrders, getProducts} from "../../redux/actions";
 import {connect} from "react-redux";
 import LogOut from "../LogOut";
-const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts, ...props}) => {
+const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts,loaderOldOrders, ...props}) => {
+
     const {navigate} = props.navigation;
-    console.log(loaderProducts, 'ssss');
+
     const [loaderProd, setLoaderProd] = useState(false);
-    const [loaderOldOrders, setLoaderOldOrders] = useState(false);
-    const [loaderDept, setLoaderDept] = useState(false);
+
     useEffect(() => {
-            // onNavigateProducts()
-            // getProducts();
-    }, []);
-    console.log(products, 'products');
+        if (products){
+            onNavigateProducts()
+        }
+    }, [loaderProducts]);
+
+    useEffect(() => {
+        if (oldOrders){
+            onNavigateOldOrders()
+        }
+    }, [loaderOldOrders]);
+
     const startLoadingProducts = () => {
         getProducts();
-        onNavigateProducts()
-
     };
-
-    console.log(loaderProducts, 'loaderProducts');
 
     const onNavigateProducts = () => {
         setLoaderProd(false);
@@ -29,16 +32,10 @@ const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts, ..
     };
 
     const startLoadingOldOrders = () => {
-        if (oldOrders && !oldOrders.length) {
             getOldOrders();
-        }
-        onNavigateOldOrders()
-        // setLoaderOldOrders(true);
-        // setTimeout(onNavigateOldOrders, 100)
     };
 
     const onNavigateOldOrders = () => {
-        setLoaderOldOrders(false);
         navigate('Order')
     };
 
@@ -70,7 +67,7 @@ const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts, ..
                 </View>
                 <View style={styles.sectionTitle}>
                     <TouchableOpacity onPress={startLoadingProducts}>
-                        {loaderProd ? <View style={[styles.containers, styles.horizontal]}>
+                        {loaderProducts ? <View style={[styles.containers, styles.horizontal]}>
                                 <ActivityIndicator size="large" color="#0000ff"/>
                             </View> :
                             <Image
@@ -108,6 +105,7 @@ const mapStateToProps = (state) => ({
     products: state.ProductsReducer.products,
     loaderProducts: state.ProductsReducer.loaderProducts,
     oldOrders: state.OrdersReducer.oldOrders,
+    loaderOldOrders: state.OrdersReducer.loaderOldOrders,
 });
 
 const mapDispatchToProps = (dispatch) => ({

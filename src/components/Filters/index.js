@@ -6,24 +6,6 @@ import {CheckBox} from "react-native-elements";
 const Filters = ({products}) => {
 
 
-    const groupBy = (list, keyGetter) => {
-        const map = new Map();
-        list.forEach((item) => {
-            const key = keyGetter(item);
-            const collection = map.get(key);
-            if (!collection) {
-                map.set(key, [item]);
-            } else {
-                collection.push(item);
-            }
-        });
-        return map;
-    };
-
-    const pets = products;
-
-    const grouped = groupBy(pets, pet => pet.categories_id);
-    console.log(grouped.get("44"), 'kkkkkkkkkkk');
 
     const filterCategories = [
         {
