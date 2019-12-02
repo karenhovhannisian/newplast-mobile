@@ -151,11 +151,11 @@ const Filters = ({products}) => {
                 })}
             </View>
             <View style={styles.filterSubmitView}>
-                <TouchableHighlight style={styles.touchableButton}>
+                <TouchableOpacity style={styles.touchableButton}>
                     <Text style={styles.filterSubmit}>
                         Հաստատել
                     </Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
             </View>
         </View>
     )

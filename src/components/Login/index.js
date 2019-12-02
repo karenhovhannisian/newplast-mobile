@@ -89,7 +89,7 @@ const Login = (props) => {
                     />
                 </View>:
                 <View>
-                    <Image style={{width: 110, marginBottom: 40}}
+                    <Image style={{width: 110, marginBottom: 40, marginLeft:'20%'}}
                            source={require('./images/Group.png')}
                     />
 

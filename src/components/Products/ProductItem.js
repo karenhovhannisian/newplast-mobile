@@ -3,7 +3,6 @@ import {
     Text,
     Image,
     View,
-    TouchableHighlight,
     Modal,
     TouchableOpacity,
     Dimensions,
