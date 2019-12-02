@@ -6,6 +6,7 @@ import cache from "../../Common/Cache";
 
 function* signIn({User, pass}) {
     cache.setItem("login", pass, function(err) {});
+    cache.setItem("user", User, function(err) {});
     try {
         const options = {
             method: "POST",

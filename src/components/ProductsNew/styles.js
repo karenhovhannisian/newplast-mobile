@@ -60,9 +60,7 @@ const styles = StyleSheet.create({
         height: 25
     },
     addToCartButton: {
-        zIndex: 99999,
         left: 1,
-        color: 'white',
         height: 40,
         backgroundColor: '#db524b',
         borderRadius: 20,
@@ -72,9 +70,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     addToCartButtonOp: {
-        // opacity: 0.5,
         left: 1,
-        // color: 'white',
         height: 40,
         backgroundColor:'rgba(255, 0, 0, 0.4)',
         borderRadius: 20,
@@ -143,7 +139,7 @@ const styles = StyleSheet.create({
         marginLeft: 410,
         marginTop:0,
         height: 60,
-        marginBottom:-60,
+        marginBottom:-65,
         backgroundColor: '#072C7D',
         borderBottomLeftRadius: 35,
         borderTopLeftRadius: 35,

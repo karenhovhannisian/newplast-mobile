@@ -1,20 +1,33 @@
 import {takeLatest, put, call} from "redux-saga/effects";
 import axios from 'axios';
 import {GET_BALANCE, GET_PRICE, GET_PRODUCTS, getBalanceSuccess, getPriceSuccess, getProductsSuccess} from "../actions";
-// import cache from '../../Common/Cache';
+import cache from '../../Common/Cache';
+
+const defaultState = {
+    pass: null,
+    user: null,
+};
+
+cache.getItem("user", function(err, value){
+    defaultState.user = value
+});
+
+
+cache.getItem("login", function(err, value){
+    defaultState.pass = value
+});
 
 function* getProducts({}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,mxumb`,
+            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},mxumb`,
             credentials: "include",
             headers:{
                 'Content-Type': "application/json",
             }
         };
         const response = yield call(axios, options);
-        // console.log(response.data, 'responsedata')
       // yield cache.setItem("hello", response.data, function(err) {
       //     console.log(response.data, 'cacheresponse.data')
       // });
@@ -29,7 +42,7 @@ function* getBalance({}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,apr_mnacs, where fSTORAGE='111' and psize='16' and p.products_id='1'`,
+            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where fSTORAGE='111' and psize='16' and p.products_id='1'`,
             credentials: "include",
             headers:{
                 'Content-Type': "application/json",
@@ -48,7 +61,7 @@ function* getPrice({value, productId}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,apr_sgin, where psize=${value} and p.products_id=${productId}`,
+            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_sgin, where psize=${value} and p.products_id=${productId}`,
             credentials: "include",
             headers:{
                 'Content-Type': "application/json",

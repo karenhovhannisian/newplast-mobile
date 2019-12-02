@@ -59,13 +59,19 @@ const Products2 = ({ products, selectedProducts }) => {
             easing: Easing.elastic(2),
             duration: 600
         }).start();     }, [currentIndex]);
+    useEffect(() => {
+        Animated.timing(spinValue, {
+            toValue: 50,
+            easing: Easing.elastic(2),
+            duration: 600
+        }).start();     });
 
 
     const interpolatedRotateAnimation = spinValue.interpolate({
         inputRange: [0, 1,2],
         outputRange: [0,0,0],
-        extrapolateLeft: 'identity',
-        extrapolateRight: 'clamp'
+        // extrapolateLeft: 'identity',
+        // extrapolateRight: 'clamp'
     });
 
     if(!products || !products.length) {
