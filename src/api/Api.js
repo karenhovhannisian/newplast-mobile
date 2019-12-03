@@ -1,6 +1,5 @@
 import * as axios from "axios";
 import constants from "../configs/contsants"
-import {call} from "@redux-saga/core/effects";
 
 export default class NewPlastApi {
     static getProducts(){

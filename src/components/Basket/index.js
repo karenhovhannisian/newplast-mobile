@@ -13,10 +13,33 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
     },[]);
 
     const [selectedManager, setSelectedManager] = useState('');
-    const [selectedCustomers, setSelectedCustomers] = useState('Տարածաշրջան');
-    const [selectedCustomersName, setSelectedCustomersName] = useState('');
+    const [selectedCustomers, setSelectedCustomers] = useState('');
+    const [selectedCustomersName, setSelectedCustomersName] = useState(null);
+    const [customerName, setCustomerName] = useState('');
 
+    useEffect(()=> {
+            const grouped = groupBy(pets, pet => pet.aktrg.trim());
+            setSelectedCustomersName(grouped.get(selectedCustomers));
 
+    },[selectedCustomers]);
+
+    const groupBy = (list, keyGetter) => {
+        const map = new Map();
+        list.forEach((item) => {
+            const key = keyGetter(item);
+            const collection = map.get(key);
+            if (!collection) {
+                map.set(key, [item]);
+            } else {
+                collection.push(item);
+            }
+        });
+        return map;
+    };
+
+    const pets = customerList ? customerList : [];
+    const grouped = groupBy(pets, pet => pet.aktrg.trim());
+    const keys = [...grouped.keys()];
 
     return (
         <>
@@ -48,8 +71,8 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                         }>
                         <Picker.Item key={'unselectable'} label='Տարածաշրջան' value={0} />
                         {
-                            customerList && customerList.map(cus => {
-                                return <Picker.Item color={'#0A3695'} label={cus.hacse} value={cus.hacse}/>
+                            keys && keys.map(key => {
+                                return <Picker.Item color={'#0A3695'} label={key} value={key}/>
                             })
                         }
 
@@ -58,15 +81,15 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                 </View>
                 <View style={styles.pickerView}>
                     <Picker
-                        selectedValue={selectedCustomersName}
+                        selectedValue={customerName}
                         style={{color: '#0A3695', fontSize: 40}}
                         itemStyle={styles.pickerItemStyle}
                         onValueChange={(itemValue, itemIndex) =>
-                            setSelectedCustomersName(itemValue)
+                            setCustomerName(itemValue)
                         }>
                         <Picker.Item key={'unselectable'} label='Հաճախորդ' value={0} />
                         {
-                            customerList && customerList.map(cus => {
+                            selectedCustomersName && selectedCustomersName.map(cus => {
                                 return <Picker.Item color={'#0A3695'} label={cus.anun} value={cus.anun}/>
                             })
                         }
@@ -93,4 +116,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Basket)
-

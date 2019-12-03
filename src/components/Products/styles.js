@@ -15,18 +15,14 @@ const styles = StyleSheet.create({
             width: 0,
             height: 12,
         },
-        // shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
         borderRadius: 30,
         marginTop: '1%',
         marginLeft: '7.5%',
         width: '85%',
-        // textAlign: 'center',
         flexDirection: 'row',
         backgroundColor: 'white',
-        // alignItems: 'center',
-        // justifyContent: 'center',
 
     },
     touchable: {
@@ -70,9 +66,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     addToCartButtonOp: {
-        // opacity: 0.5,
         left: 1,
-        // color: 'white',
         height: 40,
         backgroundColor:'rgba(255, 0, 0, 0.4)',
         borderRadius: 20,
@@ -83,10 +77,8 @@ const styles = StyleSheet.create({
     },
     renderItemContainer: {
         justifyContent: 'center',
-        // alignItems: 'center',
         width: '80%',
         flexDirection:'row',
-        // position: 'relative',
         height: '90%'
     },
     renderItemContent: {
@@ -98,10 +90,6 @@ const styles = StyleSheet.create({
         // position: 'relative',
     },
     productsNameContainer: {
-        // position: 'absolute',
-        // left: 0,
-        // top: -35,
-        // width:'80%',
         zIndex: 99999
     },
     productsName: {
