@@ -16,9 +16,9 @@ import {attemptSignIn} from "../../redux/actions";
 import cache from "../../Common/Cache";
 
 const Login = (props) => {
-    const [User, onChangeText] = useState('WKaren');
+    const [User, onChangeText] = useState('');
     const [loader, setLoader] = useState(false);
-    const [pass, onChangePassword] = useState('wkaren');
+    const [pass, onChangePassword] = useState('');
     const {navigate} = props.navigation;
 
     const handleSubmitPassword = () => {

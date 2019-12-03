@@ -1,23 +1,30 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator,Button} from 'react-native';
+import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator} from 'react-native';
 import styles from "./styles";
-import {getOldOrders, getProducts} from "../../redux/actions";
+import {getDebtList, getOldOrders, getProducts} from "../../redux/actions";
 import {connect} from "react-redux";
 import LogOut from "../LogOut";
-const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts,loaderOldOrders, ...props}) => {
+
+const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, loaderOldOrders, getDebtList, debtList, loaderDebtList, ...props}) => {
 
     const {navigate} = props.navigation;
 
     const [loaderProd, setLoaderProd] = useState(false);
 
     useEffect(() => {
-        if (products){
+        if (products) {
             onNavigateProducts()
         }
     }, [loaderProducts]);
 
     useEffect(() => {
-        if (oldOrders){
+        if (debtList) {
+            onNavigateDebt()
+        }
+    }, [loaderDebtList]);
+
+    useEffect(() => {
+        if (oldOrders) {
             onNavigateOldOrders()
         }
     }, [loaderOldOrders]);
@@ -32,13 +39,22 @@ const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts,loa
     };
 
     const startLoadingOldOrders = () => {
-            getOldOrders();
+        getOldOrders();
     };
 
     const onNavigateOldOrders = () => {
         navigate('Order')
     };
 
+    const startLoadingDebt = () => {
+        getDebtList();
+    };
+
+    const onNavigateDebt = () => {
+        navigate('Debt')
+    };
+    console.log(debtList, 'debtList');
+    console.log(loaderDebtList, 'dloaderDebtList');
     return (
         <ImageBackground source={require("./images/home.png")}
                          style={{width: '100%', height: '100%', alignItems: 'center'}}>
@@ -83,18 +99,22 @@ const Home = ({getOldOrders, oldOrders, getProducts, products,loaderProducts,loa
 
                 </View>
                 <View style={styles.section3}>
-                    <TouchableOpacity onPress={() => navigate('Debt')}>
-                        <Image
-                            style={{
-                                transform: [{rotate: '-45deg'}],
-                                width: 150,
-                                height: 150
-                            }}
-                            source={require('./images/Group3.png')}
-                        />
-                    </TouchableOpacity>
+                    {loaderDebtList ? <View style={[styles.containers, styles.horizontal]}>
+                            <ActivityIndicator size="large" color="#0000ff"/>
+                        </View> :
+                        <TouchableOpacity onPress={startLoadingDebt}>
+                            <Image
+                                style={{
+                                    transform: [{rotate: '-45deg'}],
+                                    width: 150,
+                                    height: 150
+                                }}
+                                source={require('./images/Group3.png')}
+                            />
+                        </TouchableOpacity>
+                    }
                 </View>
-                <LogOut navigation={props.navigation} />
+                <LogOut navigation={props.navigation}/>
             </View>
         </ImageBackground>
 
@@ -106,11 +126,14 @@ const mapStateToProps = (state) => ({
     loaderProducts: state.ProductsReducer.loaderProducts,
     oldOrders: state.OrdersReducer.oldOrders,
     loaderOldOrders: state.OrdersReducer.loaderOldOrders,
+    debtList: state.DebtReducer.debtList,
+    loaderDebtList: state.DebtReducer.loaderDebtList,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getProducts: () => dispatch(getProducts()),
     getOldOrders: () => dispatch(getOldOrders()),
+    getDebtList: () => dispatch(getDebtList()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
 
