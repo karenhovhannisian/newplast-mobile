@@ -17,6 +17,7 @@ import {adProducts} from "../../redux/actions";
 import {connect} from "react-redux";
 import ImageViewer from 'react-native-image-zoom-viewer';
 import axios from "axios";
+import InputSpinner from "react-native-input-spinner";
 
 
 const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
@@ -167,6 +168,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                         pickerStyle={{borderBottomColor: 'transparent', borderWidth: 0}}
                         fontSize={22}
                         containerStyle={{width: 120}}
+                        baseColor={'#072C7D'}
                         data={data}
                         value={productSize}
                         onChangeText={(value) => onChangeSize(value)}
@@ -183,9 +185,27 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                     <Text style={styles.balanceText}>Չձևակերպված մնացորդ՝ {chdzmnac ? chdzmnac : ''} </Text>
                 </View>
 
-                <Stepper
+                <InputSpinner
+                    style={{}}
+                    max={10000}
+                    min={0}
+                    step={1}
                     value={count}
-                    onChangeCount={(value) => setCount(value)}/>
+                    rounded={false}
+                    showBorder={true}
+                    color={'#072C7D'}
+                    textColor={'#072C7D'}
+                    fontSize={25}
+                    buttonFontSize={25}
+                    buttonPressTextColor={'red'}
+                    onChange={(num) => {
+                        setCount(num);
+                    }}
+                />
+
+                {/*<Stepper*/}
+                {/*    value={count}*/}
+                {/*    onChangeCount={(value) => setCount(value)}/>*/}
                 {price ?
                     <View style={styles.costCount}>
                     <Text style={styles.costCountText}> {price ? price.split('.0000') : null} դրամ </Text>

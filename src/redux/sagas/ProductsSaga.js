@@ -19,10 +19,13 @@ cache.getItem("login", function(err, value){
 
 function* getProducts({}) {
     try {
+        const bodyFormData = new FormData();
+        bodyFormData.append('sl', 'j,WKaren,wkaren,mxumb');
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},mxumb`,
+            url: `http://109.75.42.220/service.php`,
             credentials: "include",
+            data: bodyFormData,
             headers:{
                 'Content-Type': "application/json",
             }

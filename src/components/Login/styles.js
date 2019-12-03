@@ -1,6 +1,5 @@
 import {StyleSheet} from "react-native";
 import {Colors} from "react-native/Libraries/NewAppScreen";
-import {normalize} from "../../Common/metrics";
 import {
     responsiveHeight,
     responsiveWidth,
@@ -33,7 +32,6 @@ const styles = StyleSheet.create({
         height: responsiveHeight(37),
         borderRadius: 30,
         elevation: 25,
-        // backgroundColor: '#F5F5F5',
         justifyContent: 'space-between',
         alignItems: 'center',
         textAlign:'center',
