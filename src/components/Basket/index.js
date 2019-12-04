@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, Picker} from 'react-native';
+import {View, Picker} from 'react-native';
 import styles from './styles';
 import {connect} from "react-redux";
 import ScrollableTab from "../ScrollableTab";
-import {deleteSelectedProduct, getCustomerList, getManagerList} from "../../redux/actions";
+import {getCustomerList, getManagerList} from "../../redux/actions";
 const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,customerList}) => {
 
 
@@ -55,7 +55,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                         }>
                         <Picker.Item key={'unselectable'} label='Մենեջեր' value={0} />
                         {managerList && managerList.map(man => {
-                            return <Picker.Item  color={'#0A3695'} label = {man.men} value={man.men} />
+                            return <Picker.Item  color={'#0A3695'} label = {man.men} value={man.codn} />
                         })}
 
                     </Picker>
@@ -90,13 +90,13 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                         <Picker.Item key={'unselectable'} label='Հաճախորդ' value={0} />
                         {
                             selectedCustomersName && selectedCustomersName.map(cus => {
-                                return <Picker.Item color={'#0A3695'} label={cus.anun} value={cus.anun}/>
+                                return <Picker.Item color={'#0A3695'} label={cus.anun} value={cus.fCODE}/>
                             })
                         }
                     </Picker>
                 </View>
             </View>: null}
-        <ScrollableTab selectedProducts={selectedProducts}/>
+        <ScrollableTab customerName={customerName} selectedManager={selectedManager} selectedProducts={selectedProducts}/>
 
             </>
     );
@@ -109,7 +109,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-
     getManagerList: () => dispatch(getManagerList()),
     getCustomerList: () => dispatch(getCustomerList()),
 

@@ -1,6 +1,12 @@
 import {takeLatest, put, call} from "redux-saga/effects";
 import axios from 'axios';
-import {GET_CUSTOMER_LIST, GET_MANAGER_LIST, getCustomerListSuccess, getManagerListSuccess} from "../actions";
+import {
+    GET_CUSTOMER_LIST,
+    GET_MANAGER_LIST,
+    getCustomerListSuccess,
+    getManagerListSuccess, SEND_ORDER_LIST,
+    sendOrderListSuccess
+} from "../actions";
 import cache from "../../Common/Cache";
 
 
@@ -19,11 +25,14 @@ cache.getItem("login", function(err, value){
 });
 
 function* getManagerList({}) {
+    const bodyFormData = new FormData();
+    bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},mens`);
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},mens`,
+            url: `http://109.75.42.220/service.php`,
             credentials: "include",
+            data: bodyFormData
         };
         const response = yield call(axios, options);
         yield put(getManagerListSuccess(response.data));
@@ -32,14 +41,15 @@ function* getManagerList({}) {
     }
 }
 
-
-
 function* getCustomerList({}) {
+    const bodyFormData = new FormData();
+    bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},gynker`);
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},gynker`,
+            url: `http://109.75.42.220/service.php`,
             credentials: "include",
+            data: bodyFormData
         };
         const response = yield call(axios, options);
         yield put(getCustomerListSuccess(response.data));
@@ -48,9 +58,28 @@ function* getCustomerList({}) {
     }
 }
 
+function* sendOrderList({data}) {
+    const bodyFormData = new FormData();
+    bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},save`);
+    bodyFormData.append('data', JSON.stringify(data));
+    try {
+        const options = {
+            method: "POST",
+            url: `http://109.75.42.220/service.php`,
+            credentials: "include",
+            data: bodyFormData
+        };
+        const response = yield call(axios, options);
+        yield put(sendOrderListSuccess());
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export default function* sendDataSaga() {
     yield takeLatest(GET_MANAGER_LIST, getManagerList);
     yield takeLatest(GET_CUSTOMER_LIST, getCustomerList);
+    yield takeLatest(SEND_ORDER_LIST, sendOrderList);
 };
 
 

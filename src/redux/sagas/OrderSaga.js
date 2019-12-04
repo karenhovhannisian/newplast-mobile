@@ -18,15 +18,16 @@ cache.getItem("login", function(err, value){
 });
 
 function* getOldOrders({}) {
+    const bodyFormData = new FormData();
+    bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},patvera,where l.id>0`);
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},patvera,where l.id>0`,
+            url: `http://109.75.42.220/service.php`,
             credentials: "include",
+            data: bodyFormData
         };
         const response = yield call(axios, options);
-        // cache.setItem("oldOrders", response.data.slice(0,40), function(err) {});
-
         yield put(getOldOrdersSuccess(response.data.slice(0,40)));
     } catch (err) {
         console.log(err);

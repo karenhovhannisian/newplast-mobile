@@ -3,9 +3,9 @@ import {ScrollableTabView} from "@valdio/react-native-scrollable-tabview";
 import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "../Basket/styles";
 import {connect} from "react-redux";
-import {deleteSelectedProduct} from "../../redux/actions";
+import {deleteSelectedProduct, sendOrderList} from "../../redux/actions";
 
-const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
+const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, customerName, selectedManager}) => {
 
     const tabs = [
         {
@@ -26,7 +26,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
         }
     ];
 
-
     const filteredTabs = [];
     tabs.forEach(tab => {
         if (selectedProducts && selectedProducts.map(e => e.type).includes(tab.id)) {
@@ -39,18 +38,51 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
             <Image style={{width: 400, height: 210, marginTop: 10}}
                    source={require('./images/shopping.png')}
             />
-            <Text style={{fontSize: 25,color: '#444', marginTop: 20, fontWeight:'bold'}}>
+            <Text style={{fontSize: 25, color: '#444', marginTop: 20, fontWeight: 'bold'}}>
                 Զամբյուղը դատարկ է
             </Text>
         </View>
     }
 
-    const removeSelectedProduct = (elIndex,size) => {
+    const removeSelectedProduct = (elIndex, size) => {
         deleteSelectedProduct(elIndex, size)
     };
 
+    const data = [
+        {
+            mensId: selectedManager,
+            sdate: new Date(),
+            gcode: customerName,
+            aah: "Այո",
+            apr_cank: [
+                {
+                    aprcod: "111001020A",
+                    qanak: 3,
+                    psize: "16"
+                }
+            ]
 
-    // console.log(filteredTabs);
+        },
+        {
+            mens: selectedManager,
+            sdate: new Date(),
+            gyanun: customerName,
+            aah: "Ոչ",
+            apr_cank: [
+                {
+                    aprcod: "5",
+                    apranun: "PE-AL-PE",
+                    qanak: 3,
+                    psize: "16"
+                }
+            ]
+
+        },
+    ];
+
+    const sendOrderData = () => {
+        sendOrderList(data)
+    };
 
     return (
         <ScrollableTabView
@@ -61,15 +93,17 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
             style={{width: '100%', borderRadius: 50}}
             disableTabBarOnLayout={true}
             tabBarInactiveTextColor={'#161616'}
-            tabBarUnderlineStyle={{ height: 3,
+            tabBarUnderlineStyle={{
+                height: 3,
                 backgroundColor: '#0A3695',
                 borderRadius: 2,
-                }}
+            }}
 
         >
             {
                 filteredTabs.map(tab => (
-                    <View style={{height: '100%', backgroundColor: '#F7F7F9'}} tabLabel={tab.title} disable={true} key={tab.title}>
+                    <View style={{height: '100%', backgroundColor: '#F7F7F9'}} tabLabel={tab.title} disable={true}
+                          key={tab.title}>
                         <View style={styles.content}>
                             <ScrollView style={styles.scrollView}>
                                 <View style={{height: '100%'}}>
@@ -85,9 +119,14 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                 justifyContent: 'space-between'
                                             }}>
 
-                                                <View style={{marginLeft:'2%',}}>
-                                                    <Text style={{fontSize: 22, color: '#0A3695', marginTop: 5, fontWeight:'bold',}}>
-                                                        {element.name.split(' ',2) }
+                                                <View style={{marginLeft: '2%',}}>
+                                                    <Text style={{
+                                                        fontSize: 22,
+                                                        color: '#0A3695',
+                                                        marginTop: 5,
+                                                        fontWeight: 'bold',
+                                                    }}>
+                                                        {element.name.split(' ', 2)}
                                                     </Text>
                                                     <View style={{
                                                         flexDirection: 'row',
@@ -97,9 +136,9 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                         <Text style={{fontSize: 18, color: 'black'}}>
                                                             Չափսը՝
                                                         </Text>
-                                                            <Text style={styles.touchable}>
-                                                                {element.size}
-                                                            </Text>
+                                                        <Text style={styles.touchable}>
+                                                            {element.size}
+                                                        </Text>
                                                     </View>
                                                     <View style={{
                                                         flexDirection: 'row',
@@ -170,12 +209,13 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                                                             // left: 158,
                                                             height: 40,
                                                             width: 130
-                                                        }}> {element.price ? element.price.split('.0000') : '' }
-                                                        {element.price ? 'դրամ' : ''}</Text>
+                                                        }}> {element.price ? element.price.split('.0000') : ''}
+                                                            {element.price ? 'դրամ' : ''}</Text>
                                                     </View>
                                                 </View>
-                                                <TouchableOpacity onPress={() => removeSelectedProduct(element.id, element.size)}>
-                                                    <Image style={{ marginTop: 17}}
+                                                <TouchableOpacity
+                                                    onPress={() => removeSelectedProduct(element.id, element.size)}>
+                                                    <Image style={{marginTop: 17}}
                                                            source={require('./images/close.png')}
                                                     />
                                                 </TouchableOpacity>
@@ -189,41 +229,45 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct}) => {
                         </View>
                         <View style={{
                             flexDirection: 'row',
-                            marginLeft:'6%',
-                            width:'93%'
+                            marginLeft: '6%',
+                            width: '93%'
                         }}>
 
-                        <View style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                        }}>
-                            <View>
-                            <View style={{marginTop: '16%', marginLeft: 8  }}>
-                                <Text style={{fontSize: 18}}>Գին`</Text>
-                                <Text style={{fontSize: 18}}>Զեղչված գին`</Text>
-                            </View>
+                            <View style={{
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                            }}>
+                                <View>
+                                    <View style={{marginTop: '16%', marginLeft: 8}}>
+                                        <Text style={{fontSize: 18}}>Գին`</Text>
+                                        <Text style={{fontSize: 18}}>Զեղչված գին`</Text>
+                                    </View>
 
-                                <View  style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                }}>
-                            <Text style={{fontSize: 24, color: 'black',fontWeight:'bold',}}> Ընդհանուր՝</Text>
-                            <Text style={{
-                                flexDirection:'row',
-                                textAlign:'center',
-                                fontSize: 24,
-                                color: '#0A3695',
-                                fontWeight:'bold',
-                                left: 20,
-                                height: 30,
-                                width: 140
-                            }}> 570 դրամ</Text>
+                                    <View style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                    }}>
+                                        <Text style={{
+                                            fontSize: 24,
+                                            color: 'black',
+                                            fontWeight: 'bold',
+                                        }}> Ընդհանուր՝</Text>
+                                        <Text style={{
+                                            flexDirection: 'row',
+                                            textAlign: 'center',
+                                            fontSize: 24,
+                                            color: '#0A3695',
+                                            fontWeight: 'bold',
+                                            left: 20,
+                                            height: 30,
+                                            width: 140
+                                        }}> 570 դրամ</Text>
+                                    </View>
                                 </View>
-                            </View>
 
-                        </View>
-                            <TouchableOpacity
-                                style={styles.addButton}>
+                            </View>
+                            <TouchableOpacity onPress={sendOrderData}
+                                              style={styles.addButton}>
                                 <Text style={styles.addText}>
                                     Հաստատել
                                 </Text>
@@ -244,6 +288,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     deleteSelectedProduct: (elIndex, size) => dispatch(deleteSelectedProduct(elIndex, size)),
+    sendOrderList: (data) => dispatch(sendOrderList(data)),
 
 });
 

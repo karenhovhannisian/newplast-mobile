@@ -21,11 +21,14 @@ cache.getItem("login", function (err, value) {
 });
 
 function* getDebtList({}) {
+    const bodyFormData = new FormData();
+    bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},gynker`);
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},gynker`,
+            url: `http://109.75.42.220/service.php`,
             credentials: "include",
+            data: bodyFormData
         };
         const response = yield call(axios, options);
         yield put(getDebtListSuccess(response.data.slice(0, 25)));

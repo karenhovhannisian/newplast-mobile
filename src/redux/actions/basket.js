@@ -10,3 +10,10 @@ export const GET_CUSTOMER_LIST = "GET_CUSTOMER_LIST";
 export const getCustomerList = MakeActionCreator(GET_CUSTOMER_LIST);
 export const GET_CUSTOMER_LIST_SUCCESS = "GET_CUSTOMER_LIST_SUCCESS";
 export const getCustomerListSuccess = MakeActionCreator(GET_CUSTOMER_LIST_SUCCESS, 'customerList'  );
+
+
+
+export const SEND_ORDER_LIST = "SEND_ORDER_LIST";
+export const sendOrderList = MakeActionCreator(SEND_ORDER_LIST, 'data');
+export const SEND_ORDER_LIST_SUCCESS = "SEND_ORDER_LIST_SUCCESS";
+export const sendOrderListSuccess = MakeActionCreator(SEND_ORDER_LIST_SUCCESS  );

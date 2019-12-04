@@ -20,7 +20,7 @@ cache.getItem("login", function(err, value){
 function* getProducts({}) {
     try {
         const bodyFormData = new FormData();
-        bodyFormData.append('sl', 'j,WKaren,wkaren,mxumb');
+        bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},mxumb`);
         const options = {
             method: "POST",
             url: `http://109.75.42.220/service.php`,
@@ -31,22 +31,21 @@ function* getProducts({}) {
             }
         };
         const response = yield call(axios, options);
-      // yield cache.setItem("hello", response.data, function(err) {
-      //     console.log(response.data, 'cacheresponse.data')
-      // });
         yield put(getProductsSuccess(response.data));
-
     } catch (err) {
         console.log(err);
     }
 }
 
 function* getBalance({}) {
+    const bodyFormData = new FormData();
+    bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},apr_mnacs, where fSTORAGE='111' and psize='16' and p.products_id='1'`);
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where fSTORAGE='111' and psize='16' and p.products_id='1'`,
+            url: `http://109.75.42.220/service.php`,
             credentials: "include",
+            data: bodyFormData,
             headers:{
                 'Content-Type': "application/json",
             }
@@ -61,11 +60,14 @@ function* getBalance({}) {
 }
 
 function* getPrice({value, productId}) {
+    const bodyFormData = new FormData();
+    bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},apr_sgin, where psize=${value} and p.products_id=${productId}`);
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_sgin, where psize=${value} and p.products_id=${productId}`,
+            url: `http://109.75.42.220/service.php`,
             credentials: "include",
+            data: bodyFormData,
             headers:{
                 'Content-Type': "application/json",
             }
