@@ -102,10 +102,10 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
         addProductToBasket(
             {
                 name: product.item.pxumb_name ? product.item.pxumb_name.trim() : "",
-                id: product.item.products_id ? product.item.products_id : '',
+                aprcod: product.item.products_id ? product.item.products_id : '',
                 count: count,
                 price: price,
-                size: productSize,
+                psize: productSize,
                 type: activeTypeIndex,
                 quantityPrice: quantityPrice,
                 lid: 0

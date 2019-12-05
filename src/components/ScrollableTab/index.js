@@ -48,13 +48,13 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
         </View>
     }
 
-    const removeSelectedProduct = (elIndex, size) => {
-        deleteSelectedProduct(elIndex, size)
+    const removeSelectedProduct = (elIndex, psize) => {
+        console.log(elIndex,psize, 'elIndex');
+        deleteSelectedProduct(elIndex, psize)
     };
 
     const data = [
         filterOrderList.map(el => {
-            console.log(el, 'el');
             return {
                 men: selectedManager,
                 id: 0,
@@ -64,22 +64,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                 apr_cank: el
             }
         }),
-        // {
-        //     men: selectedManager,
-        //     id: 0,
-        //     sdate: new Date(),
-        //     gycod: customerName.trim(),
-        //     aah: "Այո",
-        //     apr_cank: [
-        //         {
-        //             aprcod: "5",
-        //             qanak: 3,
-        //             lid: 0,
-        //             psize: "16"
-        //         }
-        //     ]
-        // },
-
     ];
 
     const sendOrderData = () => {
@@ -94,7 +78,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
             style={{width: '100%', borderRadius: 50}}
             disableTabBarOnLayout={true}
             tabBarInactiveTextColor={'#161616'}
-            // onChangeTab={(scrollIndex) => onChangeTabs(scrollIndex.i)}
             tabBarUnderlineStyle={{
                 height: 3,
                 backgroundColor: '#0A3695',
@@ -137,7 +120,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                                         Չափսը՝
                                                     </Text>
                                                     <Text style={styles.touchable}>
-                                                        {element.size}
+                                                        {element.psize}
                                                     </Text>
                                                 </View>
                                                 <View style={{
@@ -214,7 +197,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                                 </View>
                                             </View>
                                             <TouchableOpacity
-                                                onPress={() => removeSelectedProduct(element.id, element.size)}>
+                                                onPress={() => removeSelectedProduct(element.aprcod, element.psize)}>
                                                 <Image style={{marginTop: 17}}
                                                        source={require('./images/close.png')}
                                                 />
@@ -285,7 +268,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    deleteSelectedProduct: (elIndex, size) => dispatch(deleteSelectedProduct(elIndex, size)),
+    deleteSelectedProduct: (elIndex, psize) => dispatch(deleteSelectedProduct(elIndex, psize)),
     sendOrderList: (data) => dispatch(sendOrderList(data)),
 });
 
