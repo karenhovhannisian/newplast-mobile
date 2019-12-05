@@ -20,10 +20,6 @@ const Filters = ({products}) => {
                     name: 'Ապակեպլաստե խողովակներ',
                     checked: false
                 },
-                {
-                    name: 'Միաշերտ խողովակներ պոլիպրոպիլենից Կցամասեր',
-                    checked: true
-                }
             ]
         },
         {

@@ -8,7 +8,7 @@ const ProductsCheckBox = ({activeTypeIndex, setActiveTypeIndex}) => {
         <View style={{flexDirection: 'row', alignItems: 'center', width: 400, marginTop: 15, marginRight:50}}>
             <View style={{flexDirection: 'row', alignItems: 'center', width: 90, marginRight: 20}}>
                 <Text  onPress={() => {
-                    activeTypeIndex === 0 ? setActiveTypeIndex(null) : setActiveTypeIndex(0)
+                    activeTypeIndex === 'Այո' ? setActiveTypeIndex(null) : setActiveTypeIndex('Այո')
                 }} style={{fontSize: 20, color: '#161616', fontWeight: 'bold'}}>Այո</Text>
                 <CheckBox
                     containerStyle={{width: 30, borderRadius: 28}}
@@ -16,15 +16,15 @@ const ProductsCheckBox = ({activeTypeIndex, setActiveTypeIndex}) => {
                                         source={require('./images/cheked.png')}/>}
                     uncheckedIcon={<Image style={{width: 30, height: 30}}
                                           source={require("./images/unCheck.png")}/>}
-                    checked={activeTypeIndex === 0}
+                    checked={activeTypeIndex === 'Այո'}
                     onPress={() => {
-                        activeTypeIndex === 0 ? setActiveTypeIndex(null) : setActiveTypeIndex(0)
+                        activeTypeIndex === 'Այո' ? setActiveTypeIndex(null) : setActiveTypeIndex('Այո')
                     }}
                 />
             </View>
 
             <View style={{flexDirection: 'row', alignItems: 'center', width: 90, marginRight: 10}}>
-                <Text  onPress={() => activeTypeIndex === 1 ? setActiveTypeIndex(null) : setActiveTypeIndex(1)}
+                <Text  onPress={() => activeTypeIndex === 'Ոչ' ? setActiveTypeIndex(null) : setActiveTypeIndex('Ոչ')}
                        style={{fontSize: 20, color: '#161616', fontWeight: 'bold'}}>Ոչ</Text>
                 <CheckBox
                     containerStyle={{width: 30, borderRadius: 28}}
@@ -32,13 +32,13 @@ const ProductsCheckBox = ({activeTypeIndex, setActiveTypeIndex}) => {
                                         source={require('./images/cheked.png')}/>}
                     uncheckedIcon={<Image style={{width: 30, height: 30}}
                                           source={require("./images/unCheck.png")}/>}
-                    checked={activeTypeIndex === 1}
-                    onPress={() => activeTypeIndex === 1 ? setActiveTypeIndex(null) : setActiveTypeIndex(1)}
+                    checked={activeTypeIndex === 'Ոչ'}
+                    onPress={() => activeTypeIndex === 'Ոչ' ? setActiveTypeIndex(null) : setActiveTypeIndex('Ոչ')}
                 />
             </View>
             <View
                   style={{flexDirection: 'row', alignItems: 'center', width: 90, marginRight: 10, }}>
-                <Text onPress={() => activeTypeIndex === 2 ? setActiveTypeIndex(null) : setActiveTypeIndex(2)}
+                <Text onPress={() => activeTypeIndex === 'C4' ? setActiveTypeIndex(null) : setActiveTypeIndex('C4')}
                       style={{fontSize: 20, color: '#161616', fontWeight: 'bold'}}>C4</Text>
                 <CheckBox
                     containerStyle={{width: 30, borderRadius: 28}}
@@ -46,13 +46,13 @@ const ProductsCheckBox = ({activeTypeIndex, setActiveTypeIndex}) => {
                                         source={require('./images/cheked.png')}/>}
                     uncheckedIcon={<Image style={{width: 30, height: 30}}
                                           source={require("./images/unCheck.png")}/>}
-                    checked={activeTypeIndex === 2}
-                    onPress={() => activeTypeIndex === 2 ? setActiveTypeIndex(null) : setActiveTypeIndex(2)}
+                    checked={activeTypeIndex === 'C4'}
+                    onPress={() => activeTypeIndex === 'C4' ? setActiveTypeIndex(null) : setActiveTypeIndex('C4')}
                 />
             </View>
             <View
                   style={{flexDirection: 'row', alignItems: 'center', width: 90 }}>
-                <Text onPress={() => activeTypeIndex === 3 ? setActiveTypeIndex(null) : setActiveTypeIndex(3)}
+                <Text onPress={() => activeTypeIndex === 'C5' ? setActiveTypeIndex(null) : setActiveTypeIndex('C5')}
                       style={{fontSize: 20, color: '#161616', fontWeight: 'bold'}}>C5</Text>
                 <CheckBox
                     containerStyle={{width: 30, borderRadius: 28}}
@@ -60,8 +60,8 @@ const ProductsCheckBox = ({activeTypeIndex, setActiveTypeIndex}) => {
                                         source={require('./images/cheked.png')}/>}
                     uncheckedIcon={<Image style={{width: 30, height: 30}}
                                           source={require("./images/unCheck.png")}/>}
-                    checked={activeTypeIndex === 3}
-                    onPress={() => activeTypeIndex === 3 ? setActiveTypeIndex(null) : setActiveTypeIndex(3)}
+                    checked={activeTypeIndex === 'C5'}
+                    onPress={() => activeTypeIndex === 'C5' ? setActiveTypeIndex(null) : setActiveTypeIndex('C5')}
                 />
             </View>
 

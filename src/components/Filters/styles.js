@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         justifyContent: 'center',
         flexDirection: 'row',
-        marginBottom: 60
+        marginBottom: 10
     },
     subCategoriesView: {
         flexDirection: 'row',

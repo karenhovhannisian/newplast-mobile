@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {ScrollableTabView} from "@valdio/react-native-scrollable-tabview";
 import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "../Basket/styles";
@@ -28,9 +28,13 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
     const filteredTabs = [];
     tabs.forEach(tab => {
-        if (selectedProducts && selectedProducts.map(e => e.type).includes(tab.id)) {
+        if (selectedProducts && selectedProducts.map(e => e.type).includes(tab.title)) {
             filteredTabs.push(tab)
         }
+    });
+
+    const filterOrderList = filteredTabs.map(tab => {
+        return selectedProducts.filter(p => p.type === tab.title)
     });
 
     if (!filteredTabs.length) {
@@ -49,35 +53,33 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
     };
 
     const data = [
-        {
-            mensId: selectedManager,
-            sdate: new Date(),
-            gcode: customerName,
-            aah: "Այո",
-            apr_cank: [
-                {
-                    aprcod: "111001020A",
-                    qanak: 3,
-                    psize: "16"
-                }
-            ]
+        filterOrderList.map(el => {
+            console.log(el, 'el');
+            return {
+                men: selectedManager,
+                id: 0,
+                sdate: new Date(),
+                gycod: customerName.trim(),
+                aah: el[0].type,
+                apr_cank: el
+            }
+        }),
+        // {
+        //     men: selectedManager,
+        //     id: 0,
+        //     sdate: new Date(),
+        //     gycod: customerName.trim(),
+        //     aah: "Այո",
+        //     apr_cank: [
+        //         {
+        //             aprcod: "5",
+        //             qanak: 3,
+        //             lid: 0,
+        //             psize: "16"
+        //         }
+        //     ]
+        // },
 
-        },
-        {
-            mens: selectedManager,
-            sdate: new Date(),
-            gyanun: customerName,
-            aah: "Ոչ",
-            apr_cank: [
-                {
-                    aprcod: "5",
-                    apranun: "PE-AL-PE",
-                    qanak: 3,
-                    psize: "16"
-                }
-            ]
-
-        },
     ];
 
     const sendOrderData = () => {
@@ -86,196 +88,193 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
     return (
         <ScrollableTabView
-            tabBarUnderlineStyle={{borderRadius: 25,}}
             tabBarBackgroundColor={'white'}
             tabBarActiveTextColor={'#0A3695'}
             tabBarTextStyle={{fontSize: 25}}
             style={{width: '100%', borderRadius: 50}}
             disableTabBarOnLayout={true}
             tabBarInactiveTextColor={'#161616'}
+            // onChangeTab={(scrollIndex) => onChangeTabs(scrollIndex.i)}
             tabBarUnderlineStyle={{
                 height: 3,
                 backgroundColor: '#0A3695',
                 borderRadius: 2,
             }}
-
         >
-            {
-                filteredTabs.map(tab => (
-                    <View style={{height: '100%', backgroundColor: '#F7F7F9'}} tabLabel={tab.title} disable={true}
-                          key={tab.title}>
-                        <View style={styles.content}>
-                            <ScrollView style={styles.scrollView}>
-                                <View style={{height: '100%'}}>
-                                    {selectedProducts && selectedProducts.filter(p => p.type === tab.id).map((element, elIndex) => {
-                                        return <View style={styles.content1}>
-                                            <Image style={{width: 120, height: 100, marginLeft: 10}}
-                                                   source={require('./images/www.jpg')}
-                                            />
-                                            <View style={{
-                                                width: '80%',
-                                                flexDirection: 'row',
-                                                display: 'flex',
-                                                justifyContent: 'space-between'
-                                            }}>
+            {filteredTabs.map((tab) => {
+                return <View style={{height: '100%', backgroundColor: '#F7F7F9'}} tabLabel={tab.title} disable={true}
+                             key={tab.title}>
+                    <View style={styles.content}>
+                        <ScrollView style={styles.scrollView}>
+                            <View style={{height: '100%'}}>
+                                {selectedProducts && selectedProducts.filter(p => p.type === tab.title).map((element, elIndex) => {
+                                    return <View style={styles.content1}>
+                                        <Image style={{width: 120, height: 100, marginLeft: 10}}
+                                               source={require('./images/www.jpg')}
+                                        />
+                                        <View style={{
+                                            width: '80%',
+                                            flexDirection: 'row',
+                                            display: 'flex',
+                                            justifyContent: 'space-between'
+                                        }}>
 
-                                                <View style={{marginLeft: '2%',}}>
-                                                    <Text style={{
-                                                        fontSize: 22,
-                                                        color: '#0A3695',
-                                                        marginTop: 5,
-                                                        fontWeight: 'bold',
-                                                    }}>
-                                                        {element.name.split(' ', 2)}
+                                            <View style={{marginLeft: '2%',}}>
+                                                <Text style={{
+                                                    fontSize: 22,
+                                                    color: '#0A3695',
+                                                    marginTop: 5,
+                                                    fontWeight: 'bold',
+                                                }}>
+                                                    {element.name.split(' ', 2)}
+                                                </Text>
+                                                <View style={{
+                                                    flexDirection: 'row',
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                }}>
+                                                    <Text style={{fontSize: 18, color: 'black'}}>
+                                                        Չափսը՝
                                                     </Text>
-                                                    <View style={{
-                                                        flexDirection: 'row',
-                                                        display: 'flex',
-                                                        justifyContent: 'space-between',
-                                                    }}>
-                                                        <Text style={{fontSize: 18, color: 'black'}}>
-                                                            Չափսը՝
-                                                        </Text>
-                                                        <Text style={styles.touchable}>
-                                                            {element.size}
-                                                        </Text>
-                                                    </View>
-                                                    <View style={{
-                                                        flexDirection: 'row',
-                                                        display: 'flex',
-                                                        justifyContent: 'space-between',
-                                                        alignItems: 'center',
-                                                        marginTop: 5,
-                                                    }}>
-                                                        <Text
-                                                            style={{
-                                                                fontSize: 18,
-                                                                color: 'black',
-                                                                // marginTop: 10,
-                                                                marginRight: 10
-                                                            }}>
-                                                            Քանակը՝
-                                                        </Text>
-                                                        <Text style={{
-                                                            fontSize: 18,
-                                                            textAlign: 'center',
-                                                            width: 80,
-                                                            flexDirection: 'row',
-                                                            alignItems: 'center',
-                                                            justifyContent: 'center'
-
-                                                        }}>    {element.count.toString()} {element.quantityPrice} </Text>
-
-                                                    </View>
+                                                    <Text style={styles.touchable}>
+                                                        {element.size}
+                                                    </Text>
                                                 </View>
-                                                <View>
-                                                    <View style={{
-                                                        flexDirection: 'row',
-                                                        display: 'flex',
-                                                        justifyContent: 'space-around',
-                                                        marginLeft: '15%'
-                                                    }}>
-                                                        <View style={{
-                                                            flexDirection: 'row',
-                                                            display: 'flex',
-                                                            justifyContent: 'space-between',
-                                                            marginTop: 30
-                                                        }}>
-                                                            <Text style={{fontSize: 18, color: 'black', width: 150}}>ԶԵղչված
-                                                                Գին՝</Text>
-                                                            <Text style={{
-                                                                fontSize: 18,
-                                                                color: '#FF0000',
-                                                                height: 30,
-                                                                width: 120
-                                                            }}> 150 դրամ</Text>
-                                                        </View>
-                                                    </View>
-                                                    <View style={{
-                                                        flexDirection: 'row',
-                                                        display: 'flex',
-                                                        justifyContent: 'space-around',
-                                                        marginLeft: '15%',
-                                                        // marginTop: 20
-                                                    }}>
-                                                        <Text style={{
+                                                <View style={{
+                                                    flexDirection: 'row',
+                                                    display: 'flex',
+                                                    justifyContent: 'space-between',
+                                                    alignItems: 'center',
+                                                    marginTop: 5,
+                                                }}>
+                                                    <Text
+                                                        style={{
                                                             fontSize: 18,
                                                             color: 'black',
-                                                            width: 90
-                                                        }}> Գինը՝</Text>
+                                                            // marginTop: 10,
+                                                            marginRight: 10
+                                                        }}>
+                                                        Քանակը՝
+                                                    </Text>
+                                                    <Text style={{
+                                                        fontSize: 18,
+                                                        textAlign: 'center',
+                                                        width: 80,
+                                                        flexDirection: 'row',
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center'
+
+                                                    }}>    {element.count.toString()} {element.quantityPrice} </Text>
+
+                                                </View>
+                                            </View>
+                                            <View>
+                                                <View style={{
+                                                    flexDirection: 'row',
+                                                    display: 'flex',
+                                                    justifyContent: 'space-around',
+                                                    marginLeft: '15%'
+                                                }}>
+                                                    <View style={{
+                                                        flexDirection: 'row',
+                                                        display: 'flex',
+                                                        justifyContent: 'space-between',
+                                                        marginTop: 30
+                                                    }}>
+                                                        <Text style={{fontSize: 18, color: 'black', width: 150}}>ԶԵղչված
+                                                            Գին՝</Text>
                                                         <Text style={{
-                                                            fontSize: 24,
-                                                            color: '#0A3695',
-                                                            // left: 158,
-                                                            height: 40,
-                                                            width: 130
-                                                        }}> {element.price ? element.price.split('.0000') : ''}
-                                                            {element.price ? 'դրամ' : ''}</Text>
+                                                            fontSize: 18,
+                                                            color: '#FF0000',
+                                                            height: 30,
+                                                            width: 120
+                                                        }}> 150 դրամ</Text>
                                                     </View>
                                                 </View>
-                                                <TouchableOpacity
-                                                    onPress={() => removeSelectedProduct(element.id, element.size)}>
-                                                    <Image style={{marginTop: 17}}
-                                                           source={require('./images/close.png')}
-                                                    />
-                                                </TouchableOpacity>
-
+                                                <View style={{
+                                                    flexDirection: 'row',
+                                                    display: 'flex',
+                                                    justifyContent: 'space-around',
+                                                    marginLeft: '15%',
+                                                    // marginTop: 20
+                                                }}>
+                                                    <Text style={{
+                                                        fontSize: 18,
+                                                        color: 'black',
+                                                        width: 90
+                                                    }}> Գինը՝</Text>
+                                                    <Text style={{
+                                                        fontSize: 24,
+                                                        color: '#0A3695',
+                                                        // left: 158,
+                                                        height: 40,
+                                                        width: 130
+                                                    }}> {element.price ? element.price.split('.0000') : ''}
+                                                        {element.price ? 'դրամ' : ''}</Text>
+                                                </View>
                                             </View>
-                                        </View>
-                                    })}
-                                </View>
-                            </ScrollView>
+                                            <TouchableOpacity
+                                                onPress={() => removeSelectedProduct(element.id, element.size)}>
+                                                <Image style={{marginTop: 17}}
+                                                       source={require('./images/close.png')}
+                                                />
+                                            </TouchableOpacity>
 
-                        </View>
+                                        </View>
+                                    </View>
+                                })}
+                            </View>
+                        </ScrollView>
+
+                    </View>
+                    <View style={{
+                        flexDirection: 'row',
+                        marginLeft: '6%',
+                        width: '93%'
+                    }}>
+
                         <View style={{
                             flexDirection: 'row',
-                            marginLeft: '6%',
-                            width: '93%'
+                            alignItems: 'center',
                         }}>
-
-                            <View style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                            }}>
-                                <View>
-                                    <View style={{marginTop: '16%', marginLeft: 8}}>
-                                        <Text style={{fontSize: 18}}>Գին`</Text>
-                                        <Text style={{fontSize: 18}}>Զեղչված գին`</Text>
-                                    </View>
-
-                                    <View style={{
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                    }}>
-                                        <Text style={{
-                                            fontSize: 24,
-                                            color: 'black',
-                                            fontWeight: 'bold',
-                                        }}> Ընդհանուր՝</Text>
-                                        <Text style={{
-                                            flexDirection: 'row',
-                                            textAlign: 'center',
-                                            fontSize: 24,
-                                            color: '#0A3695',
-                                            fontWeight: 'bold',
-                                            left: 20,
-                                            height: 30,
-                                            width: 140
-                                        }}> 570 դրամ</Text>
-                                    </View>
+                            <View>
+                                <View style={{marginTop: '16%', marginLeft: 8}}>
+                                    <Text style={{fontSize: 18}}>Գին`</Text>
+                                    <Text style={{fontSize: 18}}>Զեղչված գին`</Text>
                                 </View>
 
+                                <View style={{
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
+                                }}>
+                                    <Text style={{
+                                        fontSize: 24,
+                                        color: 'black',
+                                        fontWeight: 'bold',
+                                    }}> Ընդհանուր՝</Text>
+                                    <Text style={{
+                                        flexDirection: 'row',
+                                        textAlign: 'center',
+                                        fontSize: 24,
+                                        color: '#0A3695',
+                                        fontWeight: 'bold',
+                                        left: 20,
+                                        height: 30,
+                                        width: 140
+                                    }}> 570 դրամ</Text>
+                                </View>
                             </View>
-                            <TouchableOpacity onPress={sendOrderData}
-                                              style={styles.addButton}>
-                                <Text style={styles.addText}>
-                                    Հաստատել
-                                </Text>
-                            </TouchableOpacity>
+
                         </View>
+                        <TouchableOpacity onPress={sendOrderData}
+                                          style={styles.addButton}>
+                            <Text style={styles.addText}>
+                                Հաստատել
+                            </Text>
+                        </TouchableOpacity>
                     </View>
-                ))
-            }
+                </View>
+            })}
 
         </ScrollableTabView>
     )
@@ -283,13 +282,11 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
 const mapStateToProps = (state) => ({
     selectedProducts: state.ProductsReducer.selectedProducts,
-
 });
 
 const mapDispatchToProps = (dispatch) => ({
     deleteSelectedProduct: (elIndex, size) => dispatch(deleteSelectedProduct(elIndex, size)),
     sendOrderList: (data) => dispatch(sendOrderList(data)),
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScrollableTab)

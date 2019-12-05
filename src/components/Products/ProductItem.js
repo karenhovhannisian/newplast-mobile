@@ -32,7 +32,6 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
         setCount(0)
     },[product.index]);
 
-
     const [imageZoom, setImageZoom] = useState(false);
     const [loaderSizes, setLoaderSizes] = useState(false);
     const [activeTypeIndex, setActiveTypeIndex] = useState(null);
@@ -108,7 +107,8 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                 price: price,
                 size: productSize,
                 type: activeTypeIndex,
-                quantityPrice: quantityPrice
+                quantityPrice: quantityPrice,
+                lid: 0
             }
         );
         setProductPrice(null);
