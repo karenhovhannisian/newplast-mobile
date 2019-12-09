@@ -3,11 +3,14 @@ import {Image, Picker, View} from "react-native";
 import styles from './styles';
 import {SearchBar} from 'react-native-elements';
 import OrderItem from "./OrderItem";
+import DatePicker from 'react-native-datepicker'
+// import DatepickerRange from 'react-native-range-datepicker';
 
 const Order = () => {
 
     const [search, setSearch] = useState('');
-
+    const [date, setDate] = useState(new Date());
+    console.log(date, 'date');
     const updateSearch = (search) => {
         setSearch(search);
     };
@@ -29,36 +32,80 @@ const Order = () => {
                     clearIcon={null}
                     cancelIcon={null}
                 />
-                <View style={styles.pickerView1}>
-                    <Picker
-                        // selectedValue={}
-                        style={{color: '#0A3695',}}
-                        itemStyle={styles.pickerItemStyle}
-                        onValueChange={(itemValue, itemIndex) =>
-                            this.setState({language: itemValue})
-                        }>
-                        <Picker.Item label="Տարածաշրջան" value="Տարածաշրջան"/>
-                        <Picker.Item label="Տարածաշրջան" value="Տարածաշրջան"/>
-                    </Picker>
-                </View>
+                {/*<View style={styles.pickerView1}>*/}
+                {/*<Picker*/}
+                {/*    // selectedValue={}*/}
+                {/*    style={{color: '#0A3695',}}*/}
+                {/*    itemStyle={styles.pickerItemStyle}*/}
+                {/*    onValueChange={(itemValue, itemIndex) =>*/}
+                {/*        this.setState({language: itemValue})*/}
+                {/*    }>*/}
+                {/*    <Picker.Item label="Տարածաշրջան" value="Տարածաշրջան"/>*/}
+                {/*    <Picker.Item label="Տարածաշրջան" value="Տարածաշրջան"/>*/}
+                {/*</Picker>*/}
+
+
+                {/*</View>*/}
                 <View style={styles.pickerView}>
                     <Picker
                         // selectedValue={}
-                        style={{color: '#0A3695', fontSize: 50}}
+                        style={{color: '#072C7D', fontSize: 50}}
                         itemStyle={styles.pickerItemStyle}
                         onValueChange={(itemValue, itemIndex) =>
                             this.setState({language: itemValue})
                         }>
-                        <Picker.Item label="Ժամանակաշրջան" value="Ժամանակաշրջան"/>
-                        <Picker.Item label="Ժամանակաշրջան" value="Ժամանակաշրջան"/>
+                        <Picker.Item label="Ժամանակաշրջան" value="Տարածաշրջան"/>
+                        <Picker.Item label="Ժամանակաշրջան" value="Տարածաշրջան"/>
                     </Picker>
+
+
                 </View>
-            </View>
-            <View style={styles.containerTable}>
-                <OrderItem/>
-            </View>
+
+
+            <DatePicker
+                style={{width: 200,}}
+                placeholder={'Ժամանակաշրջան'}
+                date={date}
+                mode="date"
+                format="YYYY-MM-DD"
+                minDate="2017-05-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                    dateIcon: {
+                        position: 'absolute',
+                        left: 0,
+                        top: 4,
+                        marginLeft: 0,
+                    },
+                    dateInput: {
+                        marginLeft: 36,
+                        borderRadius: 25,
+                        borderColor: 'white',
+                        height: 50,
+                        backgroundColor:'white'
+
+                    },
+                    dateText: {
+                        color: '#072C7D'
+                    }
+                    // ... You can check the source to find the other keys.
+                }}
+                onDateChange={(date) => {
+                    setDate(date)
+                }}
+            />
         </View>
-    )
+            {/*<View style={{position:'absolute',  top:0 ,elevation:24}}>*/}
+            {/*    <DatepickerRange    startDate={new Date()}*/}
+            {/*                        maxMonth={12}*/}
+            {/*   />*/}
+            {/*</View>*/}
+    <View style={styles.containerTable}>
+        <OrderItem/>
+    </View>
+</View>
+)
 };
 
 export default Order;

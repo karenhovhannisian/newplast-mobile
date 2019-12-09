@@ -5,6 +5,7 @@ import {
     responsiveWidth,
     responsiveFontSize
 } from "react-native-responsive-dimensions";
+
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const styles = StyleSheet.create({
     scrollView: {
@@ -19,7 +20,7 @@ const styles = StyleSheet.create({
         // shadowOpacity: 0.58,
         shadowRadius: 16.00,
         elevation: 24,
-        borderRadius: 30,
+        borderRadius: 25,
         marginTop: '1%',
         marginLeft: '7.5%',
         width: '85%',
@@ -43,47 +44,55 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue',
     },
     containerC4Image: {
+        width:90,
+        height:60,
         position: 'absolute',
         left: 86,
-        elevation:24,
-        top: 50,
+        elevation: 24,
+        top: 40,
         zIndex: 99999
     },
     addToCartText: {
+        marginLeft:15,
+        textAlign:'center',
         zIndex: 99999,
         fontSize: 22,
         fontWeight: 'bold',
         color: 'white',
     },
     addToCartImg: {
+        marginLeft:10,
+        marginTop:5,
         width: 25,
-        height: 25
+        height: 20
     },
     addToCartButton: {
+        flexDirection:'row',
         left: 1,
-        height: 40,
-        backgroundColor: '#db524b',
-        borderRadius: 20,
-        width: 300,
+        height: 50,
+        backgroundColor: '#F20732',
+        borderRadius: 10,
+        width: 305,
         marginTop: 1,
         display: 'flex',
         alignItems: 'center',
     },
     addToCartButtonOp: {
+        flexDirection:'row',
         left: 1,
-        height: 40,
-        backgroundColor:'rgba(255, 0, 0, 0.4)',
-        borderRadius: 20,
-        width: 300,
+        height: 50,
+        backgroundColor: '#F2727D',
+        borderRadius: 10,
+        width: 305,
         marginTop: 1,
         display: 'flex',
         alignItems: 'center',
     },
     renderItemContainer: {
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         // alignItems: 'center',
         width: '80%',
-        flexDirection:'row',
+        flexDirection: 'row',
         // position: 'relative',
         height: '90%'
     },
@@ -94,22 +103,23 @@ const styles = StyleSheet.create({
     renderItemContentResponsive: {
         // alignItems: 'center',
         width: '100%',
-        flexDirection:'row',
+        flexDirection: 'row',
         justifyContent: 'space-between',
         marginLeft: '15%',
         marginTop: 20,
         // position: 'relative',
     },
     productsNameContainer: {
-        width:'60%',
-        zIndex: 99999
+        width: '50%',
+        zIndex: 99999,
+        elevation: 24
     },
     productsName: {
         width: 500,
         fontSize: responsiveFontSize(1),
         color: '#072C7D',
         fontWeight: 'bold',
-        marginBottom:10
+        marginBottom: 10
     },
     chooseSize: {
         fontSize: 20,
@@ -120,10 +130,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#161616',
         fontWeight: 'bold',
-        marginTop:10
+        marginTop: 10
     },
     costContainer: {
-        marginTop:10,
+        marginTop: 15,
         fontWeight: 'bold',
         textAlign: 'center',
     },
@@ -136,35 +146,35 @@ const styles = StyleSheet.create({
         // marginTop: -50
     },
     costCount: {
-        marginLeft: 410,
-        marginTop:0,
+        position: 'absolute',
+        left: 0,
+        bottom: -20,
         height: 60,
-        marginBottom:-65,
-        backgroundColor: '#072C7D',
-        borderBottomLeftRadius: 35,
         borderTopLeftRadius: 35,
         width: 200,
         textAlign: 'center',
         alignItems: 'center',
-        justifyContent:'center'
+        justifyContent: 'center'
     },
     costCountText: {
         flexDirection: 'row',
-        justifyContent:'center',
-        color: 'white',
+        justifyContent: 'center',
+        color: '#154CC4',
+        fontWeight: 'bold',
+        fontSize: responsiveFontSize(2),
+    },
+
+    costCountTexts: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        color: '#154CC4',
         fontWeight: 'bold',
         fontSize: responsiveFontSize(1),
     },
 
     modalVisible: {
-        width: 80,
-        height: 80,
+        right: -8,
         position: 'absolute',
-        right: -35,
-        // elevation: 24,
-        top: 80,
-
-        // zIndex: 99999,
     },
     modalVisibleClose: {
         width: 50,
@@ -176,7 +186,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-
 
 
     scrollPage: {
@@ -197,7 +206,7 @@ const styles = StyleSheet.create({
 
 
     box: {
-width:'100%'
+        width: '100%'
     }
 
 });

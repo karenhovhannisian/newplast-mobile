@@ -30,7 +30,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
         changeProductSize('')
         setActiveTypeIndex(null)
         setCount(0)
-    },[product.index]);
+    }, [product.index]);
 
     const [imageZoom, setImageZoom] = useState(false);
     const [loaderSizes, setLoaderSizes] = useState(false);
@@ -49,12 +49,12 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
         setLoaderSizes(true)
     };
 
-    const  getProductPrice = async (value, id) => {
+    const getProductPrice = async (value, id) => {
         const options = {
             method: "POST",
             url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,apr_mnacs, where psize=${value} and p.products_id=${id}`,
             credentials: "include",
-            headers:{
+            headers: {
                 'Content-Type': "application/json",
             }
         };
@@ -67,7 +67,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
     };
 
     const onLayout = () => {
-      setItemWidth( Dimensions.get('window').width)
+        setItemWidth(Dimensions.get('window').width)
     };
 
     const getImageSource = (id) => {
@@ -132,7 +132,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
         },
     ];
 
-    const canSubmit = productSize && count && activeTypeIndex !==null ;
+    const canSubmit = productSize && count && activeTypeIndex !== null;
 
     return (<View style={styles.renderItemContainer}>
         <Modal
@@ -142,92 +142,92 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                 enableSwipeDown={false}
                 backgroundColor='white'
                 imageUrls={arr}/>
-                <TouchableOpacity style={{position: 'absolute', right: 15, top:15}} onPress={() => setImageZoom(false)}>
-                    <Image source={require("../ProductsNew/images/clos.png")}/>
-                </TouchableOpacity>
-        </Modal>
-
-
-        <View style={itemWidth< 810 ? styles.renderItemContent: styles.renderItemContentResponsive} onLayout={onLayout}>
-            <View>
-            <TouchableOpacity onPress={openImageZoomModal}>
-                <Image style={{width: normalize(100), height: 300, marginTop: 100, marginRight: 40}}
-                       source={icon}
-                />
+            <TouchableOpacity style={{position: 'absolute', right: 15, top: 15}} onPress={() => setImageZoom(false)}>
+                <Image source={require("../ProductsNew/images/clos.png")}/>
             </TouchableOpacity>
+        </Modal>
+        <View style={itemWidth < 810 ? styles.renderItemContent : styles.renderItemContentResponsive}
+              onLayout={onLayout}>
+            <View style={{marginLeft:-70,}}>
+                <TouchableOpacity onPress={openImageZoomModal}>
+                    <Image style={{width: normalize(120), height: 320, marginTop: 80,}}
+                           source={icon}
+                    />
+                </TouchableOpacity>
             </View>
             <View style={styles.productsNameContainer}>
                 <Text style={styles.productsName}>
-                    { product  ? product.item.pxumb_name.trim() : ''}
+                    {product ? product.item.pxumb_name.trim() : ''}
                 </Text>
                 <Text style={styles.chooseSize}>
                     Ընտրեք չափսը
                 </Text>
-                <View style={{flexDirection: 'row', justifyContent: 'space-between',width: 170}}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', width: 170}}>
                     <Dropdown
                         pickerStyle={{borderBottomColor: 'transparent', borderWidth: 0}}
                         fontSize={22}
                         containerStyle={{width: 120}}
-                        baseColor={'#072C7D'}
+                        baseColor={'#BFBFBF'}
                         data={data}
                         value={productSize}
                         onChangeText={(value) => onChangeSize(value)}
                         textColor={'#072C7D'}
                         rippleCentered={true}
                     />
-                    {loaderSizes ? <View style={{width:10,marginTop:45}}>
+                    {loaderSizes ? <View style={{width: 10, marginTop: 45}}>
                         <ActivityIndicator size="small" color="#0000ff"/>
-                    </View>: null}
+                    </View> : null}
                 </View>
 
                 <View style={{width: 300, marginBottom: 10}}>
                     <Text style={styles.balanceText}>Մնացորդ՝ {mnac ? mnac.split('.0000') : ''} </Text>
                     <Text style={styles.balanceText}>Չձևակերպված մնացորդ՝ {chdzmnac ? chdzmnac : ''} </Text>
                 </View>
-
-                <InputSpinner
-                    style={{}}
-                    max={10000}
-                    min={0}
-                    step={1}
-                    value={count}
-                    rounded={false}
-                    showBorder={true}
-                    color={'#072C7D'}
-                    textColor={'#072C7D'}
-                    fontSize={25}
-                    buttonFontSize={25}
-                    buttonPressTextColor={'red'}
-                    onChange={(num) => {
-                        setCount(num);
-                    }}
-                />
-
-                {/*<Stepper*/}
-                {/*    value={count}*/}
-                {/*    onChangeCount={(value) => setCount(value)}/>*/}
-                {price ?
-                    <View style={styles.costCount}>
-                    <Text style={styles.costCountText}> {price ? price.split('.0000') : null} դրամ </Text>
+                <View style={{marginTop: 15}}>
+                    <InputSpinner
+                        max={9000}
+                        width={170}
+                        style={{borderRadius:10, borderColor: '#154CC4'}}
+                        buttonStyle={{ borderColor: '#154CC4'}}
+                        min={0}
+                        step={1}
+                        value={count}
+                        rounded={false}
+                        showBorder={true}
+                        color={'#154CC4'}
+                        textColor={'#154CC4'}
+                        fontSize={22}
+                        buttonFontSize={25}
+                        buttonPressTextColor={'red'}
+                        onChange={(num) => {
+                            setCount(num);
+                        }}
+                    />
                 </View>
-                    : null}
-                <ProductsCheckBox activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>
+
+
+                        <ProductsCheckBox activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>
 
                 <View style={styles.costContainer}>
                     <TouchableOpacity onPress={addProduct}
-                                        disabled={!canSubmit}
-                                        style={canSubmit ? styles.addToCartButton : styles.addToCartButtonOp}>
+                                      disabled={!canSubmit}
+                                      style={canSubmit ? styles.addToCartButton : styles.addToCartButtonOp}>
                         <Text style={styles.addToCartText}>
                             Ավելացնել զամբյուղ
-                            <Image
-                                style={styles.addToCartImg}
-                                source={require("../ProductsNew/images/shoping.png")}/>
+
                         </Text>
+                        <Image
+                            style={styles.addToCartImg}
+                            source={require("../ProductsNew/images/shoping.png")}/>
                     </TouchableOpacity>
                 </View>
             </View>
         </View>
-
+        {price ?
+        <View style={styles.costCount}>
+            <Text style={styles.costCountText}> {price ? price.split('.0000') : null} <Text style={styles.costCountTexts}>դրամ</Text> </Text>
+        </View>
+        : null}
     </View>);
 
 };
@@ -240,4 +240,4 @@ const mapDispatchToProps = (dispatch) => ({
     addProductToBasket: (value) => dispatch(adProducts(value))
 });
 
-export default connect(mapStateToProps,mapDispatchToProps) (ProductItem)
+export default connect(mapStateToProps, mapDispatchToProps)(ProductItem)

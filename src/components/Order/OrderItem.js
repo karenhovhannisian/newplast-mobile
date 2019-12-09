@@ -8,8 +8,6 @@ import OrderTableItem from "./OrderTableItem";
 
 const OrderItem = ({oldOrders}) => {
 
-    console.log(oldOrders, 'ffff');
-
     const [tableHead, setTableHead] = useState(['Հաճախորդի անուն', 'կոդ', 'Պատվերի ստեղծման օր', 'Պատվերի կոդ', '']);
 
     return (
@@ -22,11 +20,11 @@ const OrderItem = ({oldOrders}) => {
 
                     <ScrollView style={styles.dataWrapper}>
                         <Table borderStyle={{borderColor: 'white', width: 10}}>
-                            {
-                                oldOrders && oldOrders.map((rowData, index,) => {
-                                    return <OrderTableItem index={index} oldOrders={oldOrders} rowData={rowData}/>
-                                })
-                            }
+                            {/*{*/}
+                            {/*    oldOrders && oldOrders.map((rowData, index,) => {*/}
+                            {/*        return <OrderTableItem index={index} oldOrders={oldOrders} rowData={rowData}/>*/}
+                            {/*    })*/}
+                            {/*}*/}
                         </Table>
                     </ScrollView>
                 </View>

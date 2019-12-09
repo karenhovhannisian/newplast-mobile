@@ -17,9 +17,10 @@ import ProductItem from "../Products/ProductItem";
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import Loader from "react-native-mask-loader/lib";
 import {Badge} from "react-native-elements";
+import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
 
 
-const Products2 = ({ products, selectedProducts }) => {
+const Products2 = ({products, selectedProducts}) => {
     const spinValue = new Animated.Value(0);
 
     const carousel = useRef(null);
@@ -58,66 +59,65 @@ const Products2 = ({ products, selectedProducts }) => {
             toValue: 50,
             easing: Easing.elastic(2),
             duration: 600
-        }).start();     }, [currentIndex]);
+        }).start();
+    }, [currentIndex]);
     useEffect(() => {
         Animated.timing(spinValue, {
             toValue: 50,
             easing: Easing.elastic(2),
             duration: 600
-        }).start();     });
+        }).start();
+    });
 
 
     const interpolatedRotateAnimation = spinValue.interpolate({
-        inputRange: [0, 1,2],
-        outputRange: [0,0,0],
-        // extrapolateLeft: 'identity',
-        // extrapolateRight: 'clamp'
+        inputRange: [0, 1, 2],
+        outputRange: [0, 0, 0],
     });
 
-    if(!products || !products.length) {
-        return  <Loader/>;
+    if (!products || !products.length) {
+        return <Loader/>;
     }
     return (
 
         <GestureRecognizer
-            onSwipe={()=> console.log("onSwipeUp")}
+            onSwipe={() => console.log("onSwipeUp")}
             onSwipeUp={() => console.log("onSwipeUp")}
             onSwipeDown={() => console.log("onSwipeDown")}
             onSwipeLeft={() => currentIndex < products.length && setCurrentIndex(currentIndex + 1)}
             onSwipeRight={() => currentIndex && setCurrentIndex(currentIndex - 1)}
             config={config}
-
+            style={{
+                width: '100%',
+                height: responsiveHeight(81),
+            }}
         >
             <Badge
                 value={selectedProducts.length} status="error"
-                containerStyle={{ position: 'absolute', top: -50, right: 70, elevation:24, }}
+                containerStyle={{position: 'absolute', top: -50, right: 70, elevation: 24,}}
             />
             <Image style={styles.containerC4Image}
                    source={require("./images/c4.png")}/>
             <TouchableOpacity
-                style={{position: 'absolute', top: '40%', left:0, elevation:50}}
+                style={{position: 'absolute', top: '35%', left: 12, elevation: 50}}
                 onPress={() => currentIndex && setCurrentIndex(currentIndex - 1)}>
                 <Image
                     source={require("./images/left.png")}/>
             </TouchableOpacity>
             <View style={styles.container}>
 
-            <Animated.View style={{
-                transform: [{translateX: spinValue},
-                    {rotate: interpolatedRotateAnimation}
-                ]}
-            }>
-                <ProductItem currentIndex={currentIndex} product={{item: products && products[currentIndex], index: currentIndex}}/>
+                <Animated.View style={{
+                    transform: [{translateX: spinValue},
+                        {rotate: interpolatedRotateAnimation}
+                    ]
+                }
+                }>
+                    <ProductItem currentIndex={currentIndex}
+                                 product={{item: products && products[currentIndex], index: currentIndex}}/>
 
-            </Animated.View>
-                <TouchableHighlight onPress={() => {
-                    setModalVisible(!modalVisible)
-                }}
-                                    style={styles.modalVisible}>
-                    <Image
-                        style={{width: 80, height: 80}}
-                        source={require("./images/filter.png")}/>
-                </TouchableHighlight>
+                </Animated.View>
+
+
             </View>
             <Modal
                 animationType="slide"
@@ -136,10 +136,18 @@ const Products2 = ({ products, selectedProducts }) => {
                 </TouchableHighlight>
             </Modal>
             <TouchableOpacity
-                style={{position: 'absolute',top: '40%',  right: 0, elevation:24}}
+                style={{position: 'absolute', top: '35%', right: 12, elevation: 24}}
                 onPress={() => currentIndex < products.length && setCurrentIndex(currentIndex + 1)}>
                 <Image
                     source={require("./images/right.png")}/>
+            </TouchableOpacity>
+
+            <TouchableOpacity  onPress={() => {setModalVisible(!modalVisible)}}
+                style={styles.modalVisible}
+            >
+                <Image
+                    style={{width: 100, height: 100}}
+                    source={require("./images/filter.png")}/>
             </TouchableOpacity>
         </GestureRecognizer>
 

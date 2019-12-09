@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {ScrollableTabView} from "@valdio/react-native-scrollable-tabview";
 import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "../Basket/styles";

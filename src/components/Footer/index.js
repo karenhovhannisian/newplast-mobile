@@ -1,24 +1,27 @@
 import React from "react";
-import {Image, TouchableOpacity, View} from "react-native";
+import {Image, TouchableOpacity, View,Text} from "react-native";
 import styles from "./styles";
 
 const Footer = ({navigate}) => {
     return(
         <View style={styles.containers}>
-            <TouchableOpacity onPress={() => navigate('Debt')} style={{width: 180, alignItems: 'center', justifyContent: 'center'}}>
-                <Image
-                    source={require('./images/1.png')}
-                />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigate('Order')}  style={{width: 180, alignItems: 'center', justifyContent: 'center'}}>
+            <TouchableOpacity onPress={() => navigate('Order')}  style={{width: 250, alignItems: 'center', justifyContent: 'center',flexDirection:'row'}}>
                 <Image
                     source={require('./images/2.png')}
                 />
+                <Text style={{color: 'white', fontSize:18, marginLeft:'3%'}}>Նախկին պատվերներ</Text>
             </TouchableOpacity>
-            <TouchableOpacity  onPress={() => navigate('orderCreate')}  style={{width: 180, alignItems: 'center', justifyContent: 'center'}}>
+            <TouchableOpacity  onPress={() => navigate('orderCreate')}  style={{width: 180, alignItems: 'center', justifyContent: 'center',flexDirection:'row', marginLeft:'10%'}}>
                 <Image
                     source={require('./images/3.png')}
                 />
+                <Text style={{color: 'white', fontSize:18, marginLeft:'3%'}}>Ստեղծել պատվեր</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigate('Debt')} style={{width: 180, alignItems: 'center', justifyContent: 'center',flexDirection:'row',marginLeft:'10%'}}>
+                <Image
+                    source={require('./images/1.png')}
+                />
+                <Text style={{color: 'white', fontSize:18, marginLeft:'3%'}}>Պարտք</Text>
             </TouchableOpacity>
         </View>
     )
