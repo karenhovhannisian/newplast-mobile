@@ -4,11 +4,12 @@ import styles from "./styles";
 import {SearchBar} from "react-native-elements";
 import {Row, Table, TableWrapper} from "react-native-table-component";
 import {connect} from "react-redux";
+import Footer from "../Footer";
 
-const Debt = ({debtList}) => {
+const Debt = (props) => {
+    const {navigate} = props.navigation;
     const [search, setSearch] = useState('');
     const [tableHead, setTableHead] = useState(['Հաճախորդի անուն', '                      կոդ', '                       ԶԵղչ', '            Պարտք']);
-
     const updateSearch = (search) => {
         setSearch(search);
     };
@@ -40,7 +41,7 @@ const Debt = ({debtList}) => {
                     <ScrollView style={styles.dataWrapper}>
                         <Table borderStyle={{borderColor: 'white', width: 10}}>
                             {
-                                debtList.map((rowData, index,) => (
+                                props.debtList.map((rowData, index,) => (
                                     <TableWrapper key={index} style={styles.row}>
                                         <Text style={styles.textss}>{rowData.anun}</Text>
                                         <Text style={styles.texts}>{rowData.men}</Text>
@@ -52,6 +53,10 @@ const Debt = ({debtList}) => {
                         </Table>
                     </ScrollView>
                 </View>
+            </View>
+            <View style={{marginTop:30, marginBottom:-30}}>
+                <Footer navigates={props.navigation} navigate={navigate}/>
+
             </View>
         </View>
     )

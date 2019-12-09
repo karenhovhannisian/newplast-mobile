@@ -49,7 +49,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
     }
 
     const removeSelectedProduct = (elIndex, psize) => {
-        console.log(elIndex,psize, 'elIndex');
+        // console.log(elIndex,psize, 'elIndex');
         deleteSelectedProduct(elIndex, psize)
     };
 
@@ -168,7 +168,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                                             Գին՝</Text>
                                                         <Text style={{
                                                             fontSize: 18,
-                                                            color: '#FF0000',
+                                                            color: '#F20732',
                                                             height: 30,
                                                             width: 120
                                                         }}> 150 դրամ</Text>
@@ -198,11 +198,10 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                             </View>
                                             <TouchableOpacity
                                                 onPress={() => removeSelectedProduct(element.aprcod, element.psize)}>
-                                                <Image style={{marginTop: 17}}
+                                                <Image style={{marginTop: 22,marginRight:0}}
                                                        source={require('./images/close.png')}
                                                 />
                                             </TouchableOpacity>
-
                                         </View>
                                     </View>
                                 })}
@@ -211,19 +210,19 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
                     </View>
                     <View style={{
-                        flexDirection: 'row',
-                        marginLeft: '6%',
+                        // flexDirection: 'row',
+                        marginLeft: '5%',
                         width: '93%'
                     }}>
 
                         <View style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
+                            flexDirection: 'row-reverse',
+                            alignContent: 'flex-end',
                         }}>
-                            <View>
-                                <View style={{marginTop: '16%', marginLeft: 8}}>
+                            <View >
+                                <View style={{marginTop: 0, marginLeft: 8}}>
                                     <Text style={{fontSize: 18}}>Գին`</Text>
-                                    <Text style={{fontSize: 18}}>Զեղչված գին`</Text>
+                                    <Text style={{fontSize: 18, color:'#F20732'}}>Զեղչված գին`</Text>
                                 </View>
 
                                 <View style={{
@@ -246,15 +245,18 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                         width: 140
                                     }}> 570 դրամ</Text>
                                 </View>
+                                <View>
+                                    <TouchableOpacity onPress={sendOrderData}
+                                                      style={styles.addButton}>
+                                        <Text style={styles.addText}>
+                                            Հաստատել
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
 
                         </View>
-                        <TouchableOpacity onPress={sendOrderData}
-                                          style={styles.addButton}>
-                            <Text style={styles.addText}>
-                                Հաստատել
-                            </Text>
-                        </TouchableOpacity>
+
                     </View>
                 </View>
             })}

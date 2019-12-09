@@ -38,21 +38,21 @@ const styles = StyleSheet.create({
         height: 50,
         width: '20%',
         backgroundColor: 'white',
-        borderRadius: 35
+        borderRadius: 10
     },
     pickerView2: {
         marginLeft: '3%',
         height: 50,
         width: '20%',
         backgroundColor: 'white',
-        borderRadius: 35
+        borderRadius: 10
     },
     pickerView1: {
         marginLeft: '20%',
         height: 50,
         width: '20%',
         backgroundColor: 'white',
-        borderRadius: 35
+        borderRadius: 10
     },
 
     content: {
@@ -165,16 +165,16 @@ marginTop: 10,
     addButton: {
         zIndex: 99999,
         color: 'white',
-        height: 40,
+        height: 50,
         display:'flex',
         lineHeight: 40,
-        padding:4,
+        padding:8,
         alignItems: 'center',
         marginLeft:"11%",
         marginTop: '8%',
-        backgroundColor: '#FF0000',
-        borderRadius: 20,
-        width: 300,
+        backgroundColor: '#F20732',
+        borderRadius: 10,
+        width: 200,
     },
 });
 

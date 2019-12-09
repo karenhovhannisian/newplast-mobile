@@ -53,8 +53,7 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
     const onNavigateDebt = () => {
         navigate('Debt')
     };
-    console.log(debtList, 'debtList');
-    console.log(loaderDebtList, 'dloaderDebtList');
+
     return (
         <ImageBackground source={require("./images/home.png")}
                          style={{width: '100%', height: '100%', alignItems: 'center'}}>

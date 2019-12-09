@@ -97,7 +97,6 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                 </View>
             </View>: null}
         <ScrollableTab customerName={customerName} selectedManager={selectedManager} selectedProducts={selectedProducts}/>
-
             </>
     );
 };

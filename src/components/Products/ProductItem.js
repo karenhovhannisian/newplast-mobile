@@ -143,7 +143,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                 backgroundColor='white'
                 imageUrls={arr}/>
             <TouchableOpacity style={{position: 'absolute', right: 15, top: 15}} onPress={() => setImageZoom(false)}>
-                <Image source={require("../ProductsNew/images/clos.png")}/>
+                <Image source={require("../ProductsNew/images/Clos.png")}/>
             </TouchableOpacity>
         </Modal>
         <View style={itemWidth < 810 ? styles.renderItemContent : styles.renderItemContentResponsive}

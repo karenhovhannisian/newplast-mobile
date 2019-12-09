@@ -5,7 +5,7 @@ import {Cell, Row, Table, TableWrapper} from "react-native-table-component";
 import moment from "moment";
 
 const OrderHistory = ({ordersData}) => {
-    console.log(ordersData.apr_cank.map(el => el), 'ordersDatasssss');
+    // console.log(ordersData.apr_cank.map(el => el), 'ordersDatasssss');
     const [tableHead, setTableHead] = useState([`Պատվերի կոդ՝ ${ordersData.patcod}`, '',`${moment(ordersData.sdate).format("MM-DD-YYYY")}`]);
     const [tableData, setTableData] = useState(ordersData ? ordersData.apr_cank : []);
     const [tableHeadData, setTableHeadData] = useState(
