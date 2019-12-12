@@ -16,4 +16,11 @@ export const getCustomerListSuccess = MakeActionCreator(GET_CUSTOMER_LIST_SUCCES
 export const SEND_ORDER_LIST = "SEND_ORDER_LIST";
 export const sendOrderList = MakeActionCreator(SEND_ORDER_LIST, 'data');
 export const SEND_ORDER_LIST_SUCCESS = "SEND_ORDER_LIST_SUCCESS";
-export const sendOrderListSuccess = MakeActionCreator(SEND_ORDER_LIST_SUCCESS  );
+export const sendOrderListSuccess = MakeActionCreator(SEND_ORDER_LIST_SUCCESS, 'orderDataSuccess'  );
+
+
+
+export const CONFIRM_ORDER = "CONFIRM_ORDER";
+export const confirmOrder = MakeActionCreator(CONFIRM_ORDER, 'data');
+export const CONFIRM_ORDER_SUCCESS = "CONFIRM_ORDER_SUCCESS";
+export const confirmOrderSuccess = MakeActionCreator(CONFIRM_ORDER_SUCCESS  );

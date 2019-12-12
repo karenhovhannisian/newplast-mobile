@@ -11,14 +11,12 @@ import {
 import {normalize} from '../../Common/metrics';
 import {Dropdown} from 'react-native-material-dropdown';
 import styles from "../ProductsNew/styles";
-import Stepper from "../Stepper";
 import ProductsCheckBox from "../CheckBox";
 import {adProducts} from "../../redux/actions";
 import {connect} from "react-redux";
 import ImageViewer from 'react-native-image-zoom-viewer';
 import axios from "axios";
 import InputSpinner from "react-native-input-spinner";
-
 
 const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
 
@@ -37,7 +35,9 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
     const [activeTypeIndex, setActiveTypeIndex] = useState(null);
     const [productSize, changeProductSize] = useState('');
     const [count, setCount] = useState(0);
+    const [productId, setProductId] = useState(null);
     const [price, setProductPrice] = useState(null);
+    const [marka, setMarka] = useState(null);
     const [quantityPrice, setQuantityPrice] = useState(null);
     const [mnac, setMnac] = useState(null);
     const [chdzmnac, setChdzmnac] = useState(null);
@@ -52,18 +52,21 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
     const getProductPrice = async (value, id) => {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,apr_mnacs, where psize=${value} and p.products_id=${id}`,
+            url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,apr_mnacs, where psize=${value} and p.products_id=${id} and fSTORAGE='111'`,
             credentials: "include",
             headers: {
                 'Content-Type': "application/json",
             }
         };
         const response = await axios.post(options.url);
-        setLoaderSizes(false)
+        console.log(response.data[0], 'response.data[0]');
+        setLoaderSizes(false);
         setProductPrice(response.data[0].gin);
         setQuantityPrice(response.data[0].miavor);
         setMnac(response.data[0].mnacord);
-        setChdzmnac(response.data[0].chdzmnac)
+        setChdzmnac(response.data[0].chdzmnac);
+        setProductId(response.data[0].fCODE);
+        setMarka(response.data[0].marka)
     };
 
     const onLayout = () => {
@@ -102,9 +105,10 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
         addProductToBasket(
             {
                 name: product.item.pxumb_name ? product.item.pxumb_name.trim() : "",
-                aprcod: product.item.products_id ? product.item.products_id : '',
-                count: count,
+                aprcod: productId,
+                qanak: count,
                 price: price,
+                marka:marka,
                 psize: productSize,
                 type: activeTypeIndex,
                 quantityPrice: quantityPrice,

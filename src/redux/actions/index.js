@@ -27,7 +27,12 @@ export {
     SEND_ORDER_LIST,
     sendOrderList,
     SEND_ORDER_LIST_SUCCESS,
-    sendOrderListSuccess
+    sendOrderListSuccess,
+
+    CONFIRM_ORDER,
+    CONFIRM_ORDER_SUCCESS,
+    confirmOrder,
+    confirmOrderSuccess
 } from "./basket";
 
 export {

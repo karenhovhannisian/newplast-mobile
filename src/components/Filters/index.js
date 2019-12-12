@@ -5,8 +5,6 @@ import {CheckBox} from "react-native-elements";
 
 const Filters = ({products}) => {
 
-
-
     const filterCategories = [
         {
             name: 'Միաշերտ և բազմաշերտ խողովակներ',

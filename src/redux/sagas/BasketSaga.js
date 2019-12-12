@@ -1,6 +1,7 @@
 import {takeLatest, put, call} from "redux-saga/effects";
 import axios from 'axios';
 import {
+    CONFIRM_ORDER, confirmOrderSuccess,
     GET_CUSTOMER_LIST,
     GET_MANAGER_LIST,
     getCustomerListSuccess,
@@ -59,9 +60,10 @@ function* getCustomerList({}) {
 }
 
 function* sendOrderList({data}) {
+    // console.log(data, 'data');
     const bodyFormData = new FormData();
     bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},save`);
-    bodyFormData.append('data', JSON.stringify(data));
+    bodyFormData.append('data', JSON.stringify(...data));
     try {
         const options = {
             method: "POST",
@@ -70,7 +72,26 @@ function* sendOrderList({data}) {
             data: bodyFormData
         };
         const response = yield call(axios, options);
-        yield put(sendOrderListSuccess());
+        // console.log(response.data, 'responseResult', bodyFormData)
+        yield put(sendOrderListSuccess(response.data));
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function* confirmOrder({data}) {
+    const bodyFormData = new FormData();
+    bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},sev`);
+    bodyFormData.append('data', JSON.stringify(...data));
+    try {
+        const options = {
+            method: "POST",
+            url: `http://109.75.42.220/service.php`,
+            credentials: "include",
+            data: bodyFormData
+        };
+        const response = yield call(axios, options);
+        yield put(confirmOrderSuccess());
     } catch (err) {
         console.log(err);
     }
@@ -80,6 +101,7 @@ export default function* sendDataSaga() {
     yield takeLatest(GET_MANAGER_LIST, getManagerList);
     yield takeLatest(GET_CUSTOMER_LIST, getCustomerList);
     yield takeLatest(SEND_ORDER_LIST, sendOrderList);
+    yield takeLatest(CONFIRM_ORDER, confirmOrder);
 };
 
 

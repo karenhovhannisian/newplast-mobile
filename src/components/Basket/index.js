@@ -15,7 +15,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
     const [selectedManager, setSelectedManager] = useState('');
     const [selectedCustomers, setSelectedCustomers] = useState('');
     const [selectedCustomersName, setSelectedCustomersName] = useState(null);
-    const [customerName, setCustomerName] = useState('');
+    const [customerName, setCustomerName] = useState(null);
 
     useEffect(()=> {
             const grouped = groupBy(pets, pet => pet.aktrg.trim());

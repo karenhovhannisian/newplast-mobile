@@ -1,11 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {ScrollableTabView} from "@valdio/react-native-scrollable-tabview";
 import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "../Basket/styles";
 import {connect} from "react-redux";
 import {deleteSelectedProduct, sendOrderList} from "../../redux/actions";
 
-const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, customerName, selectedManager}) => {
+const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, customerName, selectedManager, orderDataSuccess}) => {
 
     const tabs = [
         {
@@ -25,6 +25,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
             title: 'C5'
         }
     ];
+    console.log(customerName, 'customerName');
 
     const filteredTabs = [];
     tabs.forEach(tab => {
@@ -32,7 +33,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
             filteredTabs.push(tab)
         }
     });
-
+    console.log(orderDataSuccess, 'orderDataSuccess');
     const filterOrderList = filteredTabs.map(tab => {
         return selectedProducts.filter(p => p.type === tab.title)
     });
@@ -49,7 +50,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
     }
 
     const removeSelectedProduct = (elIndex, psize) => {
-        // console.log(elIndex,psize, 'elIndex');
         deleteSelectedProduct(elIndex, psize)
     };
 
@@ -59,13 +59,12 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                 men: selectedManager,
                 id: 0,
                 sdate: new Date(),
-                gycod: customerName.trim(),
+                gycod: customerName ? customerName.trim() : '',
                 aah: el[0].type,
                 apr_cank: el
             }
         }),
     ];
-
     const sendOrderData = () => {
         sendOrderList(data)
     };
@@ -134,7 +133,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                                         style={{
                                                             fontSize: 18,
                                                             color: 'black',
-                                                            // marginTop: 10,
                                                             marginRight: 10
                                                         }}>
                                                         Քանակը՝
@@ -147,7 +145,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                                         alignItems: 'center',
                                                         justifyContent: 'center'
 
-                                                    }}>    {element.count.toString()} {element.quantityPrice} </Text>
+                                                    }}>    {element.qanak.toString()} {element.quantityPrice} </Text>
 
                                                 </View>
                                             </View>
@@ -179,7 +177,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                                     display: 'flex',
                                                     justifyContent: 'space-around',
                                                     marginLeft: '15%',
-                                                    // marginTop: 20
                                                 }}>
                                                     <Text style={{
                                                         fontSize: 18,
@@ -198,7 +195,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                             </View>
                                             <TouchableOpacity
                                                 onPress={() => removeSelectedProduct(element.aprcod, element.psize)}>
-                                                <Image style={{marginTop: 22,marginRight:0}}
+                                                <Image style={{marginTop: 22, marginRight: 0}}
                                                        source={require('./images/close.png')}
                                                 />
                                             </TouchableOpacity>
@@ -210,21 +207,18 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
                     </View>
                     <View style={{
-                        // flexDirection: 'row',
                         marginLeft: '5%',
                         width: '93%'
                     }}>
-
                         <View style={{
                             flexDirection: 'row-reverse',
                             alignContent: 'flex-end',
                         }}>
-                            <View >
+                            <View>
                                 <View style={{marginTop: 0, marginLeft: 8}}>
                                     <Text style={{fontSize: 18}}>Գին`</Text>
-                                    <Text style={{fontSize: 18, color:'#F20732'}}>Զեղչված գին`</Text>
+                                    <Text style={{fontSize: 18, color: '#F20732'}}>Զեղչված գին`</Text>
                                 </View>
-
                                 <View style={{
                                     flexDirection: 'row',
                                     alignItems: 'center',
@@ -260,13 +254,13 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                     </View>
                 </View>
             })}
-
         </ScrollableTabView>
     )
 };
 
 const mapStateToProps = (state) => ({
     selectedProducts: state.ProductsReducer.selectedProducts,
+    orderDataSuccess: state.BasketReducer.orderDataSuccess
 });
 
 const mapDispatchToProps = (dispatch) => ({

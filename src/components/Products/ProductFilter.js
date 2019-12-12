@@ -23,7 +23,7 @@ const ProductFilter = () => {
                 visible={modalVisible}
             >
                 <Filters/>
-                <TouchableHighlight
+                <TouchableOpacity
                     style={styles.modalVisibleClose}
                     onPress={() => {
                         setModalVisible(!modalVisible);
@@ -31,7 +31,7 @@ const ProductFilter = () => {
                 >
                     <Image style={{width: 25, height: 25}}
                            source={require("./images/close.png")}/>
-                </TouchableHighlight>
+                </TouchableOpacity>
             </Modal>
         </>
     );
