@@ -87,10 +87,10 @@ const Products2 = ({products, selectedProducts}) => {
             onSwipeLeft={() => currentIndex < products.length && setCurrentIndex(currentIndex + 1)}
             onSwipeRight={() => currentIndex && setCurrentIndex(currentIndex - 1)}
             config={config}
-            style={{
+            style={sliderWidth<800 ?{
                 width: '100%',
                 height: responsiveHeight(81),
-            }}
+            } : {}}
         >
             <Badge
                 value={selectedProducts.length} status="error"

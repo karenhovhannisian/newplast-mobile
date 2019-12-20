@@ -96,7 +96,9 @@ const styles = StyleSheet.create({
     },
     renderItemContent: {
         justifyContent: 'center',
-        width: '50%',
+        width: '100%',
+        alignItems:'center',
+        flexDirection:'column',
     },
     renderItemContentResponsive: {
         // alignItems: 'center',

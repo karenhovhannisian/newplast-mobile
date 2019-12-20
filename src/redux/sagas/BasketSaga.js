@@ -60,7 +60,6 @@ function* getCustomerList({}) {
 }
 
 function* sendOrderList({data}) {
-    // console.log(data, 'data');
     const bodyFormData = new FormData();
     bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},save`);
     bodyFormData.append('data', JSON.stringify(...data));

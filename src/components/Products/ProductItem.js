@@ -59,7 +59,6 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
             }
         };
         const response = await axios.post(options.url);
-        console.log(response.data[0], 'response.data[0]');
         setLoaderSizes(false);
         setProductPrice(response.data[0].gin);
         setQuantityPrice(response.data[0].miavor);
@@ -150,11 +149,11 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                 <Image source={require("../ProductsNew/images/Clos.png")}/>
             </TouchableOpacity>
         </Modal>
-        <View style={itemWidth < 810 ? styles.renderItemContent : styles.renderItemContentResponsive}
+        <View style={itemWidth < 801 ? styles.renderItemContent : styles.renderItemContentResponsive}
               onLayout={onLayout}>
             <View style={{marginLeft:-70,}}>
                 <TouchableOpacity onPress={openImageZoomModal}>
-                    <Image style={{width: normalize(120), height: 320, marginTop: 80,}}
+                    <Image style={itemWidth < 801 ? {width: normalize(100), height: 300, marginTop: 80,marginLeft:150}: {width: normalize(120), height: 320, marginTop: 80,}}
                            source={icon}
                     />
                 </TouchableOpacity>
