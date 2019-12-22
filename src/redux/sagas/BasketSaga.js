@@ -71,17 +71,18 @@ function* sendOrderList({data}) {
             data: bodyFormData
         };
         const response = yield call(axios, options);
+        console.log(response.data, 'res')
         // console.log(response.data, 'responseResult', bodyFormData)
         yield put(sendOrderListSuccess(response.data));
     } catch (err) {
         console.log(err);
     }
 }
-
 function* confirmOrder({data}) {
     const bodyFormData = new FormData();
+    console.log(data)
     bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},sev`);
-    bodyFormData.append('data', JSON.stringify(...data));
+    bodyFormData.append('pc', data);
     try {
         const options = {
             method: "POST",
@@ -90,7 +91,8 @@ function* confirmOrder({data}) {
             data: bodyFormData
         };
         const response = yield call(axios, options);
-        yield put(confirmOrderSuccess());
+        console.log(response, 'confirmOrderSuccessresponseData')
+        yield put(confirmOrderSuccess(response.data));
     } catch (err) {
         console.log(err);
     }

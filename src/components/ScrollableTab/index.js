@@ -1,42 +1,13 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {ScrollableTabView} from "@valdio/react-native-scrollable-tabview";
-import {Image, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {Image, Modal, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "../Basket/styles";
 import {connect} from "react-redux";
-import {deleteSelectedProduct, sendOrderList} from "../../redux/actions";
+import {confirmOrder, deleteSelectedProduct, sendOrderList} from "../../redux/actions";
+import CreateOrderSuccessModal from "../CreateOrderSuccessModal";
 
-const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, customerName, selectedManager, orderDataSuccess}) => {
-
-    const tabs = [
-        {
-            id: 0,
-            title: 'Այո'
-        },
-        {
-            id: 1,
-            title: 'Ոչ'
-        },
-        {
-            id: 2,
-            title: 'C4'
-        },
-        {
-            id: 3,
-            title: 'C5'
-        }
-    ];
-    console.log(customerName, 'customerName');
-
-    const filteredTabs = [];
-    tabs.forEach(tab => {
-        if (selectedProducts && selectedProducts.map(e => e.type).includes(tab.title)) {
-            filteredTabs.push(tab)
-        }
-    });
-    console.log(orderDataSuccess, 'orderDataSuccess');
-    const filterOrderList = filteredTabs.map(tab => {
-        return selectedProducts.filter(p => p.type === tab.title)
-    });
+const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, confirmOrder, confirmOrderSuccess, customerName, selectedManager, orderDataSuccess, data, filteredTabs}) => {
+    const [showModal, setShowModal] = useState(false);
 
     if (!filteredTabs.length) {
         return <View style={{justifyContent: 'center', alignItems: 'center', flex: 2}}>
@@ -49,24 +20,25 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
         </View>
     }
 
-    const removeSelectedProduct = (elIndex, psize) => {
-        deleteSelectedProduct(elIndex, psize)
+    // console.log(orderDataSuccess[0].apr_cank, 'orderDataSuccess');
+
+    const removeSelectedProduct = (elIndex, psize, tab) => {
+        if (orderDataSuccess) {
+            deleteSelectedProduct(elIndex, psize);
+            const newData = orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
+            newData.apr_cank = newData.apr_cank.filter(el => el.aprcod !== elIndex);
+            sendOrderList(newData);
+        } else {
+            deleteSelectedProduct(elIndex, psize);
+        }
     };
 
-    const data = [
-        filterOrderList.map(el => {
-            return {
-                men: selectedManager,
-                id: 0,
-                sdate: new Date(),
-                gycod: customerName ? customerName.trim() : '',
-                aah: el[0].type,
-                apr_cank: el
-            }
-        }),
-    ];
-    const sendOrderData = () => {
-        sendOrderList(data)
+    const confirmOrderData = () => {
+        let data = orderDataSuccess && orderDataSuccess.map(el => {
+            return el.patcod
+        });
+        confirmOrder(data)
+        setShowModal(true)
     };
 
     return (
@@ -194,7 +166,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                                 </View>
                                             </View>
                                             <TouchableOpacity
-                                                onPress={() => removeSelectedProduct(element.aprcod, element.psize)}>
+                                                onPress={() => removeSelectedProduct(element.aprcod, element.psize, tab.title)}>
                                                 <Image style={{marginTop: 22, marginRight: 0}}
                                                        source={require('./images/close.png')}
                                                 />
@@ -240,8 +212,10 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                     }}> 570 դրամ</Text>
                                 </View>
                                 <View>
-                                    <TouchableOpacity onPress={sendOrderData}
-                                                      style={styles.addButton}>
+                                    <TouchableOpacity
+                                        disabled={!customerName}
+                                        onPress={confirmOrderData}
+                                        style={customerName ? styles.addButton: styles.addButtonDisable}>
                                         <Text style={styles.addText}>
                                             Հաստատել
                                         </Text>
@@ -250,22 +224,31 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                             </View>
 
                         </View>
-
+                        <Modal
+                            // animationType="slide"
+                            transparent={true}
+                            visible={showModal}
+                        >
+                            <CreateOrderSuccessModal/>
+                        </Modal>
                     </View>
                 </View>
             })}
+
         </ScrollableTabView>
     )
 };
 
 const mapStateToProps = (state) => ({
     selectedProducts: state.ProductsReducer.selectedProducts,
-    orderDataSuccess: state.BasketReducer.orderDataSuccess
+    orderDataSuccess: state.BasketReducer.orderDataSuccess,
+    confirmOrderSuccess: state.BasketReducer.confirmOrderSuccess
 });
 
 const mapDispatchToProps = (dispatch) => ({
     deleteSelectedProduct: (elIndex, psize) => dispatch(deleteSelectedProduct(elIndex, psize)),
     sendOrderList: (data) => dispatch(sendOrderList(data)),
+    confirmOrder: (data) => dispatch(confirmOrder(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ScrollableTab)

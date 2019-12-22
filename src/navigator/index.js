@@ -5,6 +5,7 @@ import {Image, TouchableOpacity} from 'react-native';
 import {attemptLogOut} from "../redux/actions";
 import store from "../redux/store";
 import { Badge } from 'react-native-elements'
+import CreateOrderSuccessModal from "../components/CreateOrderSuccessModal";
 
 
 const Navigator = createStackNavigator({

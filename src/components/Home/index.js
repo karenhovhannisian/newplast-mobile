@@ -9,32 +9,31 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
 
     const {navigate} = props.navigation;
 
-    const [loaderProd, setLoaderProd] = useState(false);
+    console.log( loaderDebtList , 'debtList')
 
     useEffect(() => {
         if (products) {
             onNavigateProducts()
         }
-    }, [loaderProducts]);
+    }, [loaderProducts  === true]);
 
     useEffect(() => {
         if (debtList) {
-            onNavigateDebt()
+            navigate('Debt')
         }
-    }, [loaderDebtList]);
+    }, [loaderDebtList === true]);
 
     useEffect(() => {
         if (oldOrders) {
             onNavigateOldOrders()
         }
-    }, [loaderOldOrders]);
+    }, [loaderOldOrders  === true]);
 
     const startLoadingProducts = () => {
         getProducts();
     };
 
     const onNavigateProducts = () => {
-        setLoaderProd(false);
         navigate('orderCreate')
     };
 
@@ -48,10 +47,6 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
 
     const startLoadingDebt = () => {
         getDebtList();
-    };
-
-    const onNavigateDebt = () => {
-        navigate('Debt')
     };
 
     return (

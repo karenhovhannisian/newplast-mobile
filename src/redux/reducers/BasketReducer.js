@@ -1,9 +1,15 @@
-import {GET_CUSTOMER_LIST_SUCCESS, GET_MANAGER_LIST_SUCCESS, SEND_ORDER_LIST_SUCCESS} from "../actions";
+import {
+    CONFIRM_ORDER_SUCCESS,
+    GET_CUSTOMER_LIST_SUCCESS,
+    GET_MANAGER_LIST_SUCCESS,
+    SEND_ORDER_LIST_SUCCESS
+} from "../actions";
 
 const defaultState = {
     managerList: null,
     customerList: null,
-    orderDataSuccess: null
+    orderDataSuccess: null,
+    confirmOrderSuccess: null
 };
 
 const BasketReducer = (state = defaultState, action) => {
@@ -23,6 +29,11 @@ const BasketReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 customerList: action.customerList
+            };
+            case  CONFIRM_ORDER_SUCCESS:
+            return {
+                ...state,
+                confirmOrderSuccess: action.confirmOrderSuccess
             };
         default:
             return state

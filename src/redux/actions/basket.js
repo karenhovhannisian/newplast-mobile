@@ -23,4 +23,4 @@ export const sendOrderListSuccess = MakeActionCreator(SEND_ORDER_LIST_SUCCESS, '
 export const CONFIRM_ORDER = "CONFIRM_ORDER";
 export const confirmOrder = MakeActionCreator(CONFIRM_ORDER, 'data');
 export const CONFIRM_ORDER_SUCCESS = "CONFIRM_ORDER_SUCCESS";
-export const confirmOrderSuccess = MakeActionCreator(CONFIRM_ORDER_SUCCESS  );
+export const confirmOrderSuccess = MakeActionCreator(CONFIRM_ORDER_SUCCESS, 'confirmOrderSuccess'  );

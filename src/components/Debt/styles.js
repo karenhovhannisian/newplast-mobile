@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     },
     container: {
         width: '100%',
-        height: '95%',
+        height: '92%',
         backgroundColor: 'white',
         justifyContent: 'center',
         flexDirection:'column',

@@ -176,6 +176,20 @@ marginTop: 10,
         borderRadius: 10,
         width: 200,
     },
+    addButtonDisable: {
+        zIndex: 99999,
+        color: 'white',
+        height: 50,
+        display:'flex',
+        lineHeight: 40,
+        padding:8,
+        alignItems: 'center',
+        marginLeft:"11%",
+        marginTop: '8%',
+        backgroundColor: '#F2727D',
+        borderRadius: 10,
+        width: 200,
+    }
 });
 
 export default styles;

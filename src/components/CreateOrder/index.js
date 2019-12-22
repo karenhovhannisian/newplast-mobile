@@ -1,6 +1,5 @@
 import React from 'react';
 import {ImageBackground, View,} from 'react-native';
-// import Products from "../Products";
 import Products2 from "../ProductsNew";
 import Footer from "../Footer";
 
@@ -9,9 +8,11 @@ const createOrder = (props) => {
     return (
         <View>
             <ImageBackground source={require("./images/111.png")} style={{width: '100%', height: '80%', position: 'absolute'}}/>
-            <View style={{height:'100%', width: '100%'}}>
+            <View>
             <Products2/>
-            <Footer navigates={props.navigation} navigate={navigate}/>
+            <View>
+                <Footer navigates={props.navigation} navigate={navigate}/>
+            </View>
             </View>
         </View>
     );

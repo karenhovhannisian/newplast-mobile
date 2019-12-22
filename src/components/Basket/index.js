@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {View, Picker} from 'react-native';
+import {View, Picker, Image, Text, Modal, TouchableOpacity} from 'react-native';
 import styles from './styles';
 import {connect} from "react-redux";
 import ScrollableTab from "../ScrollableTab";
-import {getCustomerList, getManagerList} from "../../redux/actions";
-const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,customerList}) => {
+import {getCustomerList, getManagerList, sendOrderList} from "../../redux/actions";
+const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, getCustomerList,customerList}) => {
 
 
     useEffect(()=> {
@@ -16,6 +16,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
     const [selectedCustomers, setSelectedCustomers] = useState('');
     const [selectedCustomersName, setSelectedCustomersName] = useState(null);
     const [customerName, setCustomerName] = useState(null);
+    const [data, setData] = useState(null);
 
     useEffect(()=> {
             const grouped = groupBy(pets, pet => pet.aktrg.trim());
@@ -40,6 +41,55 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
     const pets = customerList ? customerList : [];
     const grouped = groupBy(pets, pet => pet.aktrg.trim());
     const keys = [...grouped.keys()];
+
+    const tabs = [
+        {
+            id: 0,
+            title: 'Այո'
+        },
+        {
+            id: 1,
+            title: 'Ոչ'
+        },
+        {
+            id: 2,
+            title: 'C4'
+        },
+        {
+            id: 3,
+            title: 'C5'
+        }
+    ];
+
+    const filteredTabs = [];
+
+    tabs.forEach(tab => {
+        if (selectedProducts && selectedProducts.map(e => e.type).includes(tab.title)) {
+            filteredTabs.push(tab)
+        }
+    });
+    const filterOrderList = filteredTabs.map(tab => {
+        return selectedProducts.filter(p => p.type === tab.title)
+    });
+
+    const sendOrderData = (itemValue) => {
+        setCustomerName(itemValue)
+        console.log(itemValue, 'itemValue');
+        let data = [
+            filterOrderList.map(el => {
+                return {
+                    men: selectedManager,
+                    id: 0,
+                    sdate: new Date(),
+                    gycod: itemValue ? itemValue.trim() : '',
+                    aah: el[0].type,
+                    apr_cank: el
+                }
+            }),
+        ];
+        setData(data)
+        sendOrderList(data)
+    };
 
     return (
         <>
@@ -76,7 +126,6 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                             })
                         }
 
-
                     </Picker>
                 </View>
                 <View style={styles.pickerView}>
@@ -84,9 +133,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                         selectedValue={customerName}
                         style={{color: '#0A3695', fontSize: 40}}
                         itemStyle={styles.pickerItemStyle}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setCustomerName(itemValue)
-                        }>
+                        onValueChange={(itemValue, itemIndex) => sendOrderData(itemValue)}>
                         <Picker.Item key={'unselectable'} label='Հաճախորդ' value={0} />
                         {
                             selectedCustomersName && selectedCustomersName.map(cus => {
@@ -96,7 +143,13 @@ const Basket = ({selectedProducts, managerList, getManagerList, getCustomerList,
                     </Picker>
                 </View>
             </View>: null}
-        <ScrollableTab customerName={customerName} selectedManager={selectedManager} selectedProducts={selectedProducts}/>
+        <ScrollableTab
+            data={data}
+            filteredTabs={filteredTabs}
+            customerName={customerName}
+            selectedManager={selectedManager}
+            selectedProducts={selectedProducts}/>
+
             </>
     );
 };
@@ -110,6 +163,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getManagerList: () => dispatch(getManagerList()),
     getCustomerList: () => dispatch(getCustomerList()),
+    sendOrderList: (data) => dispatch(sendOrderList(data)),
 
 });
 

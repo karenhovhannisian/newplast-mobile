@@ -50,6 +50,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
     };
 
     const getProductPrice = async (value, id) => {
+        console.log(value, id)
         const options = {
             method: "POST",
             url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,apr_mnacs, where psize=${value} and p.products_id=${id} and fSTORAGE='111'`,
@@ -59,6 +60,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
             }
         };
         const response = await axios.post(options.url);
+        console.log(response.data, 'responseData')
         setLoaderSizes(false);
         setProductPrice(response.data[0].gin);
         setQuantityPrice(response.data[0].miavor);
@@ -107,7 +109,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                 aprcod: productId,
                 qanak: count,
                 price: price,
-                marka:marka,
+                marka: marka,
                 psize: productSize,
                 type: activeTypeIndex,
                 quantityPrice: quantityPrice,
