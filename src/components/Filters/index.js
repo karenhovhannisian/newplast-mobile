@@ -93,15 +93,12 @@ const Filters = ({products}) => {
 
     const [activeIndex, setActiveIndex] = useState(null);
     const [categories, setCategories ] = useState(filterCategories);
-    // console.log(categories,activeIndex,'categories');
 
     const changeFilter = (categoryIndex, subIndex) => {
 
 
         const copyCategories = categories;
         copyCategories[categoryIndex].subCategories[subIndex].checked = !categories[categoryIndex].subCategories[subIndex].checked;
-        // console.log(copyCategories[categoryIndex].subCategories[subIndex].checked, 'ccccc');
-        // console.log(!categories[categoryIndex].subCategories[subIndex].checked, 'sssssswwwwww');
         setCategories(categories)
     };
 

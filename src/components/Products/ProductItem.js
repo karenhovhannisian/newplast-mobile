@@ -17,7 +17,21 @@ import {connect} from "react-redux";
 import ImageViewer from 'react-native-image-zoom-viewer';
 import axios from "axios";
 import InputSpinner from "react-native-input-spinner";
+import cache from "../../Common/Cache";
 
+const defaultState = {
+    user:'',
+    pass: ''
+}
+
+cache.getItem("user", function(err, value){
+    defaultState.user = value
+});
+
+
+cache.getItem("login", function(err, value){
+    defaultState.pass = value
+});
 const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
 
     useEffect(() => {
@@ -50,17 +64,17 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
     };
 
     const getProductPrice = async (value, id) => {
-        console.log(value, id)
+        console.log(value)
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,WKaren,wkaren,apr_mnacs, where psize=${value} and p.products_id=${id} and fSTORAGE='111'`,
+            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and p.products_id=${id} and fSTORAGE='111'`,
             credentials: "include",
             headers: {
                 'Content-Type': "application/json",
             }
         };
         const response = await axios.post(options.url);
-        console.log(response.data, 'responseData')
+        console.log(response.data)
         setLoaderSizes(false);
         setProductPrice(response.data[0].gin);
         setQuantityPrice(response.data[0].miavor);

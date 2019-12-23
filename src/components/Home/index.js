@@ -1,33 +1,46 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator, Modal} from 'react-native';
 import styles from "./styles";
 import {getDebtList, getOldOrders, getProducts} from "../../redux/actions";
 import {connect} from "react-redux";
 import LogOut from "../LogOut";
+import cache from "../../Common/Cache";
+import PermModal from "../PermModal";
 
 const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, loaderOldOrders, getDebtList, debtList, loaderDebtList, ...props}) => {
 
     const {navigate} = props.navigation;
 
-    console.log( loaderDebtList , 'debtList')
+    const [showModal, setShowModal] = useState(false)
+    const [mnor, setMnor] = useState(null)
 
     useEffect(() => {
-        if (products) {
+        cache.getItem("mnor", function (err, value) {
+            console.log(value, 'value');
+            setMnor(value)
+        });
+        if (mnor == 7) {
+            setShowModal(true)
+        }
+        if (products && loaderProducts == true) {
             onNavigateProducts()
         }
-    }, [loaderProducts  === true]);
+    }, [loaderProducts === true]);
+
+    // console.log(mnor, 'mnor')
+
 
     useEffect(() => {
-        if (debtList) {
+        if (debtList && loaderDebtList == true) {
             navigate('Debt')
         }
     }, [loaderDebtList === true]);
 
     useEffect(() => {
-        if (oldOrders) {
+        if (oldOrders && loaderOldOrders ==true) {
             onNavigateOldOrders()
         }
-    }, [loaderOldOrders  === true]);
+    }, [loaderOldOrders === true]);
 
     const startLoadingProducts = () => {
         getProducts();
@@ -109,6 +122,14 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
                     }
                 </View>
                 <LogOut navigation={props.navigation}/>
+                <Modal
+                    // animationType="slide"
+                    transparent={true}
+                    visible={showModal}
+                >
+                    <PermModal setShowModal={setShowModal}/>
+
+                </Modal>
             </View>
         </ImageBackground>
 

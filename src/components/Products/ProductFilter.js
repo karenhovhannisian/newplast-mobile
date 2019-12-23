@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Image, TouchableHighlight, Modal, TouchableOpacity} from 'react-native';
+import { Image, Modal, TouchableOpacity} from 'react-native';
 import styles from "../ProductsNew/styles";
 import Filters from "../Filters";
 

@@ -7,6 +7,7 @@ import cache from "../../Common/Cache";
 function* signIn({User, pass}) {
     cache.setItem("login", pass, function(err) {});
     cache.setItem("user", User, function(err) {});
+
     const bodyFormData = new FormData();
     bodyFormData.append('sl', `j,${User},${pass},perm`);
     try {
@@ -18,8 +19,9 @@ function* signIn({User, pass}) {
             data: bodyFormData
         };
         const response = yield call(axios, options);
-
-        yield put(signInSuccess(response));
+        console.log(response.data, 'respomseData');
+        cache.setItem('mnor', response.data[0].mnor, function (err) {})
+        yield put(signInSuccess(response.data));
     } catch (err) {
         console.log(err);
     }

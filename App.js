@@ -13,7 +13,6 @@ const App = () => {
     return (
             <Provider store={store}>
                 <MainNavigator/>
-
             </Provider>
     )
 };

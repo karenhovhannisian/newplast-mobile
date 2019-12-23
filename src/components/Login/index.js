@@ -26,9 +26,7 @@ const Login = (props) => {
         navigate('Home')
 
     };
-    const onLayout = (e) => {
-
-    };
+    const onLayout = (e) => {};
 
     useEffect(() => {
         spin();

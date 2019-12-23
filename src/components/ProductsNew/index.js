@@ -18,8 +18,6 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import Loader from "react-native-mask-loader/lib";
 import {Badge} from "react-native-elements";
 import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
-import Footer from "../Footer";
-
 
 const Products2 = ({products, selectedProducts, navigates, navigate}) => {
     const spinValue = new Animated.Value(0);

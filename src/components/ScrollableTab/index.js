@@ -20,15 +20,19 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
         </View>
     }
 
-    console.log(confirmOrderSuccess, 'confirmOrderSuccess');
+    console.log(orderDataSuccess, 'confirmOrderSuccess');
 
     const removeSelectedProduct = (elIndex, psize, tab) => {
+
         console.log(tab, 'tab');
         if (orderDataSuccess) {
-            deleteSelectedProduct(elIndex, psize);
-            const newData = orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
-            newData.apr_cank = newData.apr_cank.filter(el => el.aprcod !== elIndex);
-            sendOrderList(newData);
+            const data = orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
+            data.apr_cank = data.apr_cank.filter(el => {
+                return el.aprcod.trim() !== elIndex.trim()
+            });
+            console.log(data, 'newData', elIndex);
+            sendOrderList(data);
+            deleteSelectedProduct(elIndex, psize, tab);
         } else {
             deleteSelectedProduct(elIndex, psize, tab);
         }
@@ -43,7 +47,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
         let data = patcode.reduce(reducer)
 
 
-        console.log(data, 'data')
+        // console.log(data, 'data')
         // if (confirmOrderSuccess && confirmOrderSuccess[0].pstatus===1){
         //     setShowModal(true)
         // }
@@ -195,6 +199,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                         <View style={{
                             flexDirection: 'row-reverse',
                             alignContent: 'flex-end',
+                            marginLeft:40
                         }}>
                             <View>
                                 <View style={{marginTop: 0, marginLeft: 8}}>
@@ -216,10 +221,12 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                         fontSize: 24,
                                         color: '#0A3695',
                                         fontWeight: 'bold',
-                                        left: 20,
+                                        left: 0,
                                         height: 30,
-                                        width: 140
-                                    }}> 570 դրամ</Text>
+                                        width: 120
+                                    }}> {orderDataSuccess && orderDataSuccess[0].sgumar}
+                                        {orderDataSuccess && orderDataSuccess[0].sgumar ? 'դրամ' : ''}
+                                    </Text>
                                 </View>
                                 <View>
                                     <TouchableOpacity
