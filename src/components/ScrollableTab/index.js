@@ -20,9 +20,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
         </View>
     }
 
-    console.log(selectedProducts, 'selectedProducts');
-
-    // console.log(orderDataSuccess[0].apr_cank, 'orderDataSuccess');
+    console.log(confirmOrderSuccess, 'confirmOrderSuccess');
 
     const removeSelectedProduct = (elIndex, psize, tab) => {
         console.log(tab, 'tab');
@@ -37,11 +35,20 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
     };
 
     const confirmOrderData = () => {
-        let data = orderDataSuccess && orderDataSuccess.map(el => {
-            return el.patcod
+        let patcode = orderDataSuccess && orderDataSuccess.map(el => {
+                return el.patcod
+
         });
+        const reducer = (accumulator, currentValue) => accumulator + ',' +  currentValue;
+        let data = patcode.reduce(reducer)
+
+
+        console.log(data, 'data')
+        // if (confirmOrderSuccess && confirmOrderSuccess[0].pstatus===1){
+        //     setShowModal(true)
+        // }
         confirmOrder(data)
-        setShowModal(true)
+
     };
 
     return (
@@ -230,7 +237,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                         <Modal
                             // animationType="slide"
                             transparent={true}
-                            visible={showModal}
+                            visible={confirmOrderSuccess && confirmOrderSuccess[0].pstatus == 1}
                         >
                             <CreateOrderSuccessModal/>
                         </Modal>

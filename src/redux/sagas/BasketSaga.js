@@ -91,7 +91,6 @@ function* confirmOrder({data}) {
             data: bodyFormData
         };
         const response = yield call(axios, options);
-        console.log(response, 'confirmOrderSuccessresponseData')
         yield put(confirmOrderSuccess(response.data));
     } catch (err) {
         console.log(err);
