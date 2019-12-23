@@ -20,16 +20,19 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
         </View>
     }
 
+    console.log(selectedProducts, 'selectedProducts');
+
     // console.log(orderDataSuccess[0].apr_cank, 'orderDataSuccess');
 
     const removeSelectedProduct = (elIndex, psize, tab) => {
+        console.log(tab, 'tab');
         if (orderDataSuccess) {
             deleteSelectedProduct(elIndex, psize);
             const newData = orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
             newData.apr_cank = newData.apr_cank.filter(el => el.aprcod !== elIndex);
             sendOrderList(newData);
         } else {
-            deleteSelectedProduct(elIndex, psize);
+            deleteSelectedProduct(elIndex, psize, tab);
         }
     };
 
@@ -246,7 +249,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    deleteSelectedProduct: (elIndex, psize) => dispatch(deleteSelectedProduct(elIndex, psize)),
+    deleteSelectedProduct: (elIndex, psize, tab) => dispatch(deleteSelectedProduct(elIndex, psize, tab)),
     sendOrderList: (data) => dispatch(sendOrderList(data)),
     confirmOrder: (data) => dispatch(confirmOrder(data)),
 });

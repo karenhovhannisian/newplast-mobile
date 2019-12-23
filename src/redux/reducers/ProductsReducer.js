@@ -44,7 +44,7 @@ const ProductsReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 selectedProducts: state.selectedProducts.filter((el) => {
-                    return (el.aprcod !== action.elIndex) || (el.psize !== action.psize)
+                    return (el.aprcod !== action.elIndex) || (el.psize !== action.psize) || (el.type !== action.tab)
                 })
             };
         case  AD_PRODUCTS:

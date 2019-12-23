@@ -53,7 +53,7 @@ const Debt = (props) => {
                         </Table>
                     </ScrollView>
                 </View>
-                <View style={{marginTop:0,  display:'flex'}}>
+                <View style={{marginTop:'3%',  display:'flex'}}>
                     <Footer navigates={props.navigation} navigate={navigate}/>
                 </View>
             </View>
