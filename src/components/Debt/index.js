@@ -15,6 +15,7 @@ const Debt = (props) => {
     };
 
     return (
+        <>
         <View style={styles.container}>
             <View style={styles.header}>
                 <SearchBar
@@ -51,14 +52,18 @@ const Debt = (props) => {
                                 ))
                             }
                         </Table>
+
                     </ScrollView>
+
                 </View>
-                <View style={{marginTop:'3%',  display:'flex'}}>
-                    <Footer navigates={props.navigation} navigate={navigate}/>
-                </View>
+
             </View>
 
         </View>
+            <View style={{marginTop:'2.5%'}}>
+                <Footer navigates={props.navigation} navigate={navigate}/>
+            </View>
+            </>
     )
 };
 

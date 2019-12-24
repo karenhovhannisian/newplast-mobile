@@ -11,8 +11,8 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
 
     const {navigate} = props.navigation;
 
-    const [showModal, setShowModal] = useState(false)
-    const [mnor, setMnor] = useState(null)
+    const [showModal, setShowModal] = useState(false);
+    const [mnor, setMnor] = useState(null);
 
     useEffect(() => {
         cache.getItem("mnor", function (err, value) {
@@ -26,9 +26,6 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
             onNavigateProducts()
         }
     }, [loaderProducts === true]);
-
-    // console.log(mnor, 'mnor')
-
 
     useEffect(() => {
         if (debtList && loaderDebtList == true) {
@@ -123,7 +120,6 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
                 </View>
                 <LogOut navigation={props.navigation}/>
                 <Modal
-                    // animationType="slide"
                     transparent={true}
                     visible={showModal}
                 >

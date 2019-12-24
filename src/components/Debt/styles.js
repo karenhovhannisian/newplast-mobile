@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#F7F7F9',
         width: '100%',
-        height: 120
+        height: 100
     },
     pickerView: {
         height: 50,

@@ -7,7 +7,6 @@ import {confirmOrder, deleteSelectedProduct, sendOrderList} from "../../redux/ac
 import CreateOrderSuccessModal from "../CreateOrderSuccessModal";
 
 const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, confirmOrder, confirmOrderSuccess, customerName, selectedManager, orderDataSuccess, data, filteredTabs}) => {
-    const [showModal, setShowModal] = useState(false);
 
     if (!filteredTabs.length) {
         return <View style={{justifyContent: 'center', alignItems: 'center', flex: 2}}>
@@ -30,7 +29,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
             data.apr_cank = data.apr_cank.filter(el => {
                 return el.aprcod.trim() !== elIndex.trim()
             });
-            console.log(data, 'newData', elIndex);
+
             sendOrderList(data);
             deleteSelectedProduct(elIndex, psize, tab);
         } else {
@@ -45,9 +44,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
         });
         const reducer = (accumulator, currentValue) => accumulator + ',' +  currentValue;
         let data = patcode.reduce(reducer)
-
-
-        // console.log(data, 'data')
         // if (confirmOrderSuccess && confirmOrderSuccess[0].pstatus===1){
         //     setShowModal(true)
         // }
@@ -242,7 +238,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
                         </View>
                         <Modal
-                            // animationType="slide"
                             transparent={true}
                             visible={confirmOrderSuccess && confirmOrderSuccess[0].pstatus == 1}
                         >

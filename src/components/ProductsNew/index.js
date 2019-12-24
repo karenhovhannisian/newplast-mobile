@@ -19,7 +19,7 @@ import Loader from "react-native-mask-loader/lib";
 import {Badge} from "react-native-elements";
 import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
 
-const Products2 = ({products, selectedProducts, navigates, navigate}) => {
+const Products2 = ({products, selectedProducts}) => {
     const spinValue = new Animated.Value(0);
 
     const carousel = useRef(null);

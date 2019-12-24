@@ -20,16 +20,16 @@ import InputSpinner from "react-native-input-spinner";
 import cache from "../../Common/Cache";
 
 const defaultState = {
-    user:'',
+    user: '',
     pass: ''
-}
+};
 
-cache.getItem("user", function(err, value){
+cache.getItem("user", function (err, value) {
     defaultState.user = value
 });
 
 
-cache.getItem("login", function(err, value){
+cache.getItem("login", function (err, value) {
     defaultState.pass = value
 });
 const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
@@ -74,7 +74,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
             }
         };
         const response = await axios.post(options.url);
-        console.log(response.data)
+        console.log(response.data, "gin")
         setLoaderSizes(false);
         setProductPrice(response.data[0].gin);
         setQuantityPrice(response.data[0].miavor);
@@ -167,9 +167,14 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
         </Modal>
         <View style={itemWidth < 801 ? styles.renderItemContent : styles.renderItemContentResponsive}
               onLayout={onLayout}>
-            <View style={{marginLeft:-70,}}>
+            <View style={{marginLeft: -70,}}>
                 <TouchableOpacity onPress={openImageZoomModal}>
-                    <Image style={itemWidth < 801 ? {width: normalize(100), height: 300, marginTop: 80,marginLeft:150}: {width: normalize(120), height: 320, marginTop: 80,}}
+                    <Image style={itemWidth < 801 ? {
+                        width: normalize(100),
+                        height: 300,
+                        marginTop: 80,
+                        marginLeft: 150
+                    } : {width: normalize(120), height: 320, marginTop: 80,}}
                            source={icon}
                     />
                 </TouchableOpacity>
@@ -206,8 +211,8 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                     <InputSpinner
                         max={9000}
                         width={170}
-                        style={{borderRadius:10, borderColor: '#154CC4'}}
-                        buttonStyle={{ borderColor: '#154CC4'}}
+                        style={{borderRadius: 10, borderColor: '#154CC4'}}
+                        buttonStyle={{borderColor: '#154CC4'}}
                         min={0}
                         step={1}
                         value={count}
@@ -223,10 +228,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                         }}
                     />
                 </View>
-
-
-                        <ProductsCheckBox activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>
-
+                <ProductsCheckBox activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>
                 <View style={styles.costContainer}>
                     <TouchableOpacity onPress={addProduct}
                                       disabled={!canSubmit}
@@ -243,12 +245,12 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
             </View>
         </View>
         {price ?
-        <View style={styles.costCount}>
-            <Text style={styles.costCountText}> {price ? price.split('.0000') : null} <Text style={styles.costCountTexts}>դրամ</Text> </Text>
-        </View>
-        : null}
+            <View style={styles.costCount}>
+                <Text style={styles.costCountText}> {price ? price.split('.0000') : null} <Text
+                    style={styles.costCountTexts}>դրամ</Text> </Text>
+            </View>
+            : null}
     </View>);
-
 };
 
 const mapStateToProps = (state) => ({

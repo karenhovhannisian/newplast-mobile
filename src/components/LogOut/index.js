@@ -17,11 +17,10 @@ const LogOut = ({showModal, attemptLogOut, navigation}) => {
         });
         navigate('Login');
         attemptLogOu()
-    }
+    };
 
     return (
             <Modal
-                // animationType="slide"
                 transparent={true}
                 visible={showModal}
             >
@@ -39,10 +38,8 @@ const LogOut = ({showModal, attemptLogOut, navigation}) => {
                            source={require("./images/cancel.png")}/>
                 </TouchableOpacity>
             </Modal>
-
     )
 };
-
 
 const mapStateToProps = (state) => ({
     showModal: state.AuthReducer.showModal,

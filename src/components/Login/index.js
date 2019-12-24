@@ -6,7 +6,6 @@ import {
     TouchableOpacity,
     ImageBackground,
     Image,
-    Dimensions,
     Animated,
     Easing
 } from 'react-native';
