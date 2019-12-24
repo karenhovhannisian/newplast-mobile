@@ -15,7 +15,7 @@ const Order = (props) => {
     const updateSearch = (search) => {
         setSearch(search);
     };
-    console.log(search, 'search');
+
     return (
         <>
             <View style={styles.container}>
@@ -35,20 +35,10 @@ const Order = (props) => {
                         cancelIcon={null}
                     />
                     <View style={styles.pickerView}>
-                        <Picker
-                            // selectedValue={}
-                            style={{color: '#072C7D', fontSize: 50}}
-                            itemStyle={styles.pickerItemStyle}
-                            onValueChange={(itemValue, itemIndex) =>
-                                this.setState({language: itemValue})
-                            }>
-                            <Picker.Item label="Ժամանակաշրջան" value="Տարածաշրջան"/>
-                            <Picker.Item label="Ժամանակաշրջան" value="Տարածաշրջան"/>
-                        </Picker>
                     </View>
                     <DatePicker
                         style={{width: 200,}}
-                        placeholder={'Ժամանակաշրջան'}
+                        placeholder={'Ժամանակ'}
                         date={date}
                         mode="date"
                         format="YYYY-MM-DD"
@@ -80,7 +70,7 @@ const Order = (props) => {
                     />
                 </View>
                 <View style={styles.containerTable}>
-                    <OrderItem/>
+                    <OrderItem date={date} search={search}/>
                 </View>
             </View>
             <View style={{marginTop:25}}>

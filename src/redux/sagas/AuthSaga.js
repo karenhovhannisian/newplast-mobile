@@ -19,7 +19,6 @@ function* signIn({User, pass}) {
             data: bodyFormData
         };
         const response = yield call(axios, options);
-        console.log(response.data, 'respomseData');
         cache.setItem('mnor', response.data[0].mnor, function (err) {})
         yield put(signInSuccess(response.data));
     } catch (err) {

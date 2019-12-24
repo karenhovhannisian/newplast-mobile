@@ -14,6 +14,10 @@ const Debt = (props) => {
         setSearch(search);
     };
 
+    const filteredDebtList =props.debtList && props.debtList.filter(list => {
+        return list.anun.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    });
+
     return (
         <>
         <View style={styles.container}>
@@ -42,7 +46,7 @@ const Debt = (props) => {
                     <ScrollView style={styles.dataWrapper}>
                         <Table borderStyle={{borderColor: 'white', width: 10}}>
                             {
-                                props.debtList.map((rowData, index,) => (
+                                filteredDebtList && filteredDebtList.map((rowData, index,) => (
                                     <TableWrapper key={index} style={styles.row}>
                                         <Text style={styles.textss}>{rowData.anun}</Text>
                                         <Text style={styles.texts}>{rowData.men}</Text>

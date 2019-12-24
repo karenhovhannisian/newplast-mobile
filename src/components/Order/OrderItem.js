@@ -6,9 +6,15 @@ import {connect} from "react-redux";
 import {getOldOrders} from "../../redux/actions";
 import OrderTableItem from "./OrderTableItem";
 
-const OrderItem = ({oldOrders}) => {
+const OrderItem = ({oldOrders, search, date}) => {
 
     const [tableHead, setTableHead] = useState(['Հաճախորդի անուն', 'կոդ', 'Պատվերի ստեղծման օր', 'Պատվերի կոդ', '']);
+    const filteredOldOrders =oldOrders && oldOrders.filter(list => {
+        return list.gyanun.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+    });
+    // const filteredOldOrders =oldOrders && oldOrders.filter(days => {
+    //     return days.sdate.includes(date) ;
+    // });
 
     return (
         <View style={styles.container}>
@@ -21,7 +27,7 @@ const OrderItem = ({oldOrders}) => {
                     <ScrollView style={styles.dataWrapper}>
                         <Table borderStyle={{borderColor: 'white', width: 10}}>
                             {
-                                oldOrders && oldOrders.map((rowData, index,) => {
+                                filteredOldOrders && filteredOldOrders.map((rowData, index,) => {
                                     return <OrderTableItem index={index} oldOrders={oldOrders} rowData={rowData}/>
                                 })
                             }
@@ -40,6 +46,5 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getOldOrders: () => dispatch(getOldOrders()),
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderItem);

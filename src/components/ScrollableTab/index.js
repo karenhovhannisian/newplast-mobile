@@ -19,18 +19,17 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
         </View>
     }
 
-    console.log(orderDataSuccess, 'confirmOrderSuccess');
+    console.log(orderDataSuccess, 'orderDataSuccess');
 
     const removeSelectedProduct = (elIndex, psize, tab) => {
 
-        console.log(tab, 'tab');
         if (orderDataSuccess) {
             const data = orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
             data.apr_cank = data.apr_cank.filter(el => {
                 return el.aprcod.trim() !== elIndex.trim()
             });
-
-            sendOrderList(data);
+            console.log(data, 'data');
+            sendOrderList([data]);
             deleteSelectedProduct(elIndex, psize, tab);
         } else {
             deleteSelectedProduct(elIndex, psize, tab);
@@ -51,6 +50,9 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
     };
 
+    const orderDataCount = orderDataSuccess && orderDataSuccess.reduce((sum, cur) =>  +sum + +cur.sgumar, 0)
+    const orderDataZgin = orderDataSuccess && orderDataSuccess.reduce((sum, cur) =>  +sum + +cur.zgumar, 0)
+    console.log(orderDataZgin, 'orderDataCount');
     return (
         <ScrollableTabView
             tabBarBackgroundColor={'white'}
@@ -199,8 +201,13 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                         }}>
                             <View>
                                 <View style={{marginTop: 0, marginLeft: 8}}>
-                                    <Text style={{fontSize: 18}}>Գին`</Text>
-                                    <Text style={{fontSize: 18, color: '#F20732'}}>Զեղչված գին`</Text>
+                                    <View>
+                                        <Text style={{fontSize: 18}}>Գին` {orderDataCount ? orderDataCount : ''}
+                                            {orderDataCount ? 'դրամ' : ''}</Text>
+
+                                    </View>
+
+                                    <Text style={{fontSize: 18, color: '#F20732'}}>Զեղչված գին` {orderDataZgin ? orderDataZgin : ''}</Text>
                                 </View>
                                 <View style={{
                                     flexDirection: 'row',
@@ -219,9 +226,9 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                         fontWeight: 'bold',
                                         left: 0,
                                         height: 30,
-                                        width: 120
-                                    }}> {orderDataSuccess && orderDataSuccess[0].sgumar}
-                                        {orderDataSuccess && orderDataSuccess[0].sgumar ? 'դրամ' : ''}
+                                        width: 170,
+                                    }}> {orderDataCount ? orderDataCount-orderDataZgin : ''}
+                                        {orderDataCount ? 'դրամ' : ''}
                                     </Text>
                                 </View>
                                 <View>

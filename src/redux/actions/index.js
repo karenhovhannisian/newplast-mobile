@@ -32,7 +32,10 @@ export {
     CONFIRM_ORDER,
     CONFIRM_ORDER_SUCCESS,
     confirmOrder,
-    confirmOrderSuccess
+    confirmOrderSuccess,
+
+    CLEAR_ORDER_DATA,
+    clearOrderData,
 } from "./basket";
 
 export {
@@ -71,5 +74,8 @@ export {
     getPriceSuccess,
 
     DELETE_SELECTED_PRODUCT,
-    deleteSelectedProduct
+    deleteSelectedProduct,
+
+    CLEAR_SELECTED_PRODUCT,
+    clearSelectedProduct
 } from "./products";

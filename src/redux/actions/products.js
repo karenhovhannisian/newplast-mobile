@@ -24,3 +24,6 @@ export const getPriceSuccess = MakeActionCreator(GET_PRICE_SUCCESS, 'price' );
 
 export const DELETE_SELECTED_PRODUCT = "DELETE_SELECTED_PRODUCT";
 export const deleteSelectedProduct = MakeActionCreator(DELETE_SELECTED_PRODUCT, 'elIndex', 'psize', 'tab' );
+
+export const CLEAR_SELECTED_PRODUCT = "CLEAR_SELECTED_PRODUCT";
+export const clearSelectedProduct = MakeActionCreator(CLEAR_SELECTED_PRODUCT);

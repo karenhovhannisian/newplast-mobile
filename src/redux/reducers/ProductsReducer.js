@@ -4,7 +4,7 @@ import {
     AD_PRODUCTS,
     GET_PRICE_SUCCESS,
     DELETE_SELECTED_PRODUCT,
-    GET_PRODUCTS
+    GET_PRODUCTS, CONFIRM_ORDER_DATA, CLEAR_SELECTED_PRODUCT
 } from "../actions";
 
 const defaultState = {
@@ -51,6 +51,11 @@ const ProductsReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 selectedProducts: [...state.selectedProducts, action.product],
+            };
+        case  CLEAR_SELECTED_PRODUCT:
+            return {
+                ...state,
+                selectedProducts: []
             };
         default:
             return state

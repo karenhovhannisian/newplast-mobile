@@ -64,17 +64,15 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
     };
 
     const getProductPrice = async (value, id) => {
-        console.log(value)
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and p.products_id=${id} and fSTORAGE='111'`,
+            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and p.products_id=${id}`,
             credentials: "include",
             headers: {
                 'Content-Type': "application/json",
             }
         };
         const response = await axios.post(options.url);
-        console.log(response.data, "gin")
         setLoaderSizes(false);
         setProductPrice(response.data[0].gin);
         setQuantityPrice(response.data[0].miavor);

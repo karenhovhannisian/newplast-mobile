@@ -74,7 +74,6 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
 
     const sendOrderData = (itemValue) => {
         setCustomerName(itemValue)
-        console.log(itemValue, 'itemValue');
         let data = [
             filterOrderList.map(el => {
                 return {

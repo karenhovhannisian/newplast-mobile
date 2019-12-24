@@ -73,14 +73,13 @@ function* sendOrderList({data}) {
         const response = yield call(axios, options);
         console.log(response.data, 'res')
         // console.log(response.data, 'responseResult', bodyFormData)
-        yield put(sendOrderListSuccess(response.data));
+        yield put(sendOrderListSuccess(response.data)); //todo fix this part
     } catch (err) {
         console.log(err);
     }
 }
 function* confirmOrder({data}) {
     const bodyFormData = new FormData();
-    console.log(data)
     bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},sev`);
     bodyFormData.append('pc', data);
     try {

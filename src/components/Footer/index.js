@@ -6,8 +6,12 @@ import {getDebtList, getOldOrders, getProducts} from "../../redux/actions";
 
 const Footer = ({navigate, navigates, getDebtList, getOldOrders, getProducts}) => {
     const [itemWidth, setItemWidth] = useState(Dimensions.get('window').width);
+    const onLayout = () => {
+        setItemWidth(Dimensions.get('window').width)
+    };
     return (
-        <View style={itemWidth < 801 ? styles.containers : styles.container}>
+        <View style={itemWidth < 811 ? styles.container : styles.containers}
+              onLayout={onLayout}>
             <TouchableOpacity onPress={() => {
                 getOldOrders()
                 navigate('Order')

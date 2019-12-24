@@ -16,7 +16,6 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
 
     useEffect(() => {
         cache.getItem("mnor", function (err, value) {
-            console.log(value, 'value');
             setMnor(value)
         });
         if (mnor == 7) {
