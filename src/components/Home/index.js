@@ -133,10 +133,6 @@ const Home = ({getOldOrders, oldOrders, getProductsType, getProducts, products, 
                     visible={showModal}
                 >
                     <PermModal setShowModal={setShowModal}/>
-                {/*    const filterProductList = products && products.filter(list => {*/}
-                {/*    // console.log(list, 'list');*/}
-                {/*    return list.pxumb_name.trim().toLowerCase().indexOf(search.toLowerCase()) !== -1;*/}
-                {/*});*/}
                 </Modal>
             </View>
         </ImageBackground>

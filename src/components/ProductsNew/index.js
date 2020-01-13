@@ -8,7 +8,6 @@ import {
     TouchableOpacity,
     Animated,
     Easing,
-    Text
 } from 'react-native';
 import Filters from "../Filters";
 import styles from "./styles";
@@ -16,7 +15,7 @@ import {connect} from "react-redux";
 import ProductItem from "../Products/ProductItem";
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import Loader from "react-native-mask-loader/lib";
-import {Badge} from "react-native-elements";
+import {Badge, SearchBar} from "react-native-elements";
 import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
 
 const Products2 = ({products, selectedProducts}) => {
@@ -27,29 +26,17 @@ const Products2 = ({products, selectedProducts}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [sliderWidth, setSliderWidth] = useState(Dimensions.get('window').width);
-    // const groupBy = (list, keyGetter) => {
-    //     const map = new Map();
-    //     list.forEach((item) => {
-    //         const key = keyGetter(item);
-    //         const collection = map.get(key);
-    //         if (!collection) {
-    //             map.set(key, [item]);
-    //         } else {
-    //             collection.push(item);
-    //         }
-    //     });
-    //     return map;
-    // };
-    //
-    // const pets = products ? products : [];
-    //
-    // const grouped = groupBy(pets, pet => pet.categories_id);
-    // console.log(grouped.get("44"), 'kkkkkkkkkkk');
+    const [search, setSearch] = useState('');
 
+    const filterProductList = products && products.filter(l => l.pxumb_name.trim().toLowerCase().includes(search.toLowerCase()));
 
     const config = {
         velocityThreshold: 0.3,
         directionalOffsetThreshold: 80
+    };
+
+    const updateSearch = (search) => {
+        setSearch(search);
     };
 
     useEffect(() => {
@@ -76,75 +63,108 @@ const Products2 = ({products, selectedProducts}) => {
     if (!products || !products.length) {
         return <Loader/>;
     }
+    if (!filterProductList.length) {
+        return <View style={{width: '100%', height: '91%'}}>
+        <SearchBar
+            containerStyle={{
+                width: '20%',
+                borderRadius: 35,
+                height: 50,
+                backgroundColor: '#f2f2f2',
+                top: -53,
+                right: 180,
+                position: 'absolute',
+                elevation: 5524
+            }}
+            platform='android'
+            onChangeText={updateSearch}
+            value={search}
+            showCancel={true}
+            clearIcon={null}
+            cancelIcon={null}
+        />
+        </View>
+    }
     return (
-
-        <GestureRecognizer
-            onSwipe={() => console.log("onSwipeUp")}
-            onSwipeUp={() => console.log("onSwipeUp")}
-            onSwipeDown={() => console.log("onSwipeDown")}
-            onSwipeLeft={() => currentIndex < products.length && setCurrentIndex(currentIndex + 1)}
-            onSwipeRight={() => currentIndex && setCurrentIndex(currentIndex - 1)}
-            config={config}
-            style={sliderWidth < 800 ? {
-                width: '100%',
-                height: responsiveHeight(81),
-            } : {}}
-        >
-            <Badge
-                value={selectedProducts.length} status="error"
-                containerStyle={{position: 'absolute', top: -50, right: 70, elevation: 24,}}
-            />
-            {/*<Image style={styles.containerC4Image}*/}
-            {/*       source={require("./images/c4.png")}/>*/}
-            <TouchableOpacity
-                style={{position: 'absolute', top: '35%', left: 12, elevation: 50}}
-                onPress={() => currentIndex && setCurrentIndex(currentIndex - 1)}>
-                <Image
-                    source={require("./images/left.png")}/>
-            </TouchableOpacity>
-            <View style={styles.container}>
-
-                <Animated.View style={{
-                    transform: [{translateX: spinValue},
-                        {rotate: interpolatedRotateAnimation}
-                    ]
-                }}>
-                    <ProductItem currentIndex={currentIndex}
-                                 product={{item: products && products[currentIndex], index: currentIndex}}/>
-
-                </Animated.View>
-            </View>
-            <Modal
-                animationType="slide"
-                transparent={false}
-                visible={modalVisible}
+        <>
+            <GestureRecognizer
+                onSwipe={() => console.log("onSwipeUp")}
+                onSwipeUp={() => console.log("onSwipeUp")}
+                onSwipeDown={() => console.log("onSwipeDown")}
+                onSwipeLeft={() => currentIndex <= filterProductList.length && setCurrentIndex(currentIndex + 1)}
+                onSwipeRight={() => currentIndex && setCurrentIndex(currentIndex - 1)}
+                config={config}
+                style={sliderWidth < 800 ? {
+                    width: '100%',
+                    height: responsiveHeight(81),
+                } : {}}
             >
-                <Filters products={products}/>
-                <TouchableHighlight
-                    style={styles.modalVisibleClose}
-                    onPress={() => {
-                        setModalVisible(!modalVisible);
-                    }}
-                >
-                    <Image style={{width: 25, height: 25}}
-                           source={require("./images/close.png")}/>
-                </TouchableHighlight>
-            </Modal>
-            <TouchableOpacity
-                style={{position: 'absolute', top: '35%', right: 12, elevation: 24}}
-                onPress={() => currentIndex < products.length && setCurrentIndex(currentIndex + 1)}>
-                <Image
-                    source={require("./images/right.png")}/>
-            </TouchableOpacity>
+                <Badge
+                    value={selectedProducts.length} status="error"
+                    containerStyle={{position: 'absolute', top: -50, right: 70, elevation: 24,}}
+                />
+                <TouchableOpacity
+                    style={{position: 'absolute', top: '35%', left: 12, elevation: 50}}
+                    onPress={() => currentIndex && setCurrentIndex(currentIndex - 1)}>
+                    <Image
+                        source={require("./images/left.png")}/>
+                </TouchableOpacity>
+                <View style={styles.container}>
+                    <Animated.View style={{
+                        transform: [{translateX: spinValue},
+                            {rotate: interpolatedRotateAnimation}
+                        ]
+                    }
+                    }>
+                        <ProductItem currentIndex={currentIndex}
+                                     product={{
+                                         item: filterProductList && filterProductList[currentIndex],
+                                         index: currentIndex
+                                     }}/>
 
-            {/*<TouchableOpacity  onPress={() => {setModalVisible(!modalVisible)}}*/}
-            {/*    style={styles.modalVisible}*/}
-            {/*>*/}
-            {/*    <Image*/}
-            {/*        style={{width: 100, height: 100}}*/}
-            {/*        source={require("./images/filter.png")}/>*/}
-            {/*</TouchableOpacity>*/}
-        </GestureRecognizer>
+                    </Animated.View>
+                </View>
+                <Modal
+                    animationType="slide"
+                    transparent={false}
+                    visible={modalVisible}
+                >
+                    <TouchableHighlight
+                        style={styles.modalVisibleClose}
+                        onPress={() => {
+                            setModalVisible(!modalVisible);
+                        }}
+                    >
+                        <Image style={{width: 25, height: 25}}
+                               source={require("./images/close.png")}/>
+                    </TouchableHighlight>
+                </Modal>
+                <TouchableOpacity
+                    style={{position: 'absolute', top: '35%', right: 12, elevation: 24}}
+                    onPress={() => currentIndex < products.length && setCurrentIndex(currentIndex + 1)}>
+                    <Image
+                        source={require("./images/right.png")}/>
+                </TouchableOpacity>
+            </GestureRecognizer>
+            <SearchBar
+                containerStyle={{
+                    width: '20%',
+                    borderRadius: 35,
+                    height: 50,
+                    backgroundColor: '#f2f2f2',
+                    top: -53,
+                    right: 180,
+                    position: 'absolute',
+                    elevation: 5524
+                }}
+                platform='android'
+                onChangeText={updateSearch}
+                value={search}
+                showCancel={true}
+                clearIcon={null}
+                cancelIcon={null}
+            />
+        </>
     );
 };
 

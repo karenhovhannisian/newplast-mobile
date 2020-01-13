@@ -68,25 +68,26 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
     const getAvailableTypes = (fCode) => {
         // console.log(fCode, "fcode")
         const defaultTypes = ["Այո","Ոչ"];
-        // productsType.forEach(type => {
-        //   if(type.cank.includes(`${fCode.trim()}`)){
-        //       defaultTypes.push(type.typ)
-        //   }
-        // });
+        productsType.forEach(type => {
+          if(type.cank.includes(`${fCode}`)){
+              defaultTypes.push(type.typ)
+          }
+        });
 
          return defaultTypes;
     };
 
+
+
     const getProductPrice = async (value, id) => {
-        value, id
-        console.log(value, id)
+        const bodyFormData = new FormData();
+        bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and p.products_id=${id}`);
+        console.log(`http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and p.products_id=${id}`)
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and p.products_id=${id}`,
+            url: `http://109.75.42.220/service.php`,
             credentials: "include",
-            headers: {
-                'Content-Type': "application/json",
-            }
+            data: bodyFormData
         };
         const response = await axios.post(options.url);
         console.log(response.data, 'responseDataPrce');
