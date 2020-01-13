@@ -32,7 +32,7 @@ cache.getItem("user", function (err, value) {
 cache.getItem("login", function (err, value) {
     defaultState.pass = value
 });
-const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
+const ProductItem = ({product, addProductToBasket, productsType}) => {
 
     useEffect(() => {
         setProductPrice(null);
@@ -43,13 +43,13 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
         setActiveTypeIndex(null)
         setCount(0)
     }, [product.index]);
-
     const [imageZoom, setImageZoom] = useState(false);
     const [loaderSizes, setLoaderSizes] = useState(false);
     const [activeTypeIndex, setActiveTypeIndex] = useState(null);
     const [productSize, changeProductSize] = useState('');
     const [count, setCount] = useState(0);
     const [productId, setProductId] = useState(null);
+    const [availableTypes, setAvailableTypes] = useState([]);
     const [price, setProductPrice] = useState(null);
     const [marka, setMarka] = useState(null);
     const [quantityPrice, setQuantityPrice] = useState(null);
@@ -63,7 +63,23 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
         setLoaderSizes(true)
     };
 
+    // console.log(productId, 'productId');
+
+    const getAvailableTypes = (fCode) => {
+        // console.log(fCode, "fcode")
+        const defaultTypes = ["Այո","Ոչ"];
+        // productsType.forEach(type => {
+        //   if(type.cank.includes(`${fCode.trim()}`)){
+        //       defaultTypes.push(type.typ)
+        //   }
+        // });
+
+         return defaultTypes;
+    };
+
     const getProductPrice = async (value, id) => {
+        value, id
+        console.log(value, id)
         const options = {
             method: "POST",
             url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and p.products_id=${id}`,
@@ -73,14 +89,18 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
             }
         };
         const response = await axios.post(options.url);
+        console.log(response.data, 'responseDataPrce');
         setLoaderSizes(false);
         setProductPrice(response.data[0].gin);
         setQuantityPrice(response.data[0].miavor);
         setMnac(response.data[0].mnacord);
         setChdzmnac(response.data[0].chdzmnac);
         setProductId(response.data[0].fCODE);
+        setAvailableTypes(getAvailableTypes(response.data[0].fCODE));
         setMarka(response.data[0].marka)
     };
+
+    console.log(price, 'price');
 
     const onLayout = () => {
         setItemWidth(Dimensions.get('window').width)
@@ -226,7 +246,7 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
                         }}
                     />
                 </View>
-                <ProductsCheckBox activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>
+                <ProductsCheckBox availableTypes={availableTypes} activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>
                 <View style={styles.costContainer}>
                     <TouchableOpacity onPress={addProduct}
                                       disabled={!canSubmit}
@@ -253,6 +273,8 @@ const ProductItem = ({product, addProductToBasket, selectedProducts}) => {
 
 const mapStateToProps = (state) => ({
     selectedProducts: state.ProductsReducer.selectedProducts,
+    productsType: state.ProductsReducer.productsType,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({

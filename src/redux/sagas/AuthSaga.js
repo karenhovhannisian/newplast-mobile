@@ -1,10 +1,11 @@
 import {takeLatest, put, call} from "redux-saga/effects";
 import axios from 'axios';
-import {ATTEMPT_SIGN_IN, signInSuccess} from "../actions";
+import {ATTEMPT_SIGN_IN, signInFail, signInSuccess} from "../actions";
 import cache from "../../Common/Cache";
 
 
-function* signIn({User, pass}) {
+function* signIn({User, pass }) {
+
     cache.setItem("login", pass, function(err) {});
     cache.setItem("user", User, function(err) {});
 
@@ -23,6 +24,7 @@ function* signIn({User, pass}) {
         yield put(signInSuccess(response.data));
     } catch (err) {
         console.log(err);
+        yield put(signInFail())
     }
 }
 

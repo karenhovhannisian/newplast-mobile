@@ -15,12 +15,15 @@ export const adProducts = MakeActionCreator(AD_PRODUCTS, 'product' );
 export const AD_PRODUCTS_SUCCESS = "AD_PRODUCTS_SUCCESS";
 export const adProductsSuccess = MakeActionCreator(AD_PRODUCTS_SUCCESS, 'selectedProducts' );
 
+export const GET_PRODUCTS_TYPE = "GET_PRODUCTS_TYPE";
+export const getProductsType = MakeActionCreator(GET_PRODUCTS_TYPE);
+export const GET_PRODUCTS_TYPE_SUCCESS = "GET_PRODUCTS_TYPE_SUCCESS";
+export const getProductsTypeSuccess = MakeActionCreator(GET_PRODUCTS_TYPE_SUCCESS, 'productsType' );
 
 export const GET_PRICE = "GET_PRICE";
 export const getPrice = MakeActionCreator(GET_PRICE,'value', 'productId');
 export const GET_PRICE_SUCCESS = "GET_PRICE_SUCCESS";
 export const getPriceSuccess = MakeActionCreator(GET_PRICE_SUCCESS, 'price' );
-
 
 export const DELETE_SELECTED_PRODUCT = "DELETE_SELECTED_PRODUCT";
 export const deleteSelectedProduct = MakeActionCreator(DELETE_SELECTED_PRODUCT, 'elIndex', 'psize', 'tab' );

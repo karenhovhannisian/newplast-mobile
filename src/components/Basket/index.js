@@ -53,11 +53,11 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
         },
         {
             id: 2,
-            title: 'C4'
+            title: 'Ց4'
         },
         {
             id: 3,
-            title: 'C5'
+            title: 'Ց5'
         }
     ];
 

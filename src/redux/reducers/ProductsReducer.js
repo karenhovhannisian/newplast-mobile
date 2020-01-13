@@ -4,7 +4,7 @@ import {
     AD_PRODUCTS,
     GET_PRICE_SUCCESS,
     DELETE_SELECTED_PRODUCT,
-    GET_PRODUCTS, CONFIRM_ORDER_DATA, CLEAR_SELECTED_PRODUCT
+    GET_PRODUCTS, CONFIRM_ORDER_DATA, CLEAR_SELECTED_PRODUCT, GET_PRODUCTS_TYPE_SUCCESS
 } from "../actions";
 
 const defaultState = {
@@ -12,6 +12,7 @@ const defaultState = {
     products: null,
     balance: [],
     selectedProducts: [],
+    productsType: [],
     price: null,
     elIndex: null
 };
@@ -24,6 +25,11 @@ const ProductsReducer = (state = defaultState, action) => {
                 ...state,
                 loaderProducts: false,
                 products: action.products,
+            };
+        case  GET_PRODUCTS_TYPE_SUCCESS:
+            return {
+                ...state,
+                productsType: action.productsType,
             };
         case  GET_PRODUCTS:
             return {

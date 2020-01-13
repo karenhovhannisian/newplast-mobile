@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator, Modal} from 'react-native';
 import styles from "./styles";
-import {getDebtList, getOldOrders, getProducts} from "../../redux/actions";
+import {attemptLogOut, getDebtList, getOldOrders, getProducts, getProductsType} from "../../redux/actions";
 import {connect} from "react-redux";
 import LogOut from "../LogOut";
 import cache from "../../Common/Cache";
 import PermModal from "../PermModal";
+import store from "../../redux/store";
 
-const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, loaderOldOrders, getDebtList, debtList, loaderDebtList, ...props}) => {
+const Home = ({getOldOrders, oldOrders, getProductsType, getProducts, products, loaderProducts, loaderOldOrders, getDebtList, debtList, loaderDebtList, ...props}) => {
 
     const {navigate} = props.navigation;
 
@@ -21,25 +22,28 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
         if (mnor == 7) {
             setShowModal(true)
         }
-        if (products && loaderProducts == true) {
+        if (products && products.length && !loaderProducts ) {
             onNavigateProducts()
         }
-    }, [loaderProducts === true]);
+    }, [loaderProducts]);
 
     useEffect(() => {
-        if (debtList && loaderDebtList == true) {
+        if (debtList && debtList.length && !loaderDebtList) {
+            console.log(debtList, 'debtList');
             navigate('Debt')
         }
-    }, [loaderDebtList === true]);
+    }, [loaderDebtList]);
 
     useEffect(() => {
-        if (oldOrders && loaderOldOrders ==true) {
+        if (oldOrders && oldOrders.length && !loaderOldOrders) {
+            console.log(oldOrders, 'oldOrders');
             onNavigateOldOrders()
         }
-    }, [loaderOldOrders === true]);
+    }, [loaderOldOrders]);
 
     const startLoadingProducts = () => {
         getProducts();
+        getProductsType()
     };
 
     const onNavigateProducts = () => {
@@ -61,6 +65,12 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
     return (
         <ImageBackground source={require("./images/home.png")}
                          style={{width: '100%', height: '100%', alignItems: 'center'}}>
+            <TouchableOpacity onPress={() => store.dispatch(attemptLogOut())} style={{position: 'absolute', right:5, top: 20}} >
+                <Image
+                    source={require('./images/7777.png')}
+                    style={{ marginRight:30 }}
+                />
+            </TouchableOpacity>
             <View style={{marginTop: 0, left: 0, position: 'absolute'}}>
                 <View style={{marginTop: 40, marginLeft: 40}}>
                     <Text style={{color: 'white', fontSize: 40}}>Բարի Գալուստ</Text>
@@ -123,7 +133,10 @@ const Home = ({getOldOrders, oldOrders, getProducts, products, loaderProducts, l
                     visible={showModal}
                 >
                     <PermModal setShowModal={setShowModal}/>
-
+                {/*    const filterProductList = products && products.filter(list => {*/}
+                {/*    // console.log(list, 'list');*/}
+                {/*    return list.pxumb_name.trim().toLowerCase().indexOf(search.toLowerCase()) !== -1;*/}
+                {/*});*/}
                 </Modal>
             </View>
         </ImageBackground>
@@ -138,12 +151,14 @@ const mapStateToProps = (state) => ({
     loaderOldOrders: state.OrdersReducer.loaderOldOrders,
     debtList: state.DebtReducer.debtList,
     loaderDebtList: state.DebtReducer.loaderDebtList,
+    showFailMessage: state.AuthReducer.showFailMessage,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getProducts: () => dispatch(getProducts()),
     getOldOrders: () => dispatch(getOldOrders()),
     getDebtList: () => dispatch(getDebtList()),
+    getProductsType: () => dispatch(getProductsType()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Home)
 

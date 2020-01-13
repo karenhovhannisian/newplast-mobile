@@ -27,7 +27,6 @@ const Products2 = ({products, selectedProducts}) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [sliderWidth, setSliderWidth] = useState(Dimensions.get('window').width);
-
     // const groupBy = (list, keyGetter) => {
     //     const map = new Map();
     //     list.forEach((item) => {
@@ -86,7 +85,7 @@ const Products2 = ({products, selectedProducts}) => {
             onSwipeLeft={() => currentIndex < products.length && setCurrentIndex(currentIndex + 1)}
             onSwipeRight={() => currentIndex && setCurrentIndex(currentIndex - 1)}
             config={config}
-            style={sliderWidth<800 ?{
+            style={sliderWidth < 800 ? {
                 width: '100%',
                 height: responsiveHeight(81),
             } : {}}
@@ -95,8 +94,8 @@ const Products2 = ({products, selectedProducts}) => {
                 value={selectedProducts.length} status="error"
                 containerStyle={{position: 'absolute', top: -50, right: 70, elevation: 24,}}
             />
-            <Image style={styles.containerC4Image}
-                   source={require("./images/c4.png")}/>
+            {/*<Image style={styles.containerC4Image}*/}
+            {/*       source={require("./images/c4.png")}/>*/}
             <TouchableOpacity
                 style={{position: 'absolute', top: '35%', left: 12, elevation: 50}}
                 onPress={() => currentIndex && setCurrentIndex(currentIndex - 1)}>
@@ -109,14 +108,11 @@ const Products2 = ({products, selectedProducts}) => {
                     transform: [{translateX: spinValue},
                         {rotate: interpolatedRotateAnimation}
                     ]
-                }
-                }>
+                }}>
                     <ProductItem currentIndex={currentIndex}
                                  product={{item: products && products[currentIndex], index: currentIndex}}/>
 
                 </Animated.View>
-
-
             </View>
             <Modal
                 animationType="slide"
@@ -141,15 +137,14 @@ const Products2 = ({products, selectedProducts}) => {
                     source={require("./images/right.png")}/>
             </TouchableOpacity>
 
-            <TouchableOpacity  onPress={() => {setModalVisible(!modalVisible)}}
-                style={styles.modalVisible}
-            >
-                <Image
-                    style={{width: 100, height: 100}}
-                    source={require("./images/filter.png")}/>
-            </TouchableOpacity>
+            {/*<TouchableOpacity  onPress={() => {setModalVisible(!modalVisible)}}*/}
+            {/*    style={styles.modalVisible}*/}
+            {/*>*/}
+            {/*    <Image*/}
+            {/*        style={{width: 100, height: 100}}*/}
+            {/*        source={require("./images/filter.png")}/>*/}
+            {/*</TouchableOpacity>*/}
         </GestureRecognizer>
-
     );
 };
 

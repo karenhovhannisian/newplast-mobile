@@ -20,7 +20,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
     }
 
     console.log(orderDataSuccess, 'orderDataSuccess');
-
     const removeSelectedProduct = (elIndex, psize, tab) => {
 
         if (orderDataSuccess) {
@@ -28,7 +27,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
             data.apr_cank = data.apr_cank.filter(el => {
                 return el.aprcod.trim() !== elIndex.trim()
             });
-            console.log(data, 'data');
             sendOrderList([data]);
             deleteSelectedProduct(elIndex, psize, tab);
         } else {
@@ -52,7 +50,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
     const orderDataCount = orderDataSuccess && orderDataSuccess.reduce((sum, cur) =>  +sum + +cur.sgumar, 0)
     const orderDataZgin = orderDataSuccess && orderDataSuccess.reduce((sum, cur) =>  +sum + +cur.zgumar, 0)
-    console.log(orderDataZgin, 'orderDataCount');
+    console.log(orderDataCount, 'orderDataCount');
     return (
         <ScrollableTabView
             tabBarBackgroundColor={'white'}
@@ -146,14 +144,17 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                                         justifyContent: 'space-between',
                                                         marginTop: 30
                                                     }}>
-                                                        <Text style={{fontSize: 18, color: 'black', width: 150}}>ԶԵղչված
-                                                            Գին՝</Text>
+                                                        <Text style={{fontSize: 18, color: 'black', width: 150}}>
+                                                            {/*ԶԵղչված Գին՝*/}
+                                                        </Text>
                                                         <Text style={{
                                                             fontSize: 18,
                                                             color: '#F20732',
                                                             height: 30,
                                                             width: 120
-                                                        }}> 150 դրամ</Text>
+                                                        }}>
+                                                            {/*150 դրամ*/}
+                                                        </Text>
                                                     </View>
                                                 </View>
                                                 <View style={{
@@ -207,7 +208,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
                                     </View>
 
-                                    <Text style={{fontSize: 18, color: '#F20732'}}>Զեղչված գին` {orderDataZgin ? orderDataZgin : ''}</Text>
+                                    <Text style={{fontSize: 18, color: '#F20732'}}>Զեղչված գումար` {orderDataZgin ? orderDataZgin : ''}</Text>
                                 </View>
                                 <View style={{
                                     flexDirection: 'row',

@@ -1,6 +1,14 @@
 import {takeLatest, put, call} from "redux-saga/effects";
 import axios from 'axios';
-import {GET_BALANCE, GET_PRICE, GET_PRODUCTS, getBalanceSuccess, getPriceSuccess, getProductsSuccess} from "../actions";
+import {
+    GET_BALANCE,
+    GET_PRICE,
+    GET_PRODUCTS,
+    GET_PRODUCTS_TYPE,
+    getBalanceSuccess,
+    getPriceSuccess,
+    getProductsSuccess, getProductsTypeSuccess
+} from "../actions";
 import cache from '../../Common/Cache';
 
 const defaultState = {
@@ -80,7 +88,29 @@ function* getPrice({value, productId}) {
     }
 }
 
+function* getProductsType({}) {
+    try {
+        const bodyFormData = new FormData();
+        bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},ptype`);
+        const options = {
+            method: "POST",
+            url: `http://109.75.42.220/service.php`,
+            credentials: "include",
+            data: bodyFormData,
+            headers:{
+                'Content-Type': "application/json",
+            }
+        };
+        const response = yield call(axios, options);
+        console.log(response.data, 'getprodtyps')
+        yield put(getProductsTypeSuccess(response.data));
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 export default function* sendDataSaga() {
+    yield takeLatest(GET_PRODUCTS_TYPE, getProductsType);
     yield takeLatest(GET_PRODUCTS, getProducts);
     yield takeLatest(GET_BALANCE, getBalance);
     yield takeLatest(GET_PRICE, getPrice);

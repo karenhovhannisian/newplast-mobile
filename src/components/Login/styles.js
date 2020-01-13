@@ -75,6 +75,12 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 25
     },
+    errorMessage: {
+        position: 'absolute',
+        bottom: 35,
+        fontSize: 22,
+        color: "red",
+    }
 });
 
 export default styles

@@ -5,6 +5,8 @@ export {
     attemptSignIn,
     SIGN_IN_SUCCESS,
     signInSuccess,
+    SIGN_IN_FAIL,
+    signInFail,
 
     ATTEMPT_LOG_OUT,
     attemptLogOut,
@@ -77,5 +79,10 @@ export {
     deleteSelectedProduct,
 
     CLEAR_SELECTED_PRODUCT,
-    clearSelectedProduct
+    clearSelectedProduct,
+
+    GET_PRODUCTS_TYPE,
+    GET_PRODUCTS_TYPE_SUCCESS,
+    getProductsType,
+    getProductsTypeSuccess
 } from "./products";

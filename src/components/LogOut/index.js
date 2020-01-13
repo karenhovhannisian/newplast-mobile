@@ -12,8 +12,9 @@ const LogOut = ({showModal, attemptLogOut, navigation}) => {
     };
 
     const clearCache =() => {
-        cache.clearAll( function(err) {
-            console.log(err,'error')
+        cache.removeItem( "login",function(err) {
+        });
+        cache.removeItem( "user",function(err) {
         });
         navigate('Login');
         attemptLogOu()

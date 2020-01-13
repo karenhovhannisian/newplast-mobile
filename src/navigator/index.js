@@ -4,9 +4,6 @@ import {Login, Home, CreateOrder, Products, Basket, Order,Debt, LogOut} from "..
 import {Image, TouchableOpacity} from 'react-native';
 import {attemptLogOut} from "../redux/actions";
 import store from "../redux/store";
-import { Badge } from 'react-native-elements'
-import CreateOrderSuccessModal from "../components/CreateOrderSuccessModal";
-
 
 const Navigator = createStackNavigator({
     Login: {
@@ -30,8 +27,6 @@ const Navigator = createStackNavigator({
         screen: CreateOrder, navigationOptions: ({navigation }) => ({
             title: `Պատվերի ստեղծում`,
             headerStyle: {
-                // backgroundColor: '#f4511e',
-                // height: 80
             },
             headerRight: (
                 <>
@@ -40,10 +35,6 @@ const Navigator = createStackNavigator({
                        source={require('./images/666.png')}
                        style={{  marginRight:50 }}
                      />
-                        {/*<Badge*/}
-                        {/*    value="99+" status="error"*/}
-                        {/*    containerStyle={{ position: 'absolute', top: -4, right: 20 }}*/}
-                        {/*/>*/}
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => store.dispatch(attemptLogOut())}>
                      <Image

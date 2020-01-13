@@ -19,10 +19,12 @@ const Login = (props) => {
     const [loader, setLoader] = useState(false);
     const [pass, onChangePassword] = useState('');
     const {navigate} = props.navigation;
-
+    console.log(props.showFailMessage, 'showFailMessage')
     const handleSubmitPassword = () => {
+        console.log(props.showFailMessage, 'showFailMessage')
         props.signIn(User, pass);
-        navigate('Home')
+
+
 
     };
     const onLayout = (e) => {};
@@ -32,15 +34,16 @@ const Login = (props) => {
         setTimeout(() => {
             setLoader(true)
         }, 2000)
-    },[]);
+    },[]) ;
 
     useEffect(() => {
         cache.getItem("login", function (err, value) {
-            if (value) {
+            console.log(value, 'value')
+            if (!props.showFailMessage) {
                 navigate('Home')
             }
         });
-    });
+    },[props.showFailMessage]);
 
     const spin = () => {
         spinValue.setValue(0)
@@ -97,19 +100,25 @@ const Login = (props) => {
                             color: 'white',
                         }}>ՄՈՒՏՔ</Text>
                     </View>
+
                     <View onLayout={onLayout} style={styles.sectionContainer}>
                         <TextInput
                             placeholder='Անուն'
                             style={styles.loginInput}
                             onChangeText={text => onChangeText(text)}
-                            value={User}
+                            // value={User}
                         />
+
                         <TextInput
                             placeholder='Գաղտնաբառ'
                             style={styles.passwordInput}
                             onChangeText={text => onChangePassword(text)}
-                            value={pass}
+                            // value={pass}
                         />
+                        {
+                            props.showFailMessage ? <Text style={styles.errorMessage}>Ներեցեք,Դուք չունեք օգտվելու իրավասություն</Text> : null
+                        }
+
                         <View onPress={handleSubmitPassword} style={styles.sectionTitle}>
                             <TouchableOpacity onPress={handleSubmitPassword}>
                                 <Image
@@ -128,6 +137,7 @@ const Login = (props) => {
 const mapStateToProps = (state) => ({
     User: state.AuthReducer.User,
     Pass: state.AuthReducer.Pass,
+    showFailMessage: state.AuthReducer.showFailMessage,
 });
 
 const mapDispatchToProps = (dispatch) => ({
