@@ -18,7 +18,6 @@ const OrderHistory = ({ordersData}) => {
         ['Զեղչված գին', `${ordersData.apr_cank[0].zexch}`, ''],
 
     ]);
-
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -61,7 +60,7 @@ const OrderHistory = ({ordersData}) => {
                                     tableData.map((rowData, index,) => (
                                         <TableWrapper key={index} style={styles.row}>
                                             <Text style={styles.texts2}>{rowData.apranun}</Text>
-                                            <Text style={styles.texts1}>{rowData.gumar}</Text>
+                                            <Text style={styles.texts1}>{rowData.psize}</Text>
                                             <Text style={styles.texts1}>{rowData.qanak}</Text>
                                             <Text style={styles.texts1}>{rowData.gin}</Text>
                                         </TableWrapper>

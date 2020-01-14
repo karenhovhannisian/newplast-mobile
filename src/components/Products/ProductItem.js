@@ -18,6 +18,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import axios from "axios";
 import InputSpinner from "react-native-input-spinner";
 import cache from "../../Common/Cache";
+import {put} from "redux-saga/effects";
 
 const defaultState = {
     user: '',
@@ -81,24 +82,27 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
 
     const getProductPrice = async (value, id) => {
         const bodyFormData = new FormData();
-        bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and p.products_id=${id}`);
-        console.log(`http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and p.products_id=${id}`)
+        bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`);
+        console.log(`http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`)
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`,
             credentials: "include",
-            data: bodyFormData
+            // data: bodyFormData
         };
         const response = await axios.post(options.url);
         console.log(response.data, 'responseDataPrce');
-        setLoaderSizes(false);
-        setProductPrice(response.data[0].gin);
-        setQuantityPrice(response.data[0].miavor);
-        setMnac(response.data[0].mnacord);
-        setChdzmnac(response.data[0].chdzmnac);
-        setProductId(response.data[0].fCODE);
-        setAvailableTypes(getAvailableTypes(response.data[0].fCODE));
-        setMarka(response.data[0].marka)
+        if (response.data) {
+            setLoaderSizes(false);
+            setProductPrice(response.data[0].gin);
+            setQuantityPrice(response.data[0].miavor);
+            setMnac(response.data[0].mnacord);
+            setChdzmnac(response.data[0].chdzmnac);
+            setProductId(response.data[0].fCODE);
+            setAvailableTypes(getAvailableTypes(response.data[0].fCODE));
+            setMarka(response.data[0].marka)
+        }
+
     };
 
     console.log(price, 'price');

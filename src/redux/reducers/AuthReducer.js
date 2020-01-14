@@ -26,7 +26,9 @@ const AuthReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 showModal: !state.showModal,
-                showFailMessage: null
+                showFailMessage: null,
+                mnor: '',
+                pass:''
             };
         default:
             return state

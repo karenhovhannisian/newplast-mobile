@@ -4,7 +4,7 @@ import {
     AD_PRODUCTS,
     GET_PRICE_SUCCESS,
     DELETE_SELECTED_PRODUCT,
-    GET_PRODUCTS, CONFIRM_ORDER_DATA, CLEAR_SELECTED_PRODUCT, GET_PRODUCTS_TYPE_SUCCESS
+    GET_PRODUCTS, CONFIRM_ORDER_DATA, CLEAR_SELECTED_PRODUCT, GET_PRODUCTS_TYPE_SUCCESS, ATTEMPT_LOG_OUT
 } from "../actions";
 
 const defaultState = {
@@ -25,6 +25,17 @@ const ProductsReducer = (state = defaultState, action) => {
                 ...state,
                 loaderProducts: false,
                 products: action.products,
+            };
+        case  ATTEMPT_LOG_OUT:
+            return {
+                ...state,
+                loaderProducts: false,
+                products: null,
+                balance: [],
+                selectedProducts: [],
+                productsType: [],
+                price: null,
+                elIndex: null
             };
         case  GET_PRODUCTS_TYPE_SUCCESS:
             return {

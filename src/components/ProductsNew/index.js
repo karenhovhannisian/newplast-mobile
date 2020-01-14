@@ -37,6 +37,7 @@ const Products2 = ({products, selectedProducts}) => {
 
     const updateSearch = (search) => {
         setSearch(search);
+        setCurrentIndex(0);
     };
 
     useEffect(() => {
@@ -91,7 +92,7 @@ const Products2 = ({products, selectedProducts}) => {
                 onSwipe={() => console.log("onSwipeUp")}
                 onSwipeUp={() => console.log("onSwipeUp")}
                 onSwipeDown={() => console.log("onSwipeDown")}
-                onSwipeLeft={() => currentIndex <= filterProductList.length && setCurrentIndex(currentIndex + 1)}
+                onSwipeLeft={() => currentIndex < filterProductList.length-1  && setCurrentIndex(currentIndex + 1)}
                 onSwipeRight={() => currentIndex && setCurrentIndex(currentIndex - 1)}
                 config={config}
                 style={sliderWidth < 800 ? {
@@ -116,11 +117,13 @@ const Products2 = ({products, selectedProducts}) => {
                         ]
                     }
                     }>
+                        {filterProductList[currentIndex] &&
                         <ProductItem currentIndex={currentIndex}
-                                     product={{
-                                         item: filterProductList && filterProductList[currentIndex],
-                                         index: currentIndex
-                                     }}/>
+                                                                         product={{
+                                                                             item: filterProductList && filterProductList[currentIndex],
+                                                                             index: currentIndex
+                                                                         }}/>
+                        }
 
                     </Animated.View>
                 </View>
@@ -141,7 +144,7 @@ const Products2 = ({products, selectedProducts}) => {
                 </Modal>
                 <TouchableOpacity
                     style={{position: 'absolute', top: '35%', right: 12, elevation: 24}}
-                    onPress={() => currentIndex < products.length && setCurrentIndex(currentIndex + 1)}>
+                    onPress={() => currentIndex < filterProductList.length-1 && setCurrentIndex(currentIndex + 1) }>
                     <Image
                         source={require("./images/right.png")}/>
                 </TouchableOpacity>

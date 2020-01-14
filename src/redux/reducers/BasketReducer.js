@@ -1,4 +1,5 @@
 import {
+    ATTEMPT_LOG_OUT,
     CLEAR_ORDER_DATA,
     CONFIRM_ORDER_SUCCESS,
     GET_CUSTOMER_LIST_SUCCESS,
@@ -39,6 +40,14 @@ const BasketReducer = (state = defaultState, action) => {
         case  CLEAR_ORDER_DATA:
             return {
                 ...state,
+                confirmOrderSuccess: null
+            };
+        case  ATTEMPT_LOG_OUT:
+            return {
+                ...state,
+                managerList: null,
+                customerList: null,
+                orderDataSuccess: null,
                 confirmOrderSuccess: null
             };
         default:

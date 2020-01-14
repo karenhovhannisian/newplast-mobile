@@ -1,4 +1,4 @@
-import {GET_DEBT_LIST, GET_DEBT_LIST_SUCCESS} from "../actions";
+import {ATTEMPT_LOG_OUT, GET_DEBT_LIST, GET_DEBT_LIST_SUCCESS} from "../actions";
 
 const defaultState = {
     debtList: [],
@@ -17,6 +17,12 @@ const DebtReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 debtList: action.debtList,
+                loaderDebtList: false
+            };
+        case  ATTEMPT_LOG_OUT:
+            return {
+                ...state,
+                debtList: [],
                 loaderDebtList: false
             };
         default:

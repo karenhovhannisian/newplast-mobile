@@ -1,4 +1,4 @@
-import {GET_OLD_ORDERS, GET_OLD_ORDERS_SUCCESS} from "../actions";
+import {ATTEMPT_LOG_OUT, GET_OLD_ORDERS, GET_OLD_ORDERS_SUCCESS} from "../actions";
 
 const defaultState = {
     oldOrders: null,
@@ -18,6 +18,12 @@ const OrdersReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 loaderOldOrders: true,
+            };
+        case  ATTEMPT_LOG_OUT:
+            return {
+                ...state,
+                oldOrders: null,
+                loaderOldOrders: false,
             };
         default:
             return state

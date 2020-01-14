@@ -102,7 +102,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
                         onValueChange={(itemValue, itemIndex) =>
                             setSelectedManager(itemValue)
                         }>
-                        <Picker.Item key={'unselectable'} label='Մենեջեր' value={0} />
+                        {/*<Picker.Item key={'unselectable'} label='Մենեջեր' value={0} />*/}
                         {managerList && managerList.map(man => {
                             return <Picker.Item  color={'#0A3695'} label = {man.men} value={man.codn} />
                         })}
@@ -118,7 +118,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
                         onValueChange={(itemValue, itemIndex) =>
                             setSelectedCustomers(itemValue)
                         }>
-                        <Picker.Item key={'unselectable'} label='Տարածաշրջան' value={0} />
+                        {/*<Picker.Item key={'unselectable'} label='Տարածաշրջան' value={0} />*/}
                         {
                             keys && keys.map(key => {
                                 return <Picker.Item color={'#0A3695'} label={key} value={key}/>
