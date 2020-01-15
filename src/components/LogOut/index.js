@@ -1,14 +1,18 @@
 import React from "react";
 import {Image, Modal, Text, TouchableOpacity, View} from "react-native";
 import {connect} from "react-redux";
-import {attemptLogOut} from "../../redux/actions";
+import {attemptLogOut, attemptLogOutSuccess} from "../../redux/actions";
 import cache from '../../Common/Cache';
 
-const LogOut = ({showModal, attemptLogOut, navigation}) => {
+const LogOut = ({showModal, attemptLogOut, navigation, attemptLogOutSuccess}) => {
 
     const {navigate} = navigation;
     const attemptLogOu = () => {
         attemptLogOut()
+    };
+
+    const attemptLogO = () => {
+        attemptLogOutSuccess()
     };
 
     const clearCache =() => {
@@ -17,7 +21,8 @@ const LogOut = ({showModal, attemptLogOut, navigation}) => {
         cache.removeItem( "user",function(err) {
         });
         navigate('Login');
-        attemptLogOu()
+        attemptLogOu();
+        attemptLogO()
     };
 
     return (
@@ -34,7 +39,7 @@ const LogOut = ({showModal, attemptLogOut, navigation}) => {
                   </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity onPress={attemptLogOu} style={{position: 'absolute',width:50,height:80, right: 30, alignItems: 'center', marginTop: 30, zIndex:99999}} >
+                <TouchableOpacity onPress={attemptLogO} style={{position: 'absolute',width:50,height:80, right: 30, alignItems: 'center', marginTop: 30, zIndex:99999}} >
                            <Image
                            source={require("./images/cancel.png")}/>
                 </TouchableOpacity>
@@ -47,7 +52,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    attemptLogOut: () => dispatch(attemptLogOut())
+    attemptLogOut: () => dispatch(attemptLogOut()),
+    attemptLogOutSuccess: () => dispatch(attemptLogOutSuccess())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps) (LogOut)

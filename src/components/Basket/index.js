@@ -12,17 +12,9 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
         getCustomerList()
     },[]);
 
-    const [selectedManager, setSelectedManager] = useState('');
-    const [selectedCustomers, setSelectedCustomers] = useState('');
-    const [selectedCustomersName, setSelectedCustomersName] = useState(null);
-    const [customerName, setCustomerName] = useState(null);
-    const [data, setData] = useState(null);
-
-    useEffect(()=> {
-            const grouped = groupBy(pets, pet => pet.aktrg.trim());
-            setSelectedCustomersName(grouped.get(selectedCustomers));
-
-    },[selectedCustomers]);
+    const defaultSelectedManager = managerList && managerList.map(man => {
+        return man.codn
+    });
 
     const groupBy = (list, keyGetter) => {
         const map = new Map();
@@ -42,6 +34,20 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
     const grouped = groupBy(pets, pet => pet.aktrg.trim());
     const keys = [...grouped.keys()];
 
+    const [selectedManager, setSelectedManager] = useState(defaultSelectedManager);
+    const [selectedCustomers, setSelectedCustomers] = useState(keys[0]);
+    const [selectedCustomersName, setSelectedCustomersName] = useState(null);
+    const [customerName, setCustomerName] = useState(null);
+    const [data, setData] = useState(null);
+
+    useEffect(()=> {
+            const grouped = groupBy(pets, pet => pet.aktrg.trim());
+            setSelectedCustomersName(grouped.get(selectedCustomers));
+
+    },[selectedCustomers]);
+
+
+    console.log(selectedManager, 'keys');
     const tabs = [
         {
             id: 0,

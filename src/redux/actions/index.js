@@ -11,7 +11,9 @@ export {
     ATTEMPT_LOG_OUT,
     attemptLogOut,
     attemptLogOutCancel,
-    ATTEMPT_LOG_OUT_CANCEL
+    ATTEMPT_LOG_OUT_CANCEL,
+    ATTEMPT_LOG_OUT_SUCCESS,
+    attemptLogOutSuccess
 } from "./signIn";
 
 

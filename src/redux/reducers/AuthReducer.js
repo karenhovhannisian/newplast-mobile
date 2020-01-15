@@ -1,4 +1,4 @@
-import {ATTEMPT_LOG_OUT, SIGN_IN_FAIL, SIGN_IN_SUCCESS} from "../actions";
+import {ATTEMPT_LOG_OUT, ATTEMPT_LOG_OUT_SUCCESS, SIGN_IN_FAIL, SIGN_IN_SUCCESS} from "../actions";
 
 const defaultState = {
     pass: '',
@@ -25,10 +25,17 @@ const AuthReducer = (state = defaultState, action) => {
             case  ATTEMPT_LOG_OUT:
             return {
                 ...state,
-                showModal: !state.showModal,
+                // showModal: !state.showModal,
                 showFailMessage: null,
                 mnor: '',
                 pass:''
+            };
+            case  ATTEMPT_LOG_OUT_SUCCESS:
+            return {
+                ...state,
+                showModal: !state.showModal,
+                showFailMessage: null,
+
             };
         default:
             return state

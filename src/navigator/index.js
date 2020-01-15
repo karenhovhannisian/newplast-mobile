@@ -2,7 +2,7 @@ import React from "react";
 import {createStackNavigator} from "react-navigation-stack";
 import {Login, Home, CreateOrder, Products, Basket, Order,Debt, LogOut} from "../components";
 import {Image, TouchableOpacity} from 'react-native';
-import {attemptLogOut} from "../redux/actions";
+import {attemptLogOut, attemptLogOutSuccess} from "../redux/actions";
 import store from "../redux/store";
 
 const Navigator = createStackNavigator({
@@ -36,7 +36,7 @@ const Navigator = createStackNavigator({
                        style={{  marginRight:50 }}
                      />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => store.dispatch(attemptLogOut())}>
+                    <TouchableOpacity onPress={() => store.dispatch(attemptLogOutSuccess())}>
                      <Image
                        source={require('./images/7777.png')}
                        style={{ marginRight:30 }}

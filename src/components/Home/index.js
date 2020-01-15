@@ -1,7 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator, Modal} from 'react-native';
 import styles from "./styles";
-import {attemptLogOut, getDebtList, getOldOrders, getProducts, getProductsType} from "../../redux/actions";
+import {
+    attemptLogOut,
+    attemptLogOutSuccess,
+    getDebtList,
+    getOldOrders,
+    getProducts,
+    getProductsType
+} from "../../redux/actions";
 import {connect} from "react-redux";
 import LogOut from "../LogOut";
 import cache from "../../Common/Cache";
@@ -65,7 +72,7 @@ const Home = ({getOldOrders, oldOrders, getProductsType, getProducts, products, 
     return (
         <ImageBackground source={require("./images/home.png")}
                          style={{width: '100%', height: '100%', alignItems: 'center'}}>
-            <TouchableOpacity onPress={() => store.dispatch(attemptLogOut())} style={{position: 'absolute', right:5, top: 20}} >
+            <TouchableOpacity onPress={() => store.dispatch(attemptLogOutSuccess())} style={{position: 'absolute', right:5, top: 20}} >
                 <Image
                     source={require('./images/7777.png')}
                     style={{ marginRight:30 }}

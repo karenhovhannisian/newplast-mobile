@@ -19,15 +19,20 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
         </View>
     }
 
-    console.log(orderDataSuccess, 'orderDataSuccess');
+    // console.log(orderDataSuccess, 'orderDataSuccess');
     const removeSelectedProduct = (elIndex, psize, tab) => {
 
         if (orderDataSuccess) {
             const data = orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
-            data.apr_cank = data.apr_cank.filter(el => {
-                return el.aprcod.trim() !== elIndex.trim()
+            data.apr_cank =data.apr_cank && data.apr_cank.map(el => {
+                if (el.aprcod.trim() === elIndex.trim()) {
+                   el.aprcod = `-${el.aprcod }`
+                }
+                return el
             });
-            sendOrderList([data]);
+
+            console.log(data, 'data');
+            sendOrderList([[data]]);
             deleteSelectedProduct(elIndex, psize, tab);
         } else {
             deleteSelectedProduct(elIndex, psize, tab);
