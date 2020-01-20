@@ -19,13 +19,8 @@ const Login = (props) => {
     const [loader, setLoader] = useState(false);
     const [pass, onChangePassword] = useState('');
     const {navigate} = props.navigation;
-    console.log(props.showFailMessage, 'showFailMessage')
     const handleSubmitPassword = () => {
-        console.log(props.showFailMessage, 'showFailMessage')
         props.signIn(User, pass);
-
-
-
     };
     const onLayout = (e) => {};
 

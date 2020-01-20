@@ -36,14 +36,12 @@ const Home = ({getOldOrders, oldOrders, getProductsType, getProducts, products, 
 
     useEffect(() => {
         if (debtList && debtList.length && !loaderDebtList) {
-            console.log(debtList, 'debtList');
             navigate('Debt')
         }
     }, [loaderDebtList]);
 
     useEffect(() => {
         if (oldOrders && oldOrders.length && !loaderOldOrders) {
-            console.log(oldOrders, 'oldOrders');
             onNavigateOldOrders()
         }
     }, [loaderOldOrders]);

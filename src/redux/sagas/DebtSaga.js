@@ -31,7 +31,8 @@ function* getDebtList({}) {
             data: bodyFormData
         };
         const response = yield call(axios, options);
-        yield put(getDebtListSuccess(response.data.slice(0, 25)));
+        // yield put(getDebtListSuccess(response.data.slice(0, 25)));
+        yield put(getDebtListSuccess(response.data));
     } catch (err) {
         console.log(err);
     }

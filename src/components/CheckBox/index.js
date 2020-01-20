@@ -3,7 +3,6 @@ import {CheckBox} from "react-native-elements";
 import {Text, Image, View} from 'react-native';
 
 const ProductsCheckBox = ({activeTypeIndex, setActiveTypeIndex, availableTypes}) => {
-    // console.log(availableTypes);
     return (
         <View style={{flexDirection: 'row', alignItems: 'center', width: 400, marginTop: 15, marginRight:50}}>
             {availableTypes.map(t =>  <View style={{flexDirection: 'row', alignItems: 'center', width: 90, marginRight: 20}}>

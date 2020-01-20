@@ -6,7 +6,6 @@ import ScrollableTab from "../ScrollableTab";
 import {getCustomerList, getManagerList, sendOrderList} from "../../redux/actions";
 const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, getCustomerList,customerList}) => {
 
-
     useEffect(()=> {
         getManagerList();
         getCustomerList()

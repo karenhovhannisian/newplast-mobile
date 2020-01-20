@@ -71,8 +71,6 @@ function* sendOrderList({data}) {
             data: bodyFormData
         };
         const response = yield call(axios, options);
-        console.log(response.data, 'res')
-        // console.log(response.data, 'responseResult', bodyFormData)
         yield put(sendOrderListSuccess(response.data)); //todo fix this part
     } catch (err) {
         console.log(err);

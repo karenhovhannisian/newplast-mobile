@@ -9,9 +9,9 @@ import OrderTableItem from "./OrderTableItem";
 const OrderItem = ({oldOrders, search, date}) => {
 
     const [tableHead, setTableHead] = useState(['Հաճախորդի անուն', 'կոդ', 'Պատվերի ստեղծման օր', 'Պատվերի կոդ', '']);
-    const filteredOldOrders =oldOrders && oldOrders.filter(list => {
-        return list.gyanun.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-    });
+    const filteredOldOrders = oldOrders && oldOrders.filter(list => list.gyanun.toLowerCase().includes(search.toLowerCase())
+    );
+    // products && products.filter(l => l.pxumb_name.trim().toLowerCase().includes(search.toLowerCase()));
     // const filteredOldOrders =oldOrders && oldOrders.filter(days => {
     //     return days.sdate.includes(date) ;
     // });
