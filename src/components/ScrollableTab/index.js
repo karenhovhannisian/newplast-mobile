@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {ScrollableTabView} from "@valdio/react-native-scrollable-tabview";
 import {Image, Modal, ScrollView, Text, TouchableOpacity, View} from "react-native";
 import styles from "../Basket/styles";
@@ -19,20 +19,29 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
         </View>
     }
 
-    // console.log(orderDataSuccess, 'orderDataSuccess');
+    console.log(orderDataSuccess, 'orderDataSuccess');
     const removeSelectedProduct = (elIndex, psize, tab) => {
 
         if (orderDataSuccess) {
-            const data = orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
-            data.apr_cank =data.apr_cank && data.apr_cank.map(el => {
+            let dataType = orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
+            let type = orderDataSuccess && orderDataSuccess.find(el => el.aah !== tab);
+            let filterId = dataType.apr_cank && dataType.apr_cank.find(el => {
                 if (el.aprcod.trim() === elIndex.trim()) {
-                   el.aprcod = `-${el.aprcod }`
+                    return el
                 }
-                return el
             });
-
-            console.log(data, 'data');
-            sendOrderList([[data]]);
+            let data = [
+                {
+                    id: type.id,
+                },
+                {
+                    id: dataType.id,
+                    apr_cank: [{
+                        lid: `-${filterId.lid}`
+                    }]
+                }
+            ];
+            sendOrderList([data]);
             deleteSelectedProduct(elIndex, psize, tab);
         } else {
             deleteSelectedProduct(elIndex, psize, tab);
@@ -41,10 +50,10 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
     const confirmOrderData = () => {
         let patcode = orderDataSuccess && orderDataSuccess.map(el => {
-                return el.patcod
+            return el.patcod
 
         });
-        const reducer = (accumulator, currentValue) => accumulator + ',' +  currentValue;
+        const reducer = (accumulator, currentValue) => accumulator + ',' + currentValue;
         let data = patcode.reduce(reducer)
         // if (confirmOrderSuccess && confirmOrderSuccess[0].pstatus===1){
         //     setShowModal(true)
@@ -53,8 +62,8 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
     };
 
-    const orderDataCount = orderDataSuccess && orderDataSuccess.reduce((sum, cur) =>  +sum + +cur.sgumar, 0)
-    const orderDataZgin = orderDataSuccess && orderDataSuccess.reduce((sum, cur) =>  +sum + +cur.zgumar, 0)
+    const orderDataCount = orderDataSuccess && orderDataSuccess.reduce((sum, cur) => +sum + +cur.sgumar, 0)
+    const orderDataZgin = orderDataSuccess && orderDataSuccess.reduce((sum, cur) => +sum + +cur.zgumar, 0)
     console.log(orderDataCount, 'orderDataCount');
     return (
         <ScrollableTabView
@@ -176,7 +185,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                                     <Text style={{
                                                         fontSize: 24,
                                                         color: '#0A3695',
-                                                        // left: 158,
                                                         height: 40,
                                                         width: 130
                                                     }}> {element.price ? element.price.split('.0000') : ''}
@@ -203,7 +211,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                         <View style={{
                             flexDirection: 'row-reverse',
                             alignContent: 'flex-end',
-                            marginLeft:40
+                            marginLeft: 40
                         }}>
                             <View>
                                 <View style={{marginTop: 0, marginLeft: 8}}>
@@ -213,7 +221,8 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
                                     </View>
 
-                                    <Text style={{fontSize: 18, color: '#F20732'}}>Զեղչված գումար` {orderDataZgin ? orderDataZgin : ''}</Text>
+                                    <Text style={{fontSize: 18, color: '#F20732'}}>Զեղչված
+                                        գումար` {orderDataZgin ? orderDataZgin : ''}</Text>
                                 </View>
                                 <View style={{
                                     flexDirection: 'row',
@@ -233,7 +242,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                         left: 0,
                                         height: 30,
                                         width: 170,
-                                    }}> {orderDataCount ? orderDataCount-orderDataZgin : ''}
+                                    }}> {orderDataCount ? orderDataCount - orderDataZgin : ''}
                                         {orderDataCount ? 'դրամ' : ''}
                                     </Text>
                                 </View>
@@ -241,7 +250,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                     <TouchableOpacity
                                         disabled={!customerName}
                                         onPress={confirmOrderData}
-                                        style={customerName ? styles.addButton: styles.addButtonDisable}>
+                                        style={customerName ? styles.addButton : styles.addButtonDisable}>
                                         <Text style={styles.addText}>
                                             Հաստատել
                                         </Text>

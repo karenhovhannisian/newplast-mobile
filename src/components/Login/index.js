@@ -39,7 +39,7 @@ const Login = (props) => {
     useEffect(() => {
         cache.getItem("login", function (err, value) {
             console.log(value, 'value')
-            if (!props.showFailMessage) {
+            if (!props.showFailMessage && value) {
                 navigate('Home')
             }
         });

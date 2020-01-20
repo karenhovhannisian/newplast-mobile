@@ -18,7 +18,6 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import axios from "axios";
 import InputSpinner from "react-native-input-spinner";
 import cache from "../../Common/Cache";
-import {put} from "redux-saga/effects";
 
 const defaultState = {
     user: '',
@@ -39,12 +38,16 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
         setProductPrice(null);
         setQuantityPrice(null);
         setMnac(null);
-        setChdzmnac(null)
-        changeProductSize('')
-        setActiveTypeIndex(null)
-        setCount(0)
+        setChdzmnac(null);
+        changeProductSize('');
+        setActiveTypeIndex(null);
+        setCount(0);
+        setGetPriceFailMessage(false)
+        setLoaderSizes(false)
     }, [product.index]);
+
     const [imageZoom, setImageZoom] = useState(false);
+    const [getPriceFailMessage, setGetPriceFailMessage] = useState(false);
     const [loaderSizes, setLoaderSizes] = useState(false);
     const [activeTypeIndex, setActiveTypeIndex] = useState(null);
     const [productSize, changeProductSize] = useState('');
@@ -64,21 +67,16 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
         setLoaderSizes(true)
     };
 
-    // console.log(productId, 'productId');
-
     const getAvailableTypes = (fCode) => {
-        // console.log(fCode, "fcode")
         const defaultTypes = ["Այո","Ոչ"];
         productsType.forEach(type => {
-          if(type.cank.includes(`${fCode}`)){
+            if(type.cank.includes(`${fCode}`)){
               defaultTypes.push(type.typ)
           }
         });
 
          return defaultTypes;
     };
-
-
 
     const getProductPrice = async (value, id) => {
         const bodyFormData = new FormData();
@@ -91,8 +89,8 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
             // data: bodyFormData
         };
         const response = await axios.post(options.url);
-        console.log(response.data, 'responseDataPrce');
         if (response.data) {
+            setGetPriceFailMessage(false);
             setLoaderSizes(false);
             setProductPrice(response.data[0].gin);
             setQuantityPrice(response.data[0].miavor);
@@ -101,11 +99,13 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
             setProductId(response.data[0].fCODE);
             setAvailableTypes(getAvailableTypes(response.data[0].fCODE));
             setMarka(response.data[0].marka)
+        } else{
+            if (response.data === "") {
+                setLoaderSizes(false);
+                setGetPriceFailMessage(true)
+            }
         }
-
     };
-
-    console.log(price, 'price');
 
     const onLayout = () => {
         setItemWidth(Dimensions.get('window').width)
@@ -221,6 +221,9 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
                         textColor={'#072C7D'}
                         rippleCentered={true}
                     />
+                    {
+                        getPriceFailMessage ?  <Text style={{fontSize: 22, marginTop: 45, color: 'red'}}> Սխալ հարցում</Text> : null
+                    }
                     {loaderSizes ? <View style={{width: 10, marginTop: 45}}>
                         <ActivityIndicator size="small" color="#0000ff"/>
                     </View> : null}

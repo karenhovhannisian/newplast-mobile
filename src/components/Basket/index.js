@@ -47,7 +47,6 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
     },[selectedCustomers]);
 
 
-    console.log(selectedManager, 'keys');
     const tabs = [
         {
             id: 0,
@@ -92,7 +91,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
                 }
             }),
         ];
-        setData(data)
+        setData(data);
         sendOrderList(data)
     };
 
