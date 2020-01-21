@@ -28,7 +28,6 @@ cache.getItem("user", function (err, value) {
     defaultState.user = value
 });
 
-
 cache.getItem("login", function (err, value) {
     defaultState.pass = value
 });
@@ -81,7 +80,7 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
     const getProductPrice = async (value, id) => {
         const bodyFormData = new FormData();
         bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`);
-        console.log(`http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`)
+        // console.log(`http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`)
         const options = {
             method: "POST",
             url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`,
@@ -111,29 +110,10 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
         setItemWidth(Dimensions.get('window').width)
     };
 
-    const getImageSource = (id) => {
-        let imageUrl = null;
-        switch (id) {
-            case 0:
-                imageUrl = require('../ProductsNew/images/PEGFPE.jpg');
-                break;
-            case 1:
-                imageUrl = require('../ProductsNew/images/www.jpg');
-                break;
-            case 2:
-                imageUrl = require('../ProductsNew/images/PPRALPEX.jpg');
-                break;
-            case 3:
-                imageUrl = require('../ProductsNew/images/PPRC.jpg');
-                break;
-            case 4:
-                imageUrl = require('../ProductsNew/images/PPRGFPPR.jpg');
-                break;
-            default:
-                imageUrl = require('../ProductsNew/images/www.jpg');
-        }
-        return imageUrl;
-    };
+    const getImageSource = (url) => {
+        const imageUrl = require('../ProductsNew/images/PEGFPE.jpg');
+        return url || imageUrl
+        };
 
     const openImageZoomModal = () => {
         setImageZoom(true)
@@ -163,7 +143,7 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
     };
 
     let data = product && product.item && product.item.sizes.split(',').map(label => ({label, value: label}));
-    let icon = getImageSource(product.index);
+    let icon = getImageSource(product.products_image);
     const arr = [
         {
             width: 300,

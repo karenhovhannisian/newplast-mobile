@@ -9,7 +9,6 @@ import {
     Animated,
     Easing,
 } from 'react-native';
-import Filters from "../Filters";
 import styles from "./styles";
 import {connect} from "react-redux";
 import ProductItem from "../Products/ProductItem";
@@ -17,6 +16,7 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import Loader from "react-native-mask-loader/lib";
 import {Badge, SearchBar} from "react-native-elements";
 import {responsiveHeight, responsiveWidth} from "react-native-responsive-dimensions";
+import cache from "../../Common/Cache";
 
 const Products2 = ({products, selectedProducts}) => {
     const spinValue = new Animated.Value(0);
@@ -27,6 +27,7 @@ const Products2 = ({products, selectedProducts}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [sliderWidth, setSliderWidth] = useState(Dimensions.get('window').width);
     const [search, setSearch] = useState('');
+    const [perm, setPerm] = useState(null);
 
     const filterProductList = products && products.filter(l => l.pxumb_name.trim().toLowerCase().includes(search.toLowerCase()));
 
@@ -47,6 +48,13 @@ const Products2 = ({products, selectedProducts}) => {
             duration: 600
         }).start();
     }, [currentIndex]);
+
+    useEffect(() => {
+        cache.getItem("perm", function (err, value) {
+            setPerm(value)
+        });
+    }, []);
+
     useEffect(() => {
         Animated.timing(spinValue, {
             toValue: 50,
@@ -66,33 +74,36 @@ const Products2 = ({products, selectedProducts}) => {
     }
     if (!filterProductList.length) {
         return <View style={{width: '100%', height: '91%'}}>
-        <SearchBar
-            containerStyle={{
-                width: '20%',
-                borderRadius: 35,
-                height: 50,
-                backgroundColor: '#f2f2f2',
-                top: -53,
-                right: 180,
-                position: 'absolute',
-                elevation: 5524
-            }}
-            platform='android'
-            onChangeText={updateSearch}
-            value={search}
-            showCancel={true}
-            clearIcon={null}
-            cancelIcon={null}
-        />
+            <SearchBar
+                containerStyle={{
+                    width: '20%',
+                    borderRadius: 35,
+                    height: 50,
+                    backgroundColor: '#f2f2f2',
+                    top: -53,
+                    right: 180,
+                    position: 'absolute',
+                    elevation: 5524
+                }}
+                platform='android'
+                onChangeText={updateSearch}
+                value={search}
+                showCancel={true}
+                clearIcon={null}
+                cancelIcon={null}
+            />
         </View>
     }
+
+    const searchPermission = perm && perm.includes('find');
+
     return (
         <>
             <GestureRecognizer
                 onSwipe={() => console.log("onSwipeUp")}
                 onSwipeUp={() => console.log("onSwipeUp")}
                 onSwipeDown={() => console.log("onSwipeDown")}
-                onSwipeLeft={() => currentIndex < filterProductList.length-1  && setCurrentIndex(currentIndex + 1)}
+                onSwipeLeft={() => currentIndex < filterProductList.length - 1 && setCurrentIndex(currentIndex + 1)}
                 onSwipeRight={() => currentIndex && setCurrentIndex(currentIndex - 1)}
                 config={config}
                 style={sliderWidth < 800 ? {
@@ -119,10 +130,10 @@ const Products2 = ({products, selectedProducts}) => {
                     }>
                         {filterProductList[currentIndex] &&
                         <ProductItem currentIndex={currentIndex}
-                                                                         product={{
-                                                                             item: filterProductList && filterProductList[currentIndex],
-                                                                             index: currentIndex
-                                                                         }}/>
+                                     product={{
+                                         item: filterProductList && filterProductList[currentIndex],
+                                         index: currentIndex
+                                     }}/>
                         }
 
                     </Animated.View>
@@ -144,29 +155,33 @@ const Products2 = ({products, selectedProducts}) => {
                 </Modal>
                 <TouchableOpacity
                     style={{position: 'absolute', top: '35%', right: 12, elevation: 24}}
-                    onPress={() => currentIndex < filterProductList.length-1 && setCurrentIndex(currentIndex + 1) }>
+                    onPress={() => currentIndex < filterProductList.length - 1 && setCurrentIndex(currentIndex + 1)}>
                     <Image
                         source={require("./images/right.png")}/>
                 </TouchableOpacity>
             </GestureRecognizer>
-            <SearchBar
-                containerStyle={{
-                    width: '20%',
-                    borderRadius: 35,
-                    height: 50,
-                    backgroundColor: '#f2f2f2',
-                    top: -53,
-                    right: 180,
-                    position: 'absolute',
-                    elevation: 5524
-                }}
-                platform='android'
-                onChangeText={updateSearch}
-                value={search}
-                showCancel={true}
-                clearIcon={null}
-                cancelIcon={null}
-            />
+            {
+                searchPermission ?
+                    <SearchBar
+                        containerStyle={{
+                            width: '20%',
+                            borderRadius: 35,
+                            height: 50,
+                            backgroundColor: '#f2f2f2',
+                            top: -53,
+                            right: 180,
+                            position: 'absolute',
+                            elevation: 5524
+                        }}
+                        platform='android'
+                        onChangeText={updateSearch}
+                        value={search}
+                        showCancel={true}
+                        clearIcon={null}
+                        cancelIcon={null}
+                    /> : null
+            }
+
         </>
     );
 };

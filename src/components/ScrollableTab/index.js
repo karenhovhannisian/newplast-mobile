@@ -29,17 +29,31 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                     return el
                 }
             });
-            let data = [
-                {
-                    id: type.id,
-                },
-                {
-                    id: dataType.id,
-                    apr_cank: [{
-                        lid: `-${filterId.lid}`
-                    }]
-                }
-            ];
+            if (type) {
+                 data = [
+                    {
+                        id: type.id ,
+                    },
+                    {
+                        id: dataType.id,
+                        apr_cank: [{
+                            lid: `-${filterId.lid}`
+                        }]
+                    }
+                ];
+            }
+            else {
+                 data = [
+                    {
+                        id: dataType.id,
+                        apr_cank: [{
+                            lid: `-${filterId.lid}`
+                        }]
+                    }
+                ];
+            }
+
+
             sendOrderList([data]);
             deleteSelectedProduct(elIndex, psize, tab);
         } else {

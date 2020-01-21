@@ -33,7 +33,6 @@ const Home = ({getOldOrders, oldOrders, getProductsType, getProducts, products, 
             onNavigateProducts()
         }
     }, [loaderProducts]);
-
     useEffect(() => {
         if (debtList && debtList.length && !loaderDebtList) {
             navigate('Debt')

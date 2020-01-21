@@ -102,7 +102,6 @@ function* getProductsType({}) {
             }
         };
         const response = yield call(axios, options);
-        console.log(response.data, 'getprodtyps')
         yield put(getProductsTypeSuccess(response.data));
     } catch (err) {
         console.log(err);

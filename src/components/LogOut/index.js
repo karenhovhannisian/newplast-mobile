@@ -20,6 +20,10 @@ const LogOut = ({showModal, attemptLogOut, navigation, attemptLogOutSuccess}) =>
         });
         cache.removeItem( "user",function(err) {
         });
+        cache.removeItem( "perm",function(err) {
+        });
+        cache.removeItem( "mnor",function(err) {
+        });
         navigate('Login');
         attemptLogOu();
         attemptLogO()

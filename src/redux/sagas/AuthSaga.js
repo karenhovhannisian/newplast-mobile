@@ -21,6 +21,7 @@ function* signIn({User, pass }) {
         };
         const response = yield call(axios, options);
         cache.setItem('mnor', response.data[0].mnor, function (err) {})
+        cache.setItem('perm', response.data[0].perm, function (err) {})
         yield put(signInSuccess(response.data));
     } catch (err) {
         console.log(err);
