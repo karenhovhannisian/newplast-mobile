@@ -58,8 +58,10 @@ const ProductsReducer = (state = defaultState, action) => {
                 price: action.price,
             };
         case  DELETE_SELECTED_PRODUCT:
+            console.log(state.selectedProducts, 'state.sels')
             return {
                 ...state,
+
                 selectedProducts: state.selectedProducts.filter((el) => {
                     return (el.aprcod !== action.elIndex) || (el.psize !== action.psize) || (el.type !== action.tab)
                 })

@@ -251,9 +251,9 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
             </View>
         </View>
         {price ?
-            <View style={styles.costCount}>
-                <Text style={styles.costCountText}> {price ? price.split('.0000') : null} <Text
-                    style={styles.costCountTexts}>դրամ</Text> </Text>
+            <View style={itemWidth < 801 ? styles.costCountResponsive : styles.costCount}>
+                <Text style={styles.costCountText}> {price ? price.split('.0000') : null}
+                <Text style={styles.costCountTexts}>դրամ</Text> </Text>
             </View>
             : null}
     </View>);

@@ -10,7 +10,7 @@ const Order = (props) => {
     const {navigate} = props.navigation
 
     const [search, setSearch] = useState('');
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(null);
 
     const updateSearch = (search) => {
         setSearch(search);

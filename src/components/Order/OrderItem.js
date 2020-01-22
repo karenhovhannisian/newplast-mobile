@@ -9,12 +9,14 @@ import OrderTableItem from "./OrderTableItem";
 const OrderItem = ({oldOrders, search, date}) => {
 
     const [tableHead, setTableHead] = useState(['Հաճախորդի անուն', 'կոդ', 'Պատվերի ստեղծման օր', 'Պատվերի կոդ', '']);
-    const filteredOldOrders = oldOrders && oldOrders.filter(list => list.gyanun.toLowerCase().includes(search.toLowerCase())
-    );
-    // products && products.filter(l => l.pxumb_name.trim().toLowerCase().includes(search.toLowerCase()));
-    // const filteredOldOrders =oldOrders && oldOrders.filter(days => {
-    //     return days.sdate.includes(date) ;
-    // });
+    const filteredOldOrders = oldOrders && oldOrders.filter(list => list.gyanun.toLowerCase().includes(search.toLowerCase()));
+    const filteredOldOrdersDate =filteredOldOrders && filteredOldOrders.filter(days => {
+        if (!date) {
+            return days.sdate
+        } else {
+            return days.sdate.includes(date) ;
+        }
+    });
 
     return (
         <View style={styles.container}>
@@ -27,7 +29,7 @@ const OrderItem = ({oldOrders, search, date}) => {
                     <ScrollView style={styles.dataWrapper}>
                         <Table borderStyle={{borderColor: 'white', width: 10}}>
                             {
-                                filteredOldOrders && filteredOldOrders.map((rowData, index,) => {
+                                filteredOldOrdersDate && filteredOldOrdersDate.map((rowData, index,) => {
                                     return <OrderTableItem index={index} oldOrders={oldOrders} rowData={rowData}/>
                                 })
                             }

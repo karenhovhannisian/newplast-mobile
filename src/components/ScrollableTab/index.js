@@ -21,7 +21,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
     const removeSelectedProduct = (elIndex, psize, tab) => {
 
-        if (orderDataSuccess) {
+        if (orderDataSuccess && selectedProducts) {
             let dataType = orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
             let type = orderDataSuccess && orderDataSuccess.find(el => el.aah !== tab);
             let filterId = dataType.apr_cank && dataType.apr_cank.find(el => {

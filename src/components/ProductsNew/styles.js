@@ -156,6 +156,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    costCountResponsive: {
+        position: 'absolute',
+        right: -200,
+        top: 620,
+        height: 60,
+        borderTopLeftRadius: 35,
+        width: 250,
+        textAlign: 'center',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     costCountText: {
         flexDirection: 'row',
         justifyContent: 'center',
