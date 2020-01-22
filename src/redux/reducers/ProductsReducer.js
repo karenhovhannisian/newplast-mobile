@@ -58,7 +58,6 @@ const ProductsReducer = (state = defaultState, action) => {
                 price: action.price,
             };
         case  DELETE_SELECTED_PRODUCT:
-            console.log(state.selectedProducts, 'state.sels')
             return {
                 ...state,
 
