@@ -18,7 +18,6 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
             </Text>
         </View>
     }
-
     const removeSelectedProduct = (elIndex, psize, tab) => {
 
         if (orderDataSuccess && selectedProducts) {

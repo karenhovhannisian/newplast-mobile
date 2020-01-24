@@ -40,7 +40,8 @@ const BasketReducer = (state = defaultState, action) => {
         case  CLEAR_ORDER_DATA:
             return {
                 ...state,
-                confirmOrderSuccess: null
+                confirmOrderSuccess: null,
+                orderDataSuccess: null
             };
         case  ATTEMPT_LOG_OUT:
             return {
