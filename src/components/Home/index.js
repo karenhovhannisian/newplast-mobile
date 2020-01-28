@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator, Modal} from 'react-native';
+import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator, Modal, Dimensions} from 'react-native';
 import styles from "./styles";
 import {
     attemptLogOut,
@@ -18,9 +18,17 @@ import store from "../../redux/store";
 const Home = ({getOldOrders, oldOrders, getProductsType, getProducts, products, loaderProducts, loaderOldOrders, getDebtList, debtList, loaderDebtList, ...props}) => {
 
     const {navigate} = props.navigation;
-
+    const [itemWidth, setItemWidth] = useState(Dimensions.get('window').width);
     const [showModal, setShowModal] = useState(false);
     const [mnor, setMnor] = useState(null);
+
+    useEffect(() => {
+        setItemWidth(Dimensions.get('window').width)
+    }, [Dimensions.get('window').width]);
+
+const onLayout = () => {
+    setItemWidth(Dimensions.get('window').width)
+}
 
     useEffect(() => {
         cache.getItem("mnor", function (err, value) {
@@ -82,7 +90,7 @@ const Home = ({getOldOrders, oldOrders, getProductsType, getProducts, products, 
                 </View>
             </View>
             <View style={styles.container}>
-                <View style={styles.sectionContainer}>
+                <View onLayout={onLayout} style={itemWidth < 801 ? styles.sectionContainerResponsive : styles.sectionContainer}>
 
                     <TouchableOpacity onPress={startLoadingOldOrders}>
                         {loaderOldOrders ? <View style={[styles.containers, styles.horizontal]}>
@@ -98,7 +106,7 @@ const Home = ({getOldOrders, oldOrders, getProductsType, getProducts, products, 
                             />}
                     </TouchableOpacity>
                 </View>
-                <View style={styles.sectionTitle}>
+                <View onLayout={onLayout} style={itemWidth < 801 ? styles.sectionTitleResponsive : styles.sectionTitle}>
                     <TouchableOpacity onPress={startLoadingProducts}>
                         {loaderProducts ? <View style={[styles.containers, styles.horizontal]}>
                                 <ActivityIndicator size="large" color="#0000ff"/>
@@ -115,7 +123,7 @@ const Home = ({getOldOrders, oldOrders, getProductsType, getProducts, products, 
                     </TouchableOpacity>
 
                 </View>
-                <View style={styles.section3}>
+                <View onLayout={onLayout} style={itemWidth < 801 ? styles.section3Responsive : styles.section3}>
                     {loaderDebtList ? <View style={[styles.containers, styles.horizontal]}>
                             <ActivityIndicator size="large" color="#0000ff"/>
                         </View> :
