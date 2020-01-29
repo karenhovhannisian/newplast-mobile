@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Image, Picker, View} from "react-native";
+import {Image, Picker, TouchableOpacity, View} from "react-native";
 import styles from './styles';
 import {SearchBar} from 'react-native-elements';
 import OrderItem from "./OrderItem";
@@ -31,13 +31,13 @@ const Order = (props) => {
                         onChangeText={updateSearch}
                         value={search}
                         showCancel={true}
-                        clearIcon={null}
-                        cancelIcon={null}
+                        clearIcon={true}
+                        cancelIcon={true}
                     />
                     <View style={styles.pickerView}>
                     </View>
                     <DatePicker
-                        style={{width: 200,}}
+                        style={{width: 200}}
                         placeholder={'Ժամանակ'}
                         date={date}
                         mode="date"
@@ -68,7 +68,13 @@ const Order = (props) => {
                             setDate(date)
                         }}
                     />
+                    {date ? <TouchableOpacity style={{right:10, position: 'absolute'}} onPress={() => {setDate(null)}}>
+                        <Image style={{width: 20, height: 20}}
+                               source={require("./images/Closeess.png")}/>
+                    </TouchableOpacity> : null}
+
                 </View>
+
                 <View style={styles.containerTable}>
                     <OrderItem date={date} search={search}/>
                 </View>

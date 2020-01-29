@@ -177,8 +177,8 @@ const Products2 = ({products, selectedProducts}) => {
                         onChangeText={updateSearch}
                         value={search}
                         showCancel={true}
-                        clearIcon={null}
-                        cancelIcon={null}
+                        clearIcon={true}
+                        cancelIcon={true}
                     /> : null
             }
 

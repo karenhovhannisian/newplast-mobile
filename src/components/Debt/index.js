@@ -33,8 +33,8 @@ const Debt = (props) => {
                     onChangeText={updateSearch}
                     value={search}
                     showCancel={true}
-                    clearIcon={null}
-                    cancelIcon={null}
+                    clearIcon={true}
+                    cancelIcon={true}
                 />
             </View>
             <View style={styles.containerTable}>

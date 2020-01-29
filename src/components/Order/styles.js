@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
     pickerView: {
         height: 50,
-        width: '20%',
+        width: '40%',
         borderRadius: 35,
         marginLeft:'1%'
     },
