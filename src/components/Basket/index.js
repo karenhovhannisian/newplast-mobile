@@ -84,7 +84,14 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
                     sdate: new Date(),
                     gycod: itemValue ? itemValue.trim() : '',
                     aah: el[0].type,
-                    apr_cank: el
+                    apr_cank: el && el.map(e => {
+                        return {
+                            aprcod: e.aprcod,
+                            lid: e.lid,
+                            qanak: e.qanak
+                        }
+                        }
+                    )
                 }
             }),
         ];
