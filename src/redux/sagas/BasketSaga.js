@@ -9,7 +9,7 @@ import {
     sendOrderListSuccess
 } from "../actions";
 import cache from "../../Common/Cache";
-
+import constants from "../../configs/contsants";
 
 const defaultState = {
     pass: null,
@@ -31,7 +31,7 @@ function* getManagerList({}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData
         };
@@ -48,7 +48,7 @@ function* getCustomerList({}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData
         };
@@ -66,7 +66,7 @@ function* sendOrderList({data}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData
         };
@@ -83,7 +83,7 @@ function* confirmOrder({data}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData
         };

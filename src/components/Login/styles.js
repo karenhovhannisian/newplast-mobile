@@ -63,6 +63,18 @@ const styles = StyleSheet.create({
         fontSize: 20,
 
     },
+
+    passwordInputError: {
+        width: responsiveWidth(35),
+        height: responsiveHeight(8),
+        borderColor: 'red',
+        backgroundColor: '#F2F2F2',
+        borderWidth: 1,
+        borderRadius: 25,
+        marginBottom: 50,
+        fontSize: 20,
+
+    },
     loginInput: {
         width: responsiveWidth(35),
         height: responsiveHeight(8),
@@ -71,6 +83,18 @@ const styles = StyleSheet.create({
         marginBottom:20,
         fontSize: 20,
         borderColor: '#F2F2F2',
+        backgroundColor: '#F2F2F2',
+        borderWidth: 1,
+        borderRadius: 25
+    },
+    loginInputError: {
+        width: responsiveWidth(35),
+        height: responsiveHeight(8),
+        color: "black",
+        marginTop: 60,
+        marginBottom:20,
+        fontSize: 20,
+        borderColor: 'red',
         backgroundColor: '#F2F2F2',
         borderWidth: 1,
         borderRadius: 25

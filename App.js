@@ -1,4 +1,5 @@
 import React from 'react';
+import {WebView} from 'react-native';
 import {createAppContainer} from 'react-navigation';
 import store from "./src/redux/store";
 import Navigator from "./src/navigator";
@@ -9,9 +10,10 @@ const MainNavigator = createAppContainer(Navigator);
 
 const App = () => {
     return (
-            <Provider store={store}>
-                <MainNavigator/>
-            </Provider>
+        <WebView/>
+            // <Provider store={store}>
+            //     <MainNavigator/>
+            // </Provider>
     )
 };
 

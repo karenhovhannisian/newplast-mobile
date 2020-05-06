@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator, Modal, Dimensions} from 'react-native';
+import {View, Text, Image, ImageBackground, TouchableOpacity, ActivityIndicator, Modal, Dimensions, BackHandler} from 'react-native';
 import styles from "./styles";
 import {
     attemptLogOut,
@@ -22,11 +22,23 @@ const Home = ({getOldOrders, oldOrders, getProductsType, getProducts, products, 
     const [showModal, setShowModal] = useState(false);
     const [mnor, setMnor] = useState(null);
 
+
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress',() => {return true} );
+
+        return () => {
+            BackHandler.addEventListener('hardwareBackPress', () => {return true});
+
+        }
+    }, []);
+
+
     useEffect(() => {
         setItemWidth(Dimensions.get('window').width)
     }, [Dimensions.get('window').width]);
 
-const onLayout = () => {
+    const onLayout = () => {
     setItemWidth(Dimensions.get('window').width)
 }
 

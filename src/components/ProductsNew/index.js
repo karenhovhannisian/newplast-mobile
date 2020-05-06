@@ -89,13 +89,14 @@ const Products2 = ({products, selectedProducts}) => {
                 onChangeText={updateSearch}
                 value={search}
                 showCancel={true}
-                clearIcon={null}
-                cancelIcon={null}
+                clearIcon={true}
+                cancelIcon={true}
             />
         </View>
     }
 
     const searchPermission = perm && perm.includes('find');
+    const addProductPermission = perm && perm.includes('dit');
 
     return (
         <>
@@ -130,6 +131,7 @@ const Products2 = ({products, selectedProducts}) => {
                     }>
                         {filterProductList[currentIndex] &&
                         <ProductItem currentIndex={currentIndex}
+                                     addProductPermission={addProductPermission}
                                      product={{
                                          item: filterProductList && filterProductList[currentIndex],
                                          index: currentIndex

@@ -5,6 +5,7 @@ import {
     getDebtListSuccess,
 } from "../actions";
 import cache from "../../Common/Cache";
+import constants from "../../configs/contsants";
 
 const defaultState = {
     pass: null,
@@ -26,7 +27,7 @@ function* getDebtList({}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData
         };

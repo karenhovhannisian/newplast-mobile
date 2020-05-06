@@ -10,6 +10,7 @@ import {
     getProductsSuccess, getProductsTypeSuccess
 } from "../actions";
 import cache from '../../Common/Cache';
+import constants from "../../configs/contsants";
 
 const defaultState = {
     pass: null,
@@ -31,7 +32,7 @@ function* getProducts({}) {
         bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},mxumb`);
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData,
             headers:{
@@ -51,7 +52,7 @@ function* getBalance({}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData,
             headers:{
@@ -73,7 +74,7 @@ function* getPrice({value, productId}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData,
             headers:{
@@ -94,7 +95,7 @@ function* getProductsType({}) {
         bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},ptype`);
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData,
             headers:{

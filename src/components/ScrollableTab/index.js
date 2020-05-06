@@ -73,8 +73,8 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
 
     };
 
-    const orderDataCount = orderDataSuccess && orderDataSuccess.reduce((sum, cur) => +sum + +cur.sgumar, 0)
-    const orderDataZgin = orderDataSuccess && orderDataSuccess.reduce((sum, cur) => +sum + +cur.zgumar, 0)
+    const orderDataCount = orderDataSuccess && orderDataSuccess.reduce((sum, cur) => +sum + +cur.sgumar, 0);
+    const orderDataZgin = orderDataSuccess && orderDataSuccess.reduce((sum, cur) => +sum + +cur.zgumar, 0);
     return (
         <ScrollableTabView
             tabBarBackgroundColor={'white'}
@@ -98,7 +98,7 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                 {selectedProducts && selectedProducts.filter(p => p.type === tab.title).map((element, elIndex) => {
                                     return <View style={styles.content1}>
                                         <Image style={{width: 120, height: 100, marginLeft: 10}}
-                                               source={require('./images/www.jpg')}
+                                               source={{uri: element.imgUrl}}
                                         />
                                         <View style={{
                                             width: '80%',
@@ -226,13 +226,14 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                             <View>
                                 <View style={{marginTop: 0, marginLeft: 8}}>
                                     <View>
-                                        <Text style={{fontSize: 18}}>Գին` {orderDataCount ? orderDataCount : ''}
-                                            {orderDataCount ? 'դրամ' : ''}</Text>
+                                        <Text style={{fontSize: 18}}>Գին` {orderDataCount ? orderDataCount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : ''}
+                                            {orderDataCount ? 'դ.' : ''}</Text>
 
                                     </View>
 
                                     <Text style={{fontSize: 18, color: '#F20732'}}>Զեղչված
-                                        գումար` {orderDataZgin ? orderDataZgin : ''}</Text>
+                                        գումար` {orderDataZgin ? orderDataZgin.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : ''}
+                                        {orderDataZgin ? 'դ.' : ''}</Text>
                                 </View>
                                 <View style={{
                                     flexDirection: 'row',
@@ -249,11 +250,11 @@ const ScrollableTab = ({selectedProducts, deleteSelectedProduct, sendOrderList, 
                                         fontSize: 24,
                                         color: '#0A3695',
                                         fontWeight: 'bold',
-                                        left: 0,
-                                        height: 30,
-                                        width: 170,
-                                    }}> {orderDataCount ? orderDataCount - orderDataZgin : ''}
-                                        {orderDataCount ? 'դրամ' : ''}
+                                        // left: 0,
+                                        // height: 30,
+                                        width: 'auto',
+                                    }}> {orderDataCount ? (orderDataCount - orderDataZgin).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') : ''}
+                                        {orderDataCount ? 'դ.' : ''}
                                     </Text>
                                 </View>
                                 <View>

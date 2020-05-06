@@ -18,6 +18,7 @@ import ImageViewer from 'react-native-image-zoom-viewer';
 import axios from "axios";
 import InputSpinner from "react-native-input-spinner";
 import cache from "../../Common/Cache";
+import constants from "../../configs/contsants";
 
 const defaultState = {
     user: '',
@@ -31,7 +32,7 @@ cache.getItem("user", function (err, value) {
 cache.getItem("login", function (err, value) {
     defaultState.pass = value
 });
-const ProductItem = ({product, addProductToBasket, productsType}) => {
+const ProductItem = ({product, addProductToBasket, productsType, addProductPermission}) => {
 
     useEffect(() => {
         setProductPrice(null);
@@ -80,10 +81,9 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
     const getProductPrice = async (value, id) => {
         const bodyFormData = new FormData();
         bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`);
-        // console.log(`http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`)
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`,
+            url: `${constants.apiUrl}?sl=j,${defaultState.user},${defaultState.pass},apr_mnacs, where psize=N'${value}' and products_id=${id}`,
             credentials: "include",
             // data: bodyFormData
         };
@@ -130,7 +130,8 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
                 psize: productSize,
                 type: activeTypeIndex,
                 quantityPrice: quantityPrice,
-                lid: 0
+                lid: 0,
+                imgUrl: icon
             }
         );
         setProductPrice(null);
@@ -143,13 +144,19 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
     };
 
     let data = product && product.item && product.item.sizes.split(',').map(label => ({label, value: label}));
-    let icon = getImageSource(product.products_image);
+    let icon = getImageSource(product.item.products_image);
     const arr = [
         {
-            width: 300,
-            height: 300,
+            url: icon,
             props: {
-                source: icon
+                // headers: ...
+            }
+        },
+        {
+            width: 350,
+            height: 350,
+            props: {
+                url: icon,
             }
         },
     ];
@@ -177,8 +184,8 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
                         height: 300,
                         marginTop: 80,
                         marginLeft: 150
-                    } : {width: normalize(120), height: 320, marginTop: 80,}}
-                           source={icon}
+                    } : {width: normalize(120), height: 380, marginTop: 50,}}
+                           source={{uri: icon}}
                     />
                 </TouchableOpacity>
             </View>
@@ -214,7 +221,7 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
                     <Text style={styles.balanceText}>Չձևակերպված մնացորդ՝ {chdzmnac ? chdzmnac : ''} </Text>
                 </View>
                 <View style={{marginTop: 15}}>
-                    <InputSpinner
+                    {!addProductPermission &&   <InputSpinner
                         max={9000}
                         width={170}
                         style={{borderRadius: 10, borderColor: '#154CC4'}}
@@ -232,11 +239,11 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
                         onChange={(num) => {
                             setCount(num);
                         }}
-                    />
+                    />}
                 </View>
-                <ProductsCheckBox availableTypes={availableTypes} activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>
+                {!addProductPermission && <ProductsCheckBox availableTypes={availableTypes} activeTypeIndex={activeTypeIndex} setActiveTypeIndex={setActiveTypeIndex}/>}
                 <View style={styles.costContainer}>
-                    <TouchableOpacity onPress={addProduct}
+                    {!addProductPermission && <TouchableOpacity onPress={addProduct}
                                       disabled={!canSubmit}
                                       style={canSubmit ? styles.addToCartButton : styles.addToCartButtonOp}>
                         <Text style={styles.addToCartText}>
@@ -246,7 +253,7 @@ const ProductItem = ({product, addProductToBasket, productsType}) => {
                         <Image
                             style={styles.addToCartImg}
                             source={require("../ProductsNew/images/shoping.png")}/>
-                    </TouchableOpacity>
+                    </TouchableOpacity>}
                 </View>
             </View>
         </View>

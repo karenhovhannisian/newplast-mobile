@@ -13,14 +13,29 @@ import styles from './styles';
 import {connect} from 'react-redux';
 import {attemptSignIn} from "../../redux/actions";
 import cache from "../../Common/Cache";
+import Home from "../Home";
 
 const Login = (props) => {
     const [User, onChangeText] = useState('');
     const [loader, setLoader] = useState(false);
+    const [loginErrorMessage, setLoginErrorMessage] = useState(false);
+    const [passwordErrorMessage, setPasswordErrorMessage] = useState(false);
     const [pass, onChangePassword] = useState('');
     const {navigate} = props.navigation;
     const handleSubmitPassword = () => {
-        props.signIn(User, pass);
+        if (User === '' ) {
+            setLoginErrorMessage(true)
+        } else if ( pass===''){
+            setPasswordErrorMessage(true)
+        } else if (User === '' && pass===''){
+            setLoginErrorMessage(true)
+            setPasswordErrorMessage(true)
+        } else {
+            setLoginErrorMessage(false)
+            setPasswordErrorMessage(false)
+            props.signIn(User, pass);
+        }
+
     };
     const onLayout = (e) => {};
 
@@ -39,6 +54,9 @@ const Login = (props) => {
         });
     },[props.showFailMessage]);
 
+    useEffect(() => {
+    },[props.navigation.state.routeName]);
+
     const spin = () => {
         spinValue.setValue(0)
         Animated.timing(
@@ -49,18 +67,14 @@ const Login = (props) => {
                 easing: Easing.linear
             }
         ).start(() => spin())
-    }
+    };
 
     const spinValue = new Animated.Value(0)
-
-
 
     const spins = spinValue.interpolate({
         inputRange: [0, 1],
         outputRange: ['0deg', '360deg']
-    })
-
-
+    });
 
     return (
         <>
@@ -101,21 +115,22 @@ const Login = (props) => {
                     <View onLayout={onLayout} style={styles.sectionContainer}>
                         <TextInput
                             placeholder='Անուն'
-                            style={styles.loginInput}
+                            onBlur={() => setLoginErrorMessage(false)}
+                            style={loginErrorMessage ? styles.loginInputError : styles.loginInput}
                             onChangeText={text => onChangeText(text)}
                             // value={User}
                         />
-
                         <TextInput
                             placeholder='Գաղտնաբառ'
-                            style={styles.passwordInput}
+                            onBlur={() => setPasswordErrorMessage(false)}
+                            style={passwordErrorMessage ? styles.passwordInputError:styles.passwordInput}
+                            secureTextEntry={true}
                             onChangeText={text => onChangePassword(text)}
                             // value={pass}
                         />
                         {
                             props.showFailMessage ? <Text style={styles.errorMessage}>Ներեցեք,Դուք չունեք օգտվելու իրավասություն</Text> : null
                         }
-
                         <View onPress={handleSubmitPassword} style={styles.sectionTitle}>
                             <TouchableOpacity onPress={handleSubmitPassword}>
                                 <Image

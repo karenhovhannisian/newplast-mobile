@@ -2,6 +2,7 @@ import {takeLatest, put, call} from "redux-saga/effects";
 import axios from 'axios';
 import { getOldOrdersSuccess,GET_OLD_ORDERS} from "../actions";
 import cache from "../../Common/Cache";
+import constants from "../../configs/contsants";
 
 const defaultState = {
     pass: null,
@@ -23,7 +24,7 @@ function* getOldOrders({}) {
     try {
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData
         };

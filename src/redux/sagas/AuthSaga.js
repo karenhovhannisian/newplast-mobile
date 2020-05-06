@@ -2,7 +2,7 @@ import {takeLatest, put, call} from "redux-saga/effects";
 import axios from 'axios';
 import {ATTEMPT_SIGN_IN, signInFail, signInSuccess} from "../actions";
 import cache from "../../Common/Cache";
-
+import constants from "../../configs/contsants";
 
 function* signIn({User, pass }) {
 
@@ -15,7 +15,7 @@ function* signIn({User, pass }) {
 
         const options = {
             method: "POST",
-            url: `http://109.75.42.220/service.php`,
+            url: `${constants.apiUrl}`,
             credentials: "include",
             data: bodyFormData
         };

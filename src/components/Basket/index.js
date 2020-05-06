@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View, Picker, Image, Text, Modal, TouchableOpacity} from 'react-native';
+import {View, Picker, ActivityIndicator,TextInput,Text} from 'react-native';
 import styles from './styles';
 import {connect} from "react-redux";
 import ScrollableTab from "../ScrollableTab";
 import {getCustomerList, getManagerList, sendOrderList} from "../../redux/actions";
+import {SearchBar} from "react-native-elements";
+
 const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, getCustomerList,customerList}) => {
 
     useEffect(()=> {
@@ -37,12 +39,15 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
     const [selectedCustomersName, setSelectedCustomersName] = useState(null);
     const [customerName, setCustomerName] = useState(null);
     const [data, setData] = useState(null);
+    const [search, setSearch] = useState('');
+
     useEffect(()=> {
             const grouped = groupBy(pets, pet => pet.aktrg.trim());
             setSelectedCustomersName(grouped.get(selectedCustomers));
 
     },[selectedCustomers]);
 
+    const filterSelectedCustomersName = selectedCustomersName && selectedCustomersName.filter(l => l.anun.trim().toLowerCase().includes(search.toLowerCase()));
 
     const tabs = [
         {
@@ -78,6 +83,7 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
         setCustomerName(itemValue)
         let data = [
             filterOrderList.map(el => {
+                console.log(el, "el");
                 return {
                     men: selectedManager,
                     id: 0,
@@ -88,7 +94,8 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
                         return {
                             aprcod: e.aprcod,
                             lid: e.lid,
-                            qanak: e.qanak
+                            qanak: e.qanak,
+                            marka: e.marka
                         }
                         }
                     )
@@ -98,6 +105,11 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
         setData(data);
         sendOrderList(data)
     };
+
+    const updateSearch = (search) => {
+        setSearch(search);
+    };
+
 
     return (
         <>
@@ -118,37 +130,57 @@ const Basket = ({selectedProducts, managerList, getManagerList, sendOrderList, g
 
                     </Picker>
                 </View>
-                <View style={styles.pickerView2}>
-                    <Picker
-                        mode={"dropdown"}
-                        selectedValue={selectedCustomers}
-                        style={{color: '#0A3695',}}
-                        itemStyle={{fontSize: 30, color:  'red'}}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setSelectedCustomers(itemValue)
-                        }>
-                        {/*<Picker.Item key={'unselectable'} label='Տարածաշրջան' value={0} />*/}
-                        {
-                            keys && keys.map(key => {
-                                return <Picker.Item color={'#0A3695'} label={key} value={key}/>
-                            })
-                        }
+                <View style={styles.pickerView2}>{
+                    !keys ?   <View style={[styles.containers, styles.horizontal]}>
+                        <ActivityIndicator size="small" color="#0000ff"/>
+                    </View> : <Picker
+                    mode={"dropdown"}
+                    selectedValue={selectedCustomers}
+                    style={{color: '#0A3695',}}
+                    itemStyle={{fontSize: 30, color:  'red'}}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setSelectedCustomers(itemValue)
+                    }>
+                    {
+                        keys && keys.map(key => {
+                            return <Picker.Item color={'#0A3695'} label={key} value={key}/>
+                        })
+                    }
 
                     </Picker>
+                }
+
                 </View>
                 <View style={styles.pickerView}>
+
                     <Picker
                         selectedValue={customerName}
                         style={{color: '#0A3695', fontSize: 40}}
                         itemStyle={styles.pickerItemStyle}
                         onValueChange={(itemValue, itemIndex) => sendOrderData(itemValue)}>
                         <Picker.Item key={'unselectable'} label='Հաճախորդ' value={0} />
+
                         {
-                            selectedCustomersName && selectedCustomersName.map(cus => {
+                            filterSelectedCustomersName && filterSelectedCustomersName.map(cus => {
                                 return <Picker.Item color={'#0A3695'} label={cus.anun} value={cus.fCODE}/>
                             })
                         }
                     </Picker>
+                </View>
+                <View  style={styles.pickerView22}>
+                    <SearchBar
+                    containerStyle={{
+                        width: '100%',
+                        borderRadius: 10,
+                        height: 50,
+                    }}
+                    platform='android'
+                    onChangeText={updateSearch}
+                    value={search}
+                    showCancel={true}
+                    clearIcon={true}
+                    cancelIcon={true}
+                />
                 </View>
             </View>: null}
         <ScrollableTab
