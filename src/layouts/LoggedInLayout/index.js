@@ -1,26 +1,19 @@
-import React, {useEffect} from "react";
-import {View} from "react-native";
-import cache from "../../Common/Cache";
+import React, {useEffect} from 'react';
+import {View} from 'react-native';
+import cache from '../../Common/Cache';
 
-const LoggedInLayout = (props) => {
+const LoggedInLayout = props => {
+  // const {navigate} = props.navigation;
 
-    // const {navigate} = props.navigation;
+  useEffect(() => {
+    cache.getItem('login', function(err, value) {
+      if (!value) {
+        // navigate('Home')
+      }
+    });
+  }, []);
 
-    useEffect(() => {
-        cache.getItem("login", function (err, value) {
-            if (!value) {
-                // navigate('Home')
-            }
-        });
-    }, []);
-
-
-
-    return (
-        <View>
-            {props.children}
-        </View>
-    )
+  return <View>{props.children}</View>;
 };
 
-export default LoggedInLayout
+export default LoggedInLayout;
