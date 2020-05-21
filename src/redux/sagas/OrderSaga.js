@@ -31,7 +31,6 @@ function* getOldOrders({}) {
       data: bodyFormData,
     };
     const response = yield call(axios, options);
-    console.log('response.data', response.data);
     yield put(getOldOrdersSuccess(response.data));
   } catch (err) {
     console.log(err);

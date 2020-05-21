@@ -1,12 +1,12 @@
-import {Cache, MemoryStore} from "react-native-cache";
-import {AsyncStorage} from "react-native";
+import {Cache, MemoryStore} from 'react-native-cache';
+import {AsyncStorage} from 'react-native';
 
 const cache = new Cache({
-    namespace: "cacheApp",
-    policy: {
-        maxEntries: 50000
-    },
-    backend: AsyncStorage
+  namespace: 'cacheApp',
+  policy: {
+    maxEntries: 50000,
+  },
+  backend: AsyncStorage,
 });
 
-export default cache
+export default cache;
