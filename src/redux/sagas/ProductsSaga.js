@@ -1,4 +1,4 @@
-import {takeLatest, put, call} from 'redux-saga/effects';
+import {takeLatest, put, call, fork} from 'redux-saga/effects';
 import axios from 'axios';
 import {
   GET_BALANCE,
@@ -17,6 +17,17 @@ const defaultState = {
   pass: null,
   user: null,
 };
+
+// const getAuth = async () => {
+//   await cache.getItem('user', function(err, value) {
+//     defaultState.user = value;
+//   });
+
+//   await cache.getItem('login', function(err, value) {
+//     defaultState.pass = value;
+//   });
+//   return defaultState;
+// };
 
 cache.getItem('user', function(err, value) {
   defaultState.user = value;

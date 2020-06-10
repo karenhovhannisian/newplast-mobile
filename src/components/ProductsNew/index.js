@@ -33,15 +33,15 @@ const Products2 = ({products, selectedProducts}) => {
   );
   const [search, setSearch] = useState('');
   const [perm, setPerm] = useState(null);
-
-  const filterProductList =
-    products &&
-    products.filter(l =>
+  let filterProductList = [];
+  if (Array.isArray(products)) {
+    filterProductList = products.filter(l =>
       l.pxumb_name
         .trim()
         .toLowerCase()
         .includes(search.toLowerCase()),
     );
+  }
 
   const config = {
     velocityThreshold: 0.3,

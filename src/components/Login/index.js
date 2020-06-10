@@ -151,8 +151,19 @@ const Login = props => {
                 <View
                   onPress={handleSubmitPassword}
                   style={styles.sectionTitle}>
-                  <TouchableOpacity onPress={handleSubmitPassword}>
-                    <Image source={require('./images/right-arrow.png')} />
+                  <TouchableOpacity
+                    onPress={handleSubmitPassword}
+                    style={{
+                      width: 300,
+                      backgroundColor: '#2e86de',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      height: 50,
+                      borderRadius: 10,
+                    }}>
+                    <Text style={{color: '#fff', fontSize: 30}}>ՄՈՒՏՔ</Text>
+                    {/* <Image source={require('./images/right-arrow.png')} /> */}
                   </TouchableOpacity>
                 </View>
               </View>

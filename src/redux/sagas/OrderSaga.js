@@ -18,6 +18,8 @@ cache.getItem('login', function(err, value) {
 });
 
 function* getOldOrders({}) {
+  console.log('defaultState', defaultState);
+
   const bodyFormData = new FormData();
   bodyFormData.append(
     'sl',

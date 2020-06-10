@@ -87,7 +87,7 @@ const ScrollableTab = ({
           },
         ];
       }
-
+      console.log('data', data);
       sendOrderList([data]);
       deleteSelectedProduct(elIndex, psize, tab);
     } else {
