@@ -87,7 +87,6 @@ const ScrollableTab = ({
           },
         ];
       }
-      console.log('data', data);
       sendOrderList([data]);
       deleteSelectedProduct(elIndex, psize, tab);
     } else {
@@ -97,12 +96,13 @@ const ScrollableTab = ({
 
   const confirmOrderData = () => {
     let patcode =
-      orderDataSuccess &&
+      Array.isArray(orderDataSuccess) &&
       orderDataSuccess.map(el => {
         return el.patcod;
       });
     const reducer = (accumulator, currentValue) =>
       accumulator + ',' + currentValue;
+
     let data = patcode.reduce(reducer);
     // if (confirmOrderSuccess && confirmOrderSuccess[0].pstatus===1){
     //     setShowModal(true)
@@ -111,10 +111,10 @@ const ScrollableTab = ({
   };
 
   const orderDataCount =
-    orderDataSuccess &&
+    Array.isArray(orderDataSuccess) &&
     orderDataSuccess.reduce((sum, cur) => +sum + +cur.sgumar, 0);
   const orderDataZgin =
-    orderDataSuccess &&
+    Array.isArray(orderDataSuccess) &&
     orderDataSuccess.reduce((sum, cur) => +sum + +cur.zgumar, 0);
   return (
     <ScrollableTabView

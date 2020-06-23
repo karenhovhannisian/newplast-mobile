@@ -24,7 +24,7 @@ const Basket = ({
   }, []);
 
   const defaultSelectedManager =
-    managerList &&
+    Array.isArray(managerList) &&
     managerList.map(man => {
       return man.codn;
     });
@@ -106,7 +106,6 @@ const Basket = ({
     setCustomerName(itemValue);
     let data = [
       filterOrderList.map(el => {
-        console.log(el, 'el');
         return {
           men: selectedManager,
           id: 0,
@@ -147,7 +146,7 @@ const Basket = ({
                 setSelectedManager(itemValue)
               }>
               {/*<Picker.Item key={'unselectable'} label='Մենեջեր' value={0} />*/}
-              {managerList &&
+              {Array.isArray(managerList) &&
                 managerList.map(man => {
                   return (
                     <Picker.Item

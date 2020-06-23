@@ -161,6 +161,7 @@ const Login = props => {
                       alignItems: 'center',
                       height: 50,
                       borderRadius: 10,
+                      marginBottom: -20,
                     }}>
                     <Text style={{color: '#fff', fontSize: 30}}>ՄՈՒՏՔ</Text>
                     {/* <Image source={require('./images/right-arrow.png')} /> */}

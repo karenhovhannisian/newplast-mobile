@@ -19,6 +19,11 @@ const defaultState = {
 };
 
 // const getAuth = async () => {
+//   const defaultState = {
+//     pass: null,
+//     user: null,
+//   };
+
 //   await cache.getItem('user', function(err, value) {
 //     defaultState.user = value;
 //   });
@@ -27,6 +32,17 @@ const defaultState = {
 //     defaultState.pass = value;
 //   });
 //   return defaultState;
+// };
+
+// const getUserData = async () => {
+//   // await cache.getItem('user', function(err, value) {
+//   //   defaultState.user = value;
+//   // });
+//   defaultState.user = await cache.get('key1');
+//   defaultState.pass = await cache.get('key2');
+//   // await cache.getItem('login', function(err, value) {
+//   //   defaultState.pass = value;
+//   // });
 // };
 
 cache.getItem('user', function(err, value) {
@@ -39,11 +55,13 @@ cache.getItem('login', function(err, value) {
 
 function* getProducts({}) {
   try {
-    const bodyFormData = new FormData();
+    // const defaultState = yield call(getAuth);
+    const bodyFormData = yield new FormData();
     bodyFormData.append(
       'sl',
       `j,${defaultState.user},${defaultState.pass},mxumb`,
     );
+    console.log('defaultState', defaultState);
     const options = {
       method: 'POST',
       url: `${constants.apiUrl}`,

@@ -14,14 +14,13 @@ const OrderItem = ({oldOrders, search, date}) => {
     'Պատվերի կոդ',
     '',
   ]);
-  console.log('search', search);
-  const filteredOldOrders =
-    oldOrders &&
-    oldOrders.filter(list => {
-      return list.gyanun
-        ? list.gyanun.toLowerCase().includes(search.toLowerCase())
-        : '-';
-    });
+  const filteredOldOrders = Array.isArray(oldOrders)
+    ? oldOrders.filter(list => {
+        return list.gyanun
+          ? list.gyanun.toLowerCase().includes(search.toLowerCase())
+          : '-';
+      })
+    : [];
   const filteredOldOrdersDate =
     filteredOldOrders &&
     filteredOldOrders.filter(days => {
