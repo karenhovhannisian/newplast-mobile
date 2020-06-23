@@ -6,7 +6,6 @@ import constants from '../../configs/contsants';
 import {AsyncStorage} from 'react-native';
 
 const logInUser = async (pass, User, mnor, perm) => {
-  console.log('object', pass, User, mnor, perm);
   await cache.setItem('login', pass, function(err) {});
   await cache.setItem('user', User, function(err) {});
   await cache.setItem('mnor', mnor, function(err) {});

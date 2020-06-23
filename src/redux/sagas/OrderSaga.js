@@ -4,22 +4,20 @@ import {getOldOrdersSuccess, GET_OLD_ORDERS} from '../actions';
 import cache from '../../Common/Cache';
 import constants from '../../configs/contsants';
 
-const defaultState = {
-  pass: null,
-  user: null,
-};
+// const defaultState = {
+//   pass: null,
+//   user: null,
+// };
 
-cache.getItem('user', function(err, value) {
-  defaultState.user = value;
-});
+// cache.getItem('user', function(err, value) {
+//   defaultState.user = value;
+// });
 
-cache.getItem('login', function(err, value) {
-  defaultState.pass = value;
-});
+// cache.getItem('login', function(err, value) {
+//   defaultState.pass = value;
+// });
 
-function* getOldOrders({}) {
-  console.log('defaultState', defaultState);
-
+function* getOldOrders({defaultState}) {
   const bodyFormData = new FormData();
   bodyFormData.append(
     'sl',

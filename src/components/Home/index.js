@@ -87,8 +87,29 @@ const Home = ({
   }, [loaderOldOrders]);
 
   const startLoadingProducts = () => {
-    getProducts();
-    getProductsType();
+    const getToken = new Promise((res, rej) => {
+      const defaultState = {
+        pass: null,
+        user: null,
+      };
+      cache.getItem('user', function(err, value) {
+        console.log('err', err);
+        defaultState.user = value;
+        cache.getItem('login', function(err, val) {
+          console.log('err', err);
+          defaultState.pass = val;
+          res(defaultState);
+          // getProducts({defaultState});
+          // getProductsType();
+        });
+      });
+    });
+    getToken.then(data => {
+      getProducts(data);
+      getProductsType(data);
+    });
+    // getProducts();
+    // getProductsType();
   };
 
   const onNavigateProducts = () => {
@@ -96,7 +117,26 @@ const Home = ({
   };
 
   const startLoadingOldOrders = () => {
-    getOldOrders();
+    const getToken = new Promise((res, rej) => {
+      const defaultState = {
+        pass: null,
+        user: null,
+      };
+      cache.getItem('user', function(err, value) {
+        console.log('err', err);
+        defaultState.user = value;
+        cache.getItem('login', function(err, val) {
+          console.log('err', err);
+          defaultState.pass = val;
+          res(defaultState);
+          // getProducts({defaultState});
+          // getProductsType();
+        });
+      });
+    });
+    getToken.then(data => {
+      getOldOrders(data);
+    });
   };
 
   const onNavigateOldOrders = () => {
@@ -104,7 +144,26 @@ const Home = ({
   };
 
   const startLoadingDebt = () => {
-    getDebtList();
+    const getToken = new Promise((res, rej) => {
+      const defaultState = {
+        pass: null,
+        user: null,
+      };
+      cache.getItem('user', function(err, value) {
+        console.log('err', err);
+        defaultState.user = value;
+        cache.getItem('login', function(err, val) {
+          console.log('err', err);
+          defaultState.pass = val;
+          res(defaultState);
+          // getProducts({defaultState});
+          // getProductsType();
+        });
+      });
+    });
+    getToken.then(data => {
+      getDebtList(data);
+    });
   };
 
   return (
@@ -217,10 +276,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getProducts: () => dispatch(getProducts()),
-  getOldOrders: () => dispatch(getOldOrders()),
-  getDebtList: () => dispatch(getDebtList()),
-  getProductsType: () => dispatch(getProductsType()),
+  getProducts: data => dispatch(getProducts(data)),
+  getOldOrders: data => dispatch(getOldOrders(data)),
+  getDebtList: data => dispatch(getDebtList(data)),
+  getProductsType: data => dispatch(getProductsType(data)),
 });
 export default connect(
   mapStateToProps,

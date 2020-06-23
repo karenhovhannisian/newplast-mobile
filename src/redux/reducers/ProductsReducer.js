@@ -1,7 +1,7 @@
 import {
   GET_PRODUCTS_SUCCESS,
   GET_BALANCE_SUCCESS,
-  AD_PRODUCTS,
+  // AD_PRODUCTS,
   GET_PRICE_SUCCESS,
   DELETE_SELECTED_PRODUCT,
   GET_PRODUCTS,
@@ -10,6 +10,8 @@ import {
   GET_PRODUCTS_TYPE_SUCCESS,
   ATTEMPT_LOG_OUT,
 } from '../actions';
+
+import {ASDF} from '../actions/products';
 
 const defaultState = {
   loaderProducts: false,
@@ -73,7 +75,7 @@ const ProductsReducer = (state = defaultState, action) => {
           );
         }),
       };
-    case AD_PRODUCTS:
+    case ASDF:
       return {
         ...state,
         selectedProducts: [...state.selectedProducts, action.product],

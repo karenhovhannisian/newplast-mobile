@@ -16,6 +16,7 @@ import {
   sendOrderList,
 } from '../../redux/actions';
 import CreateOrderSuccessModal from '../CreateOrderSuccessModal';
+import cache from '../../Common/Cache';
 
 const ScrollableTab = ({
   selectedProducts,
@@ -95,11 +96,11 @@ const ScrollableTab = ({
   };
 
   const confirmOrderData = () => {
-    let patcode =
-      Array.isArray(orderDataSuccess) &&
-      orderDataSuccess.map(el => {
-        return el.patcod;
-      });
+    let patcode = Array.isArray(orderDataSuccess)
+      ? orderDataSuccess.map(el => {
+          return el.patcod;
+        })
+      : [];
     const reducer = (accumulator, currentValue) =>
       accumulator + ',' + currentValue;
 
@@ -107,7 +108,26 @@ const ScrollableTab = ({
     // if (confirmOrderSuccess && confirmOrderSuccess[0].pstatus===1){
     //     setShowModal(true)
     // }
-    confirmOrder(data);
+    const getToken = new Promise((res, rej) => {
+      const defaultState = {
+        pass: null,
+        user: null,
+      };
+      cache.getItem('user', function(err, value) {
+        console.log('err', err);
+        defaultState.user = value;
+        cache.getItem('login', function(err, val) {
+          console.log('err', err);
+          defaultState.pass = val;
+          res(defaultState);
+          // getProducts({defaultState});
+          // getProductsType();
+        });
+      });
+    });
+    getToken.then(defaultState => {
+      confirmOrder({data, defaultState});
+    });
   };
 
   const orderDataCount =

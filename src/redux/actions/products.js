@@ -1,4 +1,5 @@
 import MakeActionCreator from '../../helpers/utilities/MakeActionCreator';
+// import {AD_PRODUCTS} from '.';
 
 export const GET_PRODUCTS = 'GET_PRODUCTS';
 export const getProducts = MakeActionCreator(GET_PRODUCTS, 'defaultState');
@@ -9,15 +10,17 @@ export const getProductsSuccess = MakeActionCreator(
 );
 
 export const GET_BALANCE = 'GET_BALANCE';
-export const getBalance = MakeActionCreator(GET_BALANCE);
+export const getBalance = MakeActionCreator(GET_BALANCE, 'defaultStatus');
 export const GET_BALANCE_SUCCESS = 'GET_BALANCE_SUCCESS';
 export const getBalanceSuccess = MakeActionCreator(
   GET_BALANCE_SUCCESS,
   'balance',
 );
 
-export const AD_PRODUCTS = 'AD_PRODUCTS';
-export const adProducts = MakeActionCreator(AD_PRODUCTS, 'product');
+export const ASDF = 'ASDF';
+export const adProducts = value => {
+  return {type: ASDF, product: value};
+}; //MakeActionCreator(AD_PRODUCTS, 'product');
 export const AD_PRODUCTS_SUCCESS = 'AD_PRODUCTS_SUCCESS';
 export const adProductsSuccess = MakeActionCreator(
   AD_PRODUCTS_SUCCESS,
@@ -25,7 +28,11 @@ export const adProductsSuccess = MakeActionCreator(
 );
 
 export const GET_PRODUCTS_TYPE = 'GET_PRODUCTS_TYPE';
-export const getProductsType = MakeActionCreator(GET_PRODUCTS_TYPE);
+export const getProductsType = MakeActionCreator(
+  GET_PRODUCTS_TYPE,
+  'defaultState',
+  'defaultStatus',
+);
 export const GET_PRODUCTS_TYPE_SUCCESS = 'GET_PRODUCTS_TYPE_SUCCESS';
 export const getProductsTypeSuccess = MakeActionCreator(
   GET_PRODUCTS_TYPE_SUCCESS,
@@ -33,7 +40,12 @@ export const getProductsTypeSuccess = MakeActionCreator(
 );
 
 export const GET_PRICE = 'GET_PRICE';
-export const getPrice = MakeActionCreator(GET_PRICE, 'value', 'productId');
+export const getPrice = MakeActionCreator(
+  GET_PRICE,
+  'value',
+  'productId',
+  'defaultState',
+);
 export const GET_PRICE_SUCCESS = 'GET_PRICE_SUCCESS';
 export const getPriceSuccess = MakeActionCreator(GET_PRICE_SUCCESS, 'price');
 

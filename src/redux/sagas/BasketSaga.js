@@ -13,20 +13,20 @@ import {
 import cache from '../../Common/Cache';
 import constants from '../../configs/contsants';
 
-const defaultState = {
-  pass: null,
-  user: null,
-};
+// const defaultState = {
+//   pass: null,
+//   user: null,
+// };
 
-cache.getItem('user', function(err, value) {
-  defaultState.user = value;
-});
+// cache.getItem('user', function(err, value) {
+//   defaultState.user = value;
+// });
 
-cache.getItem('login', function(err, value) {
-  defaultState.pass = value;
-});
+// cache.getItem('login', function(err, value) {
+//   defaultState.pass = value;
+// });
 
-function* getManagerList({}) {
+function* getManagerList({defaultState}) {
   const bodyFormData = new FormData();
   bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},mens`);
   try {
@@ -43,7 +43,7 @@ function* getManagerList({}) {
   }
 }
 
-function* getCustomerList({}) {
+function* getCustomerList({defaultState}) {
   const bodyFormData = new FormData();
   bodyFormData.append(
     'sl',
@@ -63,7 +63,7 @@ function* getCustomerList({}) {
   }
 }
 
-function* sendOrderList({data}) {
+function* sendOrderList({data: {data, defaultState}}) {
   const bodyFormData = new FormData();
   bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},save`);
   bodyFormData.append('data', JSON.stringify(...data));
@@ -80,7 +80,7 @@ function* sendOrderList({data}) {
     console.log(err);
   }
 }
-function* confirmOrder({data}) {
+function* confirmOrder({data: {data, defaultState}}) {
   const bodyFormData = new FormData();
   bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},sev`);
   bodyFormData.append('pc', data);

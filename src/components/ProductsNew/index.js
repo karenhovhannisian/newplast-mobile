@@ -23,7 +23,6 @@ import cache from '../../Common/Cache';
 
 const Products2 = ({products, selectedProducts}) => {
   const spinValue = new Animated.Value(0);
-
   const carousel = useRef(null);
 
   const [modalVisible, setModalVisible] = useState(false);

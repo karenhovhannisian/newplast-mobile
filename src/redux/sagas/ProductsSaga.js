@@ -13,10 +13,10 @@ import {
 import cache from '../../Common/Cache';
 import constants from '../../configs/contsants';
 
-const defaultState = {
-  pass: null,
-  user: null,
-};
+// const defaultState = {
+//   pass: null,
+//   user: null,
+// };
 
 // const getAuth = async () => {
 //   const defaultState = {
@@ -45,15 +45,15 @@ const defaultState = {
 //   // });
 // };
 
-cache.getItem('user', function(err, value) {
-  defaultState.user = value;
-});
+// cache.getItem('user', function(err, value) {
+//   defaultState.user = value;
+// });
 
-cache.getItem('login', function(err, value) {
-  defaultState.pass = value;
-});
+// cache.getItem('login', function(err, value) {
+//   defaultState.pass = value;
+// });
 
-function* getProducts({}) {
+function* getProducts({defaultState}) {
   try {
     // const defaultState = yield call(getAuth);
     const bodyFormData = yield new FormData();
@@ -61,7 +61,7 @@ function* getProducts({}) {
       'sl',
       `j,${defaultState.user},${defaultState.pass},mxumb`,
     );
-    console.log('defaultState', defaultState);
+
     const options = {
       method: 'POST',
       url: `${constants.apiUrl}`,
@@ -78,7 +78,7 @@ function* getProducts({}) {
   }
 }
 
-function* getBalance({}) {
+function* getBalance({defaultState}) {
   const bodyFormData = new FormData();
   bodyFormData.append(
     'sl',
@@ -104,7 +104,7 @@ function* getBalance({}) {
   }
 }
 
-function* getPrice({value, productId}) {
+function* getPrice({value, productId, defaultState}) {
   const bodyFormData = new FormData();
   bodyFormData.append(
     'sl',
@@ -129,7 +129,7 @@ function* getPrice({value, productId}) {
   }
 }
 
-function* getProductsType({}) {
+function* getProductsType({defaultState}) {
   try {
     const bodyFormData = new FormData();
     bodyFormData.append(

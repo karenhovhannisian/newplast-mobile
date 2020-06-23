@@ -78,8 +78,27 @@ const Footer = ({
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          getDebtList();
-          navigate('Debt');
+          const getToken = new Promise((res, rej) => {
+            const defaultState = {
+              pass: null,
+              user: null,
+            };
+            cache.getItem('user', function(err, value) {
+              console.log('err', err);
+              defaultState.user = value;
+              cache.getItem('login', function(err, value) {
+                console.log('err', err);
+                defaultState.pass = value;
+                res(defaultState);
+                // getProducts({defaultState});
+                // getProductsType();
+              });
+            });
+          });
+          getToken.then(data => {
+            getDebtList(data);
+            navigate('Debt');
+          });
         }}
         style={{
           width: 180,
@@ -108,7 +127,7 @@ const mapStateToProps = () => ({});
 const mapDispatchToProps = dispatch => ({
   getProducts: data => dispatch(getProducts(data)),
   getOldOrders: () => dispatch(getOldOrders()),
-  getDebtList: () => dispatch(getDebtList()),
+  getDebtList: data => dispatch(getDebtList(data)),
 });
 
 export default connect(

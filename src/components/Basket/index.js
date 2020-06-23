@@ -9,6 +9,7 @@ import {
   sendOrderList,
 } from '../../redux/actions';
 import {SearchBar} from 'react-native-elements';
+import cache from '../../Common/Cache';
 
 const Basket = ({
   selectedProducts,
@@ -19,8 +20,28 @@ const Basket = ({
   customerList,
 }) => {
   useEffect(() => {
-    getManagerList();
-    getCustomerList();
+    const getToken = new Promise((res, rej) => {
+      const defaultState = {
+        pass: null,
+        user: null,
+      };
+      cache.getItem('user', function(err, value) {
+        console.log('err', err);
+        defaultState.user = value;
+        cache.getItem('login', function(err, val) {
+          console.log('err', err);
+          defaultState.pass = val;
+          res(defaultState);
+          // getProducts({defaultState});
+          // getProductsType();
+        });
+      });
+    });
+    getToken.then(defaultState => {
+      // getDebtList(data);
+      getManagerList(defaultState);
+      getCustomerList(defaultState);
+    });
   }, []);
 
   const defaultSelectedManager =
@@ -89,7 +110,6 @@ const Basket = ({
   ];
 
   const filteredTabs = [];
-
   tabs.forEach(tab => {
     if (
       selectedProducts &&
@@ -104,6 +124,7 @@ const Basket = ({
 
   const sendOrderData = itemValue => {
     setCustomerName(itemValue);
+
     let data = [
       filterOrderList.map(el => {
         return {
@@ -126,7 +147,26 @@ const Basket = ({
       }),
     ];
     setData(data);
-    sendOrderList(data);
+    const getToken = new Promise((res, rej) => {
+      const defaultState = {
+        pass: null,
+        user: null,
+      };
+      cache.getItem('user', function(err, value) {
+        console.log('err', err);
+        defaultState.user = value;
+        cache.getItem('login', function(err, val) {
+          console.log('err', err);
+          defaultState.pass = val;
+          res(defaultState);
+          // getProducts({defaultState});
+          // getProductsType();
+        });
+      });
+    });
+    getToken.then(defaultState => {
+      sendOrderList({data, defaultState});
+    });
   };
 
   const updateSearch = search => {
@@ -238,8 +278,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getManagerList: () => dispatch(getManagerList()),
-  getCustomerList: () => dispatch(getCustomerList()),
+  getManagerList: data => dispatch(getManagerList(data)),
+  getCustomerList: data => dispatch(getCustomerList(data)),
   sendOrderList: data => dispatch(sendOrderList(data)),
 });
 
