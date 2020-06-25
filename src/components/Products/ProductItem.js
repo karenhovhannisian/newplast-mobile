@@ -19,6 +19,7 @@ import axios from 'axios';
 import InputSpinner from 'react-native-input-spinner';
 import cache from '../../Common/Cache';
 import constants from '../../configs/contsants';
+import NewPlastApi from '../../api/Api';
 
 const defaultState = {
   user: '',
@@ -83,37 +84,44 @@ const ProductItem = ({
   };
 
   const getProductPrice = async (value, id) => {
-    const bodyFormData = new FormData();
-    bodyFormData.append(
-      'sl',
-      `j,${defaultState.user},${
-        defaultState.pass
-      },apr_mnacs, where psize=N'${value}' and products_id=${id}`,
-    );
-    const options = {
-      method: 'POST',
-      url: `${constants.apiUrl}?sl=j,${defaultState.user},${
-        defaultState.pass
-      },apr_mnacs, where psize=N'${value}' and products_id=${id}`,
-      credentials: 'include',
-      // data: bodyFormData
-    };
-    const response = await axios.post(options.url);
-    if (response.data) {
-      setGetPriceFailMessage(false);
-      setLoaderSizes(false);
-      setProductPrice(response.data[0].gin);
-      setQuantityPrice(response.data[0].miavor);
-      setMnac(response.data[0].mnacord);
-      setChdzmnac(response.data[0].chdzmnac);
-      setProductId(response.data[0].fCODE);
-      setAvailableTypes(getAvailableTypes(response.data[0].fCODE));
-      setMarka(response.data[0].marka);
-    } else {
-      if (response.data === '') {
+    try {
+      const credentials = await NewPlastApi.getCredentials();
+      const bodyFormData = new FormData();
+      bodyFormData.append(
+        'sl',
+        `j,${credentials.user},${
+          credentials.pass
+        },apr_mnacs, where psize=N'${value}' and products_id=${id}`,
+      );
+      const options = {
+        method: 'POST',
+        url: `${constants.apiUrl}?sl=j,${credentials.user},${
+          credentials.pass
+        },apr_mnacs, where psize=N'${value}' and products_id=${id}`,
+        credentials: 'include',
+        // data: bodyFormData
+      };
+      const response = await axios.post(options.url);
+      if (response.data) {
+        setGetPriceFailMessage(false);
         setLoaderSizes(false);
-        setGetPriceFailMessage(true);
+        setProductPrice(response.data[0].gin);
+        setQuantityPrice(response.data[0].miavor);
+        setMnac(response.data[0].mnacord);
+        setChdzmnac(response.data[0].chdzmnac);
+        setProductId(response.data[0].fCODE);
+        setAvailableTypes(getAvailableTypes(response.data[0].fCODE));
+        setMarka(response.data[0].marka);
+      } else {
+        if (response.data === '') {
+          setLoaderSizes(false);
+          setGetPriceFailMessage(true);
+        }
       }
+    } catch (err) {
+      console.log(err);
+      setLoaderSizes(false);
+      setGetPriceFailMessage(true);
     }
   };
 

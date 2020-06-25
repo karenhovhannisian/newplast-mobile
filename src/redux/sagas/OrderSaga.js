@@ -1,36 +1,10 @@
 import {takeLatest, put, call} from 'redux-saga/effects';
-import axios from 'axios';
 import {getOldOrdersSuccess, GET_OLD_ORDERS} from '../actions';
-import cache from '../../Common/Cache';
-import constants from '../../configs/contsants';
+import NewPlastApi from '../../api/Api';
 
-// const defaultState = {
-//   pass: null,
-//   user: null,
-// };
-
-// cache.getItem('user', function(err, value) {
-//   defaultState.user = value;
-// });
-
-// cache.getItem('login', function(err, value) {
-//   defaultState.pass = value;
-// });
-
-function* getOldOrders({defaultState}) {
-  const bodyFormData = new FormData();
-  bodyFormData.append(
-    'sl',
-    `j,${defaultState.user},${defaultState.pass},patvera,where l.id>0`,
-  );
+function* getOldOrders() {
   try {
-    const options = {
-      method: 'POST',
-      url: `${constants.apiUrl}`,
-      credentials: 'include',
-      data: bodyFormData,
-    };
-    const response = yield call(axios, options);
+    const response = yield call(NewPlastApi.getOldOrders);
     yield put(getOldOrdersSuccess(response.data));
   } catch (err) {
     console.log(err);

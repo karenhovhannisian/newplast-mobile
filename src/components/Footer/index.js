@@ -16,6 +16,7 @@ const Footer = ({
   const onLayout = () => {
     setItemWidth(Dimensions.get('window').width);
   };
+
   return (
     <View
       style={itemWidth < 811 ? styles.container : styles.containers}
@@ -44,18 +45,7 @@ const Footer = ({
       </TouchableOpacity>
       <TouchableOpacity
         onPress={async () => {
-          const defaultState = {
-            pass: null,
-            user: null,
-          };
-          await cache.getItem('user', function(err, value) {
-            defaultState.user = value;
-          });
-
-          await cache.getItem('login', function(err, value) {
-            defaultState.pass = value;
-          });
-          getProducts(defaultState);
+          getProducts();
           navigate('orderCreate');
         }}
         style={{

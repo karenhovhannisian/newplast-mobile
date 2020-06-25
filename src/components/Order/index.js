@@ -39,7 +39,7 @@ const Order = props => {
           />
           <View style={styles.pickerView} />
           <DatePicker
-            style={{width: 200}}
+            style={{width: 250}}
             placeholder={'Ժամանակ'}
             date={date}
             mode="date"
@@ -71,7 +71,7 @@ const Order = props => {
           />
           {date ? (
             <TouchableOpacity
-              style={{right: 10, position: 'absolute'}}
+              style={{right: 30, position: 'absolute'}}
               onPress={() => {
                 setDate(null);
               }}>

@@ -10,68 +10,12 @@ import {
   getProductsSuccess,
   getProductsTypeSuccess,
 } from '../actions';
-import cache from '../../Common/Cache';
 import constants from '../../configs/contsants';
-
-// const defaultState = {
-//   pass: null,
-//   user: null,
-// };
-
-// const getAuth = async () => {
-//   const defaultState = {
-//     pass: null,
-//     user: null,
-//   };
-
-//   await cache.getItem('user', function(err, value) {
-//     defaultState.user = value;
-//   });
-
-//   await cache.getItem('login', function(err, value) {
-//     defaultState.pass = value;
-//   });
-//   return defaultState;
-// };
-
-// const getUserData = async () => {
-//   // await cache.getItem('user', function(err, value) {
-//   //   defaultState.user = value;
-//   // });
-//   defaultState.user = await cache.get('key1');
-//   defaultState.pass = await cache.get('key2');
-//   // await cache.getItem('login', function(err, value) {
-//   //   defaultState.pass = value;
-//   // });
-// };
-
-// cache.getItem('user', function(err, value) {
-//   defaultState.user = value;
-// });
-
-// cache.getItem('login', function(err, value) {
-//   defaultState.pass = value;
-// });
+import NewPlastApi from '../../api/Api';
 
 function* getProducts({defaultState}) {
   try {
-    // const defaultState = yield call(getAuth);
-    const bodyFormData = yield new FormData();
-    bodyFormData.append(
-      'sl',
-      `j,${defaultState.user},${defaultState.pass},mxumb`,
-    );
-
-    const options = {
-      method: 'POST',
-      url: `${constants.apiUrl}`,
-      credentials: 'include',
-      data: bodyFormData,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const response = yield call(axios, options);
+    const response = yield call(NewPlastApi.getProducts);
     yield put(getProductsSuccess(response.data));
   } catch (err) {
     console.log(err);
