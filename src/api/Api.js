@@ -63,8 +63,6 @@ export default class NewPlastApi {
         }
         result.user = value;
         cache.getItem('login', function(err1, value1) {
-          console.log(value1, 'value1');
-          console.log(err1, 'err1');
           if (err1) {
             reject(err1);
           }
