@@ -22,24 +22,8 @@ function* getProducts() {
   }
 }
 
-function* getBalance({defaultState}) {
-  // const bodyFormData = new FormData();
-  // bodyFormData.append(
-  //   'sl',
-  //   `j,${defaultState.user},${
-  //     defaultState.pass
-  //   },apr_mnacs, where fSTORAGE='111' and psize='16' and p.products_id='1'`,
-  // );
+function* getBalance() {
   try {
-    // const options = {
-    //   method: 'POST',
-    //   url: `${constants.apiUrl}`,
-    //   credentials: 'include',
-    //   data: bodyFormData,
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // };
     const response = yield call(NewPlastApi.getBalance);
 
     yield put(getBalanceSuccess(response.data));
@@ -48,48 +32,21 @@ function* getBalance({defaultState}) {
   }
 }
 
-function* getPrice({value, productId, defaultState}) {
-  const bodyFormData = new FormData();
-  bodyFormData.append(
-    'sl',
-    `j,${defaultState.user},${
-      defaultState.pass
-    },apr_sgin, where psize=${value} and p.products_id=${productId}`,
-  );
+function* getPrice({value, productId}) {
   try {
-    const options = {
-      method: 'POST',
-      url: `${constants.apiUrl}`,
-      credentials: 'include',
-      data: bodyFormData,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const response = yield call(axios, options);
+    const response = yield call(NewPlastApi.getPriceOfProducts, {
+      value,
+      productId,
+    });
     yield put(getPriceSuccess(response.data[0].gin));
   } catch (err) {
     console.log(err);
   }
 }
 
-function* getProductsType({defaultState}) {
+function* getProductsType() {
   try {
-    const bodyFormData = new FormData();
-    bodyFormData.append(
-      'sl',
-      `j,${defaultState.user},${defaultState.pass},ptype`,
-    );
-    const options = {
-      method: 'POST',
-      url: `${constants.apiUrl}`,
-      credentials: 'include',
-      data: bodyFormData,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const response = yield call(axios, options);
+    const response = yield call(NewPlastApi.getProductsType);
     yield put(getProductsTypeSuccess(response.data));
   } catch (err) {
     console.log(err);

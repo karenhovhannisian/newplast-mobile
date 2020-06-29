@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollableTabView} from '@valdio/react-native-scrollable-tabview';
 import {
   Image,
@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  CheckBox,
 } from 'react-native';
 import styles from '../Basket/styles';
 import {connect} from 'react-redux';
@@ -30,6 +31,15 @@ const ScrollableTab = ({
   data,
   filteredTabs,
 }) => {
+  const [allCheked, setAllCheked] = useState(
+    filteredTabs.map(x => ({title: x.title, cheked: false, id: x.id})),
+  );
+  const handleChecke = id => {
+    const newData = [...allCheked];
+    const item = newData.find(x => x.id === id);
+    item.cheked = !item.cheked;
+    setAllCheked(newData);
+  };
   if (!filteredTabs.length) {
     return (
       <View style={{justifyContent: 'center', alignItems: 'center', flex: 2}}>
@@ -153,9 +163,15 @@ const ScrollableTab = ({
         return (
           <View
             style={{height: '100%', backgroundColor: '#F7F7F9'}}
-            tabLabel={tab.title}
+            tabLabel={`${tab.title} ${
+              allCheked.find(x => x.id === tab.id).cheked ? '✔' : '✘'
+            }`}
             disable={true}
             key={tab.title}>
+            <CheckBox
+              value={allCheked.find(x => x.id === tab.id).cheked}
+              onValueChange={() => handleChecke(tab.id)}
+            />
             <View style={styles.content}>
               <ScrollView style={styles.scrollView}>
                 <View style={{height: '100%'}}>
@@ -386,10 +402,12 @@ const ScrollableTab = ({
                   </View>
                   <View>
                     <TouchableOpacity
-                      disabled={!customerName}
+                      disabled={
+                        !customerName || !allCheked.every(x => x.cheked)
+                      }
                       onPress={confirmOrderData}
                       style={
-                        customerName
+                        customerName && allCheked.every(x => x.cheked)
                           ? styles.addButton
                           : styles.addButtonDisable
                       }>
