@@ -54,6 +54,30 @@ export default class NewPlastApi {
     });
   }
 
+  static getBalance() {
+    return NewPlastApi.getCredentials().then(credentials => {
+      const bodyFormData = new FormData();
+      bodyFormData.append(
+        'sl',
+        `j,${credentials.user},${
+          credentials.pass
+        },apr_mnacs, where fSTORAGE='111' and psize='16' and p.products_id='1'`,
+      );
+
+      const options = {
+        method: 'POST',
+        url: `${constants.apiUrl}`,
+        credentials: 'include',
+        data: bodyFormData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      return axios(options);
+    });
+  }
+
   static getCredentials() {
     return new Promise((resolve, reject) => {
       let result = {};

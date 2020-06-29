@@ -159,10 +159,15 @@ const ProductItem = ({
     setActiveTypeIndex(null);
     setCount(0);
   };
-  let data =
-    product &&
-    product.item &&
-    product.item.sizes.split(',').map(label => ({label, value: label}));
+  let data = [{label: '', value: ''}];
+  if (product && product.item && product.item.sizes.toString().includes(',')) {
+    data = product.item.sizes.split(',').map(label => {
+      return {label, value: label};
+    });
+  } else if (product && product.item) {
+    data = [{label: product.item.sizes, value: product.item.sizes}];
+  }
+
   let icon = getImageSource(product.item.products_image);
   const arr = [
     {

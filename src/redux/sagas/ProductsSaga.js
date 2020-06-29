@@ -13,7 +13,7 @@ import {
 import constants from '../../configs/contsants';
 import NewPlastApi from '../../api/Api';
 
-function* getProducts({defaultState}) {
+function* getProducts() {
   try {
     const response = yield call(NewPlastApi.getProducts);
     yield put(getProductsSuccess(response.data));
@@ -23,24 +23,24 @@ function* getProducts({defaultState}) {
 }
 
 function* getBalance({defaultState}) {
-  const bodyFormData = new FormData();
-  bodyFormData.append(
-    'sl',
-    `j,${defaultState.user},${
-      defaultState.pass
-    },apr_mnacs, where fSTORAGE='111' and psize='16' and p.products_id='1'`,
-  );
+  // const bodyFormData = new FormData();
+  // bodyFormData.append(
+  //   'sl',
+  //   `j,${defaultState.user},${
+  //     defaultState.pass
+  //   },apr_mnacs, where fSTORAGE='111' and psize='16' and p.products_id='1'`,
+  // );
   try {
-    const options = {
-      method: 'POST',
-      url: `${constants.apiUrl}`,
-      credentials: 'include',
-      data: bodyFormData,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const response = yield call(axios, options);
+    // const options = {
+    //   method: 'POST',
+    //   url: `${constants.apiUrl}`,
+    //   credentials: 'include',
+    //   data: bodyFormData,
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    // };
+    const response = yield call(NewPlastApi.getBalance);
 
     yield put(getBalanceSuccess(response.data));
   } catch (err) {
