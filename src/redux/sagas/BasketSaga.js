@@ -10,88 +10,38 @@ import {
   SEND_ORDER_LIST,
   sendOrderListSuccess,
 } from '../actions';
-import cache from '../../Common/Cache';
-import constants from '../../configs/contsants';
 
-// const defaultState = {
-//   pass: null,
-//   user: null,
-// };
+import NewPlastApi from '../../api/Api';
 
-// cache.getItem('user', function(err, value) {
-//   defaultState.user = value;
-// });
-
-// cache.getItem('login', function(err, value) {
-//   defaultState.pass = value;
-// });
-
-function* getManagerList({defaultState}) {
-  const bodyFormData = new FormData();
-  bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},mens`);
+function* getManagerList() {
   try {
-    const options = {
-      method: 'POST',
-      url: `${constants.apiUrl}`,
-      credentials: 'include',
-      data: bodyFormData,
-    };
-    const response = yield call(axios, options);
+    const response = yield call(NewPlastApi.getManagerList);
     yield put(getManagerListSuccess(response.data));
   } catch (err) {
     console.log(err);
   }
 }
 
-function* getCustomerList({defaultState}) {
-  const bodyFormData = new FormData();
-  bodyFormData.append(
-    'sl',
-    `j,${defaultState.user},${defaultState.pass},gynker`,
-  );
+function* getCustomerList() {
   try {
-    const options = {
-      method: 'POST',
-      url: `${constants.apiUrl}`,
-      credentials: 'include',
-      data: bodyFormData,
-    };
-    const response = yield call(axios, options);
+    const response = yield call(NewPlastApi.getCustomerList);
     yield put(getCustomerListSuccess(response.data));
   } catch (err) {
     console.log(err);
   }
 }
 
-function* sendOrderList({data: {data, defaultState}}) {
-  const bodyFormData = new FormData();
-  bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},save`);
-  bodyFormData.append('data', JSON.stringify(...data));
+function* sendOrderList({data: {data}}) {
   try {
-    const options = {
-      method: 'POST',
-      url: `${constants.apiUrl}`,
-      credentials: 'include',
-      data: bodyFormData,
-    };
-    const response = yield call(axios, options);
+    const response = yield call(NewPlastApi.sendOrderList, {data});
     yield put(sendOrderListSuccess(response.data)); //todo fix this part
   } catch (err) {
     console.log(err);
   }
 }
 function* confirmOrder({data: {data, defaultState}}) {
-  const bodyFormData = new FormData();
-  bodyFormData.append('sl', `j,${defaultState.user},${defaultState.pass},sev`);
-  bodyFormData.append('pc', data);
   try {
-    const options = {
-      method: 'POST',
-      url: `${constants.apiUrl}`,
-      credentials: 'include',
-      data: bodyFormData,
-    };
-    const response = yield call(axios, options);
+    const response = yield call(NewPlastApi.confirmOrder, {data});
     yield put(confirmOrderSuccess(response.data));
   } catch (err) {
     console.log(err);

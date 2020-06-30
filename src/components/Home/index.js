@@ -33,7 +33,7 @@ const Home = ({
   products,
   loaderProducts,
   loaderOldOrders,
-  getDebtList,
+  startGetDebtList,
   debtList,
   loaderDebtList,
   ...props
@@ -87,27 +87,8 @@ const Home = ({
   }, [loaderOldOrders]);
 
   const startLoadingProducts = () => {
-    const getToken = new Promise((res, rej) => {
-      const defaultState = {
-        pass: null,
-        user: null,
-      };
-      cache.getItem('user', function(err, value) {
-        console.log('err', err);
-        defaultState.user = value;
-        cache.getItem('login', function(err, val) {
-          console.log('err', err);
-          defaultState.pass = val;
-          res(defaultState);
-          // getProducts({defaultState});
-          // getProductsType();
-        });
-      });
-    });
-    getToken.then(data => {
-      getProducts(data);
-      getProductsType(data);
-    });
+    getProducts();
+    getProductsType();
     // getProducts();
     // getProductsType();
   };
@@ -117,26 +98,7 @@ const Home = ({
   };
 
   const startLoadingOldOrders = () => {
-    const getToken = new Promise((res, rej) => {
-      const defaultState = {
-        pass: null,
-        user: null,
-      };
-      cache.getItem('user', function(err, value) {
-        console.log('err', err);
-        defaultState.user = value;
-        cache.getItem('login', function(err, val) {
-          console.log('err', err);
-          defaultState.pass = val;
-          res(defaultState);
-          // getProducts({defaultState});
-          // getProductsType();
-        });
-      });
-    });
-    getToken.then(data => {
-      getOldOrders(data);
-    });
+    getOldOrders();
   };
 
   const onNavigateOldOrders = () => {
@@ -144,28 +106,8 @@ const Home = ({
   };
 
   const startLoadingDebt = () => {
-    const getToken = new Promise((res, rej) => {
-      const defaultState = {
-        pass: null,
-        user: null,
-      };
-      cache.getItem('user', function(err, value) {
-        console.log('err', err);
-        defaultState.user = value;
-        cache.getItem('login', function(err, val) {
-          console.log('err', err);
-          defaultState.pass = val;
-          res(defaultState);
-          // getProducts({defaultState});
-          // getProductsType();
-        });
-      });
-    });
-    getToken.then(data => {
-      getDebtList(data);
-    });
+    startGetDebtList();
   };
-
   return (
     <ImageBackground
       source={require('./images/home.png')}
@@ -278,7 +220,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getProducts: data => dispatch(getProducts(data)),
   getOldOrders: data => dispatch(getOldOrders(data)),
-  getDebtList: data => dispatch(getDebtList(data)),
+  startGetDebtList: () => dispatch(getDebtList()),
   getProductsType: data => dispatch(getProductsType(data)),
 });
 export default connect(

@@ -1,5 +1,4 @@
-import {takeLatest, put, call, fork} from 'redux-saga/effects';
-import axios from 'axios';
+import {takeLatest, put, call} from 'redux-saga/effects';
 import {
   GET_BALANCE,
   GET_PRICE,
@@ -10,7 +9,6 @@ import {
   getProductsSuccess,
   getProductsTypeSuccess,
 } from '../actions';
-import constants from '../../configs/contsants';
 import NewPlastApi from '../../api/Api';
 
 function* getProducts() {

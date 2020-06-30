@@ -9,7 +9,6 @@ import {
   sendOrderList,
 } from '../../redux/actions';
 import {SearchBar} from 'react-native-elements';
-import cache from '../../Common/Cache';
 
 const Basket = ({
   selectedProducts,
@@ -20,28 +19,8 @@ const Basket = ({
   customerList,
 }) => {
   useEffect(() => {
-    const getToken = new Promise((res, rej) => {
-      const defaultState = {
-        pass: null,
-        user: null,
-      };
-      cache.getItem('user', function(err, value) {
-        console.log('err', err);
-        defaultState.user = value;
-        cache.getItem('login', function(err, val) {
-          console.log('err', err);
-          defaultState.pass = val;
-          res(defaultState);
-          // getProducts({defaultState});
-          // getProductsType();
-        });
-      });
-    });
-    getToken.then(defaultState => {
-      // getDebtList(data);
-      getManagerList(defaultState);
-      getCustomerList(defaultState);
-    });
+    getManagerList();
+    getCustomerList();
   }, []);
 
   const defaultSelectedManager =
@@ -147,26 +126,8 @@ const Basket = ({
       }),
     ];
     setData(data);
-    const getToken = new Promise((res, rej) => {
-      const defaultState = {
-        pass: null,
-        user: null,
-      };
-      cache.getItem('user', function(err, value) {
-        console.log('err', err);
-        defaultState.user = value;
-        cache.getItem('login', function(err, val) {
-          console.log('err', err);
-          defaultState.pass = val;
-          res(defaultState);
-          // getProducts({defaultState});
-          // getProductsType();
-        });
-      });
-    });
-    getToken.then(defaultState => {
-      sendOrderList({data, defaultState});
-    });
+
+    sendOrderList({data});
   };
 
   const updateSearch = search => {

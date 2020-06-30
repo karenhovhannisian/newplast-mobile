@@ -3,7 +3,6 @@ import {Image, TouchableOpacity, View, Text, Dimensions} from 'react-native';
 import styles from './styles';
 import {connect} from 'react-redux';
 import {getDebtList, getOldOrders, getProducts} from '../../redux/actions';
-import cache from '../../Common/Cache';
 
 const Footer = ({
   navigate,
@@ -68,27 +67,8 @@ const Footer = ({
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          const getToken = new Promise((res, rej) => {
-            const defaultState = {
-              pass: null,
-              user: null,
-            };
-            cache.getItem('user', function(err, value) {
-              console.log('err', err);
-              defaultState.user = value;
-              cache.getItem('login', function(err, value) {
-                console.log('err', err);
-                defaultState.pass = value;
-                res(defaultState);
-                // getProducts({defaultState});
-                // getProductsType();
-              });
-            });
-          });
-          getToken.then(data => {
-            getDebtList(data);
-            navigate('Debt');
-          });
+          getDebtList();
+          navigate('Debt');
         }}
         style={{
           width: 180,

@@ -39,6 +39,7 @@ const OrderTableItem = ({oldOrders, rowData, index}) => {
           <Text style={styles.texts}>{rowData.gycod}</Text>
           <Text style={styles.texts}>{rowData.sdate}</Text>
           <Text style={styles.texts}>{rowData.patcod}</Text>
+          {rowData.pstatus ? <Text>✔️</Text> : <Text />}
           {element(index)}
         </View>
       </TableWrapper>

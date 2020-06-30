@@ -124,6 +124,102 @@ export default class NewPlastApi {
     });
   }
 
+  static getDebtList() {
+    return NewPlastApi.getCredentials().then(credentials => {
+      const bodyFormData = new FormData();
+      bodyFormData.append(
+        'sl',
+        `j,${credentials.user},${credentials.pass},gynker`,
+      );
+
+      const options = {
+        method: 'POST',
+        url: `${constants.apiUrl}`,
+        credentials: 'include',
+        data: bodyFormData,
+      };
+      return axios(options);
+    });
+  }
+
+  static getManagerList() {
+    return NewPlastApi.getCredentials().then(credentials => {
+      const bodyFormData = new FormData();
+      bodyFormData.append(
+        'sl',
+        `j,${credentials.user},${credentials.pass},mens`,
+      );
+
+      const options = {
+        method: 'POST',
+        url: `${constants.apiUrl}`,
+        credentials: 'include',
+        data: bodyFormData,
+      };
+
+      return axios(options);
+    });
+  }
+
+  static getCustomerList() {
+    return NewPlastApi.getCredentials().then(credentials => {
+      const bodyFormData = new FormData();
+      bodyFormData.append(
+        'sl',
+        `j,${credentials.user},${credentials.pass},gynker`,
+      );
+
+      const options = {
+        method: 'POST',
+        url: `${constants.apiUrl}`,
+        credentials: 'include',
+        data: bodyFormData,
+      };
+
+      return axios(options);
+    });
+  }
+
+  static sendOrderList({data}) {
+    return NewPlastApi.getCredentials().then(credentials => {
+      const bodyFormData = new FormData();
+      bodyFormData.append(
+        'sl',
+        `j,${credentials.user},${credentials.pass},save`,
+      );
+      bodyFormData.append('data', JSON.stringify(...data));
+
+      const options = {
+        method: 'POST',
+        url: `${constants.apiUrl}`,
+        credentials: 'include',
+        data: bodyFormData,
+      };
+
+      return axios(options);
+    });
+  }
+
+  static confirmOrder({data}) {
+    return NewPlastApi.getCredentials().then(credentials => {
+      const bodyFormData = new FormData();
+      bodyFormData.append(
+        'sl',
+        `j,${credentials.user},${credentials.pass},sev`,
+      );
+      bodyFormData.append('pc', data);
+
+      const options = {
+        method: 'POST',
+        url: `${constants.apiUrl}`,
+        credentials: 'include',
+        data: bodyFormData,
+      };
+
+      return axios(options);
+    });
+  }
+
   static getCredentials() {
     return new Promise((resolve, reject) => {
       let result = {};

@@ -3,7 +3,6 @@ import axios from 'axios';
 import {ATTEMPT_SIGN_IN, signInFail, signInSuccess} from '../actions';
 import cache from '../../Common/Cache';
 import constants from '../../configs/contsants';
-import {AsyncStorage} from 'react-native';
 
 const logInUser = async (pass, User, mnor, perm) => {
   await cache.setItem('login', pass, function(err) {});
@@ -25,10 +24,6 @@ function* signIn({User, pass}) {
     };
     const response = yield call(axios, options);
     if (Array.isArray(response.data)) {
-      // cache.setItem('login', pass, function(err) {});
-      // cache.setItem('user', User, function(err) {});
-      // cache.setItem('mnor', response.data[0].mnor, function(err) {});
-      // cache.setItem('perm', response.data[0].perm, function(err) {});
       yield call(
         logInUser,
         pass,
