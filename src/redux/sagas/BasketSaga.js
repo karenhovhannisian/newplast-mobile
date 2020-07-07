@@ -33,6 +33,7 @@ function* getCustomerList() {
 
 function* sendOrderList({data: {data}}) {
   try {
+    // console.log('data', data[0][0].apr_cank);
     const response = yield call(NewPlastApi.sendOrderList, {data});
     yield put(sendOrderListSuccess(response.data)); //todo fix this part
   } catch (err) {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {ScrollableTabView} from '@valdio/react-native-scrollable-tabview';
 import {
   Image,
@@ -17,11 +17,10 @@ import {
   sendOrderList,
 } from '../../redux/actions';
 import CreateOrderSuccessModal from '../CreateOrderSuccessModal';
-
 const ScrollableTab = ({
   selectedProducts,
   deleteSelectedProduct,
-  sendOrderList,
+  sendOrderListt,
   confirmOrder,
   confirmOrderSuccess,
   customerName,
@@ -29,10 +28,36 @@ const ScrollableTab = ({
   orderDataSuccess,
   data,
   filteredTabs,
+  sendOrderData,
 }) => {
   const [allCheked, setAllCheked] = useState(
     filteredTabs.map(x => ({title: x.title, cheked: false, id: x.id})),
   );
+  const [orderDataCount, setOrderDataCount] = useState(null);
+  const [orderDataZgin, setOrderDataZgin] = useState(null);
+  useEffect(() => {
+    setAllCheked(
+      filteredTabs.map(x => ({title: x.title, cheked: false, id: x.id})),
+    );
+  }, [filteredTabs]);
+  useEffect(() => {
+    if (customerName && Array.isArray(orderDataSuccess)) {
+      setOrderDataCount(
+        orderDataSuccess.reduce((sum, cur) => {
+          return +sum + +cur.sgumar;
+        }, 0),
+      );
+      setOrderDataZgin(
+        orderDataSuccess.reduce((sum, cur) => +sum + +cur.zgumar, 0),
+      );
+    }
+    return () => {
+      if (!customerName) {
+        setOrderDataCount(null);
+        setOrderDataZgin(null);
+      }
+    };
+  }, [customerName, orderDataSuccess]);
   const handleChecke = id => {
     const newData = [...allCheked];
     const item = newData.find(x => x.id === id);
@@ -58,46 +83,63 @@ const ScrollableTab = ({
       </View>
     );
   }
-  const removeSelectedProduct = (elIndex, psize, tab) => {
+  const removeSelectedProduct = (elIndex, psize, tab, id, type2) => {
+    //
+
     if (orderDataSuccess && selectedProducts) {
-      let dataType =
-        orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
-      let type =
-        orderDataSuccess && orderDataSuccess.find(el => el.aah !== tab);
-      let filterId =
-        dataType.apr_cank &&
-        dataType.apr_cank.find(el => {
-          if (el.aprcod.trim() === elIndex.trim()) {
-            return el;
-          }
-        });
-      if (type) {
-        data = [
-          {
-            id: type.id,
-          },
-          {
-            id: dataType.id,
-            apr_cank: [
-              {
-                lid: `-${filterId.lid}`,
-              },
-            ],
-          },
-        ];
-      } else {
-        data = [
-          {
-            id: dataType.id,
-            apr_cank: [
-              {
-                lid: `-${filterId.lid}`,
-              },
-            ],
-          },
-        ];
+      // let dataType =
+      //   orderDataSuccess && orderDataSuccess.find(el => el.aah === tab);
+      // let type =
+      //   orderDataSuccess && orderDataSuccess.find(el => el.aah !== tab);
+      // let filterId =
+      //   dataType.apr_cank &&
+      //   dataType.apr_cank.find(el => {
+      //     if (el.aprcod.toString().trim() === elIndex.trim()) {
+      //       return el;
+      //     }
+      //   });
+      let newData;
+      if (customerName) {
+        newData = [...data];
+        const idx = newData[0].findIndex(x => x.aah === type2);
+        newData[0][idx].apr_cank = newData[0][idx].apr_cank.filter(
+          x => x.lid !== id,
+        );
+
+        if (!newData[0][idx].apr_cank.length) {
+          newData[0] = [
+            ...newData[0].slice(0, idx),
+            ...newData[0].slice(idx + 1),
+          ];
+        }
+        // newData = [
+        //   {
+        //     id: type.id,
+        //   },
+        //   {
+        //     id: dataType.id,
+        //     apr_cank: [
+        //       {
+        //         lid: `-${filterId.lid}`,
+        //       },
+        //     ],
+        //   },
+        // ];
+        sendOrderListt({data: newData});
       }
-      sendOrderList([data]);
+      // else {
+      //   newData = [
+      //     {
+      //       id: dataType.id,
+      //       apr_cank: [
+      //         {
+      //           lid: `-${filterId.lid}`,
+      //         },
+      //       ],
+      //     },
+      //   ];
+      // }
+
       deleteSelectedProduct(elIndex, psize, tab);
     } else {
       deleteSelectedProduct(elIndex, psize, tab);
@@ -121,12 +163,6 @@ const ScrollableTab = ({
     confirmOrder({data});
   };
 
-  const orderDataCount =
-    Array.isArray(orderDataSuccess) &&
-    orderDataSuccess.reduce((sum, cur) => +sum + +cur.sgumar, 0);
-  const orderDataZgin =
-    Array.isArray(orderDataSuccess) &&
-    orderDataSuccess.reduce((sum, cur) => +sum + +cur.zgumar, 0);
   return (
     <ScrollableTabView
       tabBarBackgroundColor={'white'}
@@ -293,13 +329,15 @@ const ScrollableTab = ({
                                 </View>
                               </View>
                               <TouchableOpacity
-                                onPress={() =>
+                                onPress={() => {
                                   removeSelectedProduct(
                                     element.aprcod,
                                     element.psize,
                                     tab.title,
-                                  )
-                                }>
+                                    element.lid,
+                                    element.type,
+                                  );
+                                }}>
                                 <Image
                                   style={{marginTop: 22, marginRight: 0}}
                                   source={require('./images/close.png')}
@@ -316,14 +354,21 @@ const ScrollableTab = ({
               style={{
                 marginLeft: '5%',
                 width: '93%',
+                // marginBottom: 10,
               }}>
               <View
                 style={{
+                  display: 'flex',
+                  // flexDirection: 'row',
                   flexDirection: 'row-reverse',
                   alignContent: 'flex-end',
-                  marginLeft: 40,
+                  // marginLeft: 40,
+                  // backgroundColor: '#fff',
+                  // opacity: 0.5,
+                  paddingBottom: 30,
+                  height: 100,
                 }}>
-                <View>
+                <View style={{display: 'flex', flexDirection: 'row'}}>
                   <View style={{marginTop: 0, marginLeft: 8}}>
                     <View>
                       <Text style={{fontSize: 18}}>
@@ -346,40 +391,46 @@ const ScrollableTab = ({
                         : ''}
                       {orderDataZgin ? 'դ.' : ''}
                     </Text>
-                  </View>
-                  <View
+                    {/* </View> */}
+                    {/* <View
                     style={{
                       flexDirection: 'row',
                       alignItems: 'center',
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: 24,
-                        color: 'black',
-                        fontWeight: 'bold',
-                      }}>
-                      {' '}
-                      Ընդհանուր՝
-                    </Text>
-                    <Text
+                    }}> */}
+                    <View
                       style={{
                         flexDirection: 'row',
-                        textAlign: 'center',
-                        fontSize: 24,
-                        color: '#0A3695',
-                        fontWeight: 'bold',
-                        // left: 0,
-                        // height: 30,
-                        width: 'auto',
+                        alignItems: 'center',
                       }}>
-                      {' '}
-                      {orderDataCount
-                        ? (orderDataCount - orderDataZgin)
-                            .toFixed(2)
-                            .replace(/\d(?=(\d{3})+\.)/g, '$&,')
-                        : ''}
-                      {orderDataCount ? 'դ.' : ''}
-                    </Text>
+                      <Text
+                        style={{
+                          fontSize: 24,
+                          color: 'black',
+                          fontWeight: 'bold',
+                        }}>
+                        {' '}
+                        Ընդհանուր՝
+                      </Text>
+                      <Text
+                        style={{
+                          flexDirection: 'row',
+                          textAlign: 'center',
+                          fontSize: 24,
+                          color: '#0A3695',
+                          fontWeight: 'bold',
+                          // left: 0,
+                          // height: 30,
+                          width: 'auto',
+                        }}>
+                        {' '}
+                        {orderDataCount
+                          ? (orderDataCount - orderDataZgin)
+                              .toFixed(2)
+                              .replace(/\d(?=(\d{3})+\.)/g, '$&,')
+                          : ''}
+                        {orderDataCount ? 'դ.' : ''}
+                      </Text>
+                    </View>
                   </View>
                   <View>
                     <TouchableOpacity
@@ -421,7 +472,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   deleteSelectedProduct: (elIndex, psize, tab) =>
     dispatch(deleteSelectedProduct(elIndex, psize, tab)),
-  sendOrderList: data => dispatch(sendOrderList(data)),
+  sendOrderListt: data => dispatch(sendOrderList(data)),
   confirmOrder: data => dispatch(confirmOrder(data)),
 });
 

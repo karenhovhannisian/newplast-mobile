@@ -14,7 +14,7 @@ const Basket = ({
   selectedProducts,
   managerList,
   getManagerList,
-  sendOrderList,
+  sendOrderListt,
   getCustomerList,
   customerList,
 }) => {
@@ -100,12 +100,34 @@ const Basket = ({
   const filterOrderList = filteredTabs.map(tab => {
     return selectedProducts.filter(p => p.type === tab.title);
   });
+  // let newDate = [
+  //   filterOrderList.map(el => {
+  //     return {
+  //       men: selectedManager,
+  //       id: 0,
+  //       sdate: new Date(),
+  //       gycod: customerName ? customerName.trim() : '',
+  //       aah: el[0].type,
+  //       apr_cank:
+  //         el &&
+  //         el.map((e, idx) => {
+  //           return {
+  //             _id: idx,
+  //             aprcod: e.aprcod,
+  //             lid: e.lid,
+  //             qanak: e.qanak,
+  //             marka: e.marka,
+  //           };
+  //         }),
+  //     };
+  //   }),
+  // ];
 
   const sendOrderData = itemValue => {
     setCustomerName(itemValue);
 
-    let data = [
-      filterOrderList.map(el => {
+    const newDate = [
+      filterOrderList.map((el, ix) => {
         return {
           men: selectedManager,
           id: 0,
@@ -114,7 +136,7 @@ const Basket = ({
           aah: el[0].type,
           apr_cank:
             el &&
-            el.map(e => {
+            el.map((e, idx) => {
               return {
                 aprcod: e.aprcod,
                 lid: e.lid,
@@ -125,9 +147,8 @@ const Basket = ({
         };
       }),
     ];
-    setData(data);
-
-    sendOrderList({data});
+    setData(newDate);
+    sendOrderListt({data: newDate});
   };
 
   const updateSearch = search => {
@@ -187,9 +208,10 @@ const Basket = ({
               selectedValue={customerName}
               style={{color: '#0A3695', fontSize: 40}}
               itemStyle={styles.pickerItemStyle}
-              onValueChange={(itemValue, itemIndex) =>
-                sendOrderData(itemValue)
-              }>
+              onValueChange={(itemValue, itemIndex) => {
+                console.log('itemValue', itemValue);
+                sendOrderData(itemValue);
+              }}>
               <Picker.Item key={'unselectable'} label="Հաճախորդ" value={0} />
 
               {filterSelectedCustomersName &&
@@ -227,6 +249,8 @@ const Basket = ({
         customerName={customerName}
         selectedManager={selectedManager}
         selectedProducts={selectedProducts}
+        sendOrderData={sendOrderData}
+        setCustomerName={setCustomerName}
       />
     </>
   );
@@ -241,7 +265,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getManagerList: data => dispatch(getManagerList(data)),
   getCustomerList: data => dispatch(getCustomerList(data)),
-  sendOrderList: data => dispatch(sendOrderList(data)),
+  sendOrderListt: data => dispatch(sendOrderList(data)),
 });
 
 export default connect(

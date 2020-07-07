@@ -17,22 +17,9 @@ import {connect} from 'react-redux';
 import ImageViewer from 'react-native-image-zoom-viewer';
 import axios from 'axios';
 import InputSpinner from 'react-native-input-spinner';
-import cache from '../../Common/Cache';
 import constants from '../../configs/contsants';
 import NewPlastApi from '../../api/Api';
 
-const defaultState = {
-  user: '',
-  pass: '',
-};
-
-cache.getItem('user', function(err, value) {
-  defaultState.user = value;
-});
-
-cache.getItem('login', function(err, value) {
-  defaultState.pass = value;
-});
 const ProductItem = ({
   product,
   addProductToBasket,
@@ -50,7 +37,6 @@ const ProductItem = ({
     setGetPriceFailMessage(false);
     setLoaderSizes(false);
   }, [product.index]);
-
   const [imageZoom, setImageZoom] = useState(false);
   const [getPriceFailMessage, setGetPriceFailMessage] = useState(false);
   const [loaderSizes, setLoaderSizes] = useState(false);
@@ -148,7 +134,7 @@ const ProductItem = ({
       psize: productSize,
       type: activeTypeIndex,
       quantityPrice: quantityPrice,
-      lid: 0,
+      lid: Date.now(),
       imgUrl: icon,
     });
     setProductPrice(null);
