@@ -205,7 +205,7 @@ const ProductItem = ({
                       marginTop: 80,
                       marginLeft: 150,
                     }
-                  : {width: normalize(120), height: 380, marginTop: 50}
+                  : {width: normalize(120), height: 360, marginTop: 50}
               }
               source={{uri: icon}}
             />
