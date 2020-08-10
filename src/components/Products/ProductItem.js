@@ -200,12 +200,12 @@ const ProductItem = ({
               style={
                 itemWidth < 801
                   ? {
-                      width: normalize(100),
+                      width: normalize(120),
                       height: 300,
-                      marginTop: 80,
-                      marginLeft: 150,
+                      marginTop: 90,
+                      marginLeft: 200,
                     }
-                  : {width: normalize(120), height: 360, marginTop: 50}
+                  : {width: 360, height: 360, marginTop: 50}
               }
               source={{uri: icon}}
             />
