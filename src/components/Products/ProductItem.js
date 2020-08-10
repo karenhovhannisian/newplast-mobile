@@ -200,7 +200,7 @@ const ProductItem = ({
               style={
                 itemWidth < 801
                   ? {
-                      width: normalize(120),
+                      width: 300,
                       height: 300,
                       marginTop: 90,
                       marginLeft: 200,
