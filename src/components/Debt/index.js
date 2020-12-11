@@ -68,7 +68,7 @@ const Debt = props => {
                   filteredDebtList.map((rowData, index) => (
                     <TableWrapper key={index} style={styles.row}>
                       <Text style={styles.textss}>{rowData.anun}</Text>
-                      <Text style={styles.texts}>{rowData.men}</Text>
+                      <Text style={styles.texts}>{rowData.fCODE}</Text>
                       <Text style={styles.texts1}>
                         {rowData.zexch ? rowData.zexch : 0}
                       </Text>
