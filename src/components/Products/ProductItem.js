@@ -61,8 +61,13 @@ const ProductItem = ({
   const getAvailableTypes = fCode => {
     const defaultTypes = ['Այո', 'Ոչ'];
     productsType.forEach(type => {
-      if (type.cank.includes(`${fCode}`)) {
-        defaultTypes.push(type.typ);
+      if (type.cank) {
+        const cank = type.cank.split(',');
+        cank.forEach(t => {
+          if (fCode.indexOf(t) !== -1) {
+            defaultTypes.push(type.typ);
+          }
+        });
       }
     });
 
