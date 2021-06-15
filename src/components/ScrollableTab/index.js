@@ -35,6 +35,7 @@ const ScrollableTab = ({
   );
   const [orderDataCount, setOrderDataCount] = useState(null);
   const [orderDataZgin, setOrderDataZgin] = useState(null);
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     setAllCheked(
       filteredTabs.map(x => ({title: x.title, cheked: false, id: x.id})),
@@ -52,6 +53,9 @@ const ScrollableTab = ({
       );
     }
     return () => {
+      if(orderDataSuccess){
+        setLoading(false)
+      }
       if (!customerName) {
         setOrderDataCount(null);
         setOrderDataZgin(null);
@@ -159,7 +163,7 @@ const ScrollableTab = ({
     // if (confirmOrderSuccess && confirmOrderSuccess[0].pstatus===1){
     //     setShowModal(true)
     // }
-
+    setLoading(true)
     confirmOrder({data});
   };
 
@@ -435,11 +439,11 @@ const ScrollableTab = ({
                   <View>
                     <TouchableOpacity
                       disabled={
-                        !customerName || !allCheked.every(x => x.cheked)
+                       ( !customerName || !allCheked.every(x => x.cheked)) || loading
                       }
                       onPress={confirmOrderData}
                       style={
-                        customerName && allCheked.every(x => x.cheked)
+                        customerName && allCheked.every(x => x.cheked) && !loading
                           ? styles.addButton
                           : styles.addButtonDisable
                       }>
@@ -480,3 +484,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps,
 )(ScrollableTab);
+
