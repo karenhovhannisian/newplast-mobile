@@ -130,25 +130,27 @@ const ProductItem = ({
   };
 
   const addProduct = () => {
-    addProductToBasket({
-      name: product.item.pxumb_name ? product.item.pxumb_name.trim() : '',
-      aprcod: productId,
-      qanak: count,
-      price: price,
-      marka: marka,
-      psize: productSize,
-      type: activeTypeIndex,
-      quantityPrice: quantityPrice,
-      lid: Date.now(),
-      imgUrl: icon,
-    });
-    setProductPrice(null);
-    setQuantityPrice(null);
-    setMnac(null);
-    setChdzmnac(null);
-    changeProductSize('');
-    setActiveTypeIndex(null);
-    setCount(0);
+    if (price) {
+      addProductToBasket({
+        name: product.item.pxumb_name ? product.item.pxumb_name.trim() : '',
+        aprcod: productId,
+        qanak: count,
+        price: price,
+        marka: marka,
+        psize: productSize,
+        type: activeTypeIndex,
+        quantityPrice: quantityPrice,
+        lid: Date.now(),
+        imgUrl: icon,
+      });
+      setProductPrice(null);
+      setQuantityPrice(null);
+      setMnac(null);
+      setChdzmnac(null);
+      changeProductSize('');
+      setActiveTypeIndex(null);
+      setCount(0);
+    }
   };
   let data = [{label: '', value: ''}];
   if (product && product.item && product.item.sizes.toString().includes(',')) {
