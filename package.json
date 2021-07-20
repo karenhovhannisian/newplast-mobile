@@ -18,7 +18,7 @@
     "moment": "^2.24.0",
     "react": "16.9.0",
     "react-animated-slider": "^1.1.4",
-    "react-native": "0.61.2",
+    "react-native": "0.62.3",
     "react-native-animated-loader": "0.0.8",
     "react-native-cache": "^1.1.8",
     "react-native-datepicker": "^1.7.2",
