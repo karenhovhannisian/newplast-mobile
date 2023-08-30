@@ -114,7 +114,7 @@ export const updateOrderList = createAsyncThunk(
         dispatch(
           updateOrder({
             id: data.orderId,
-            data: { men: Number(data.body[0].men), spdit: data.body[0].spdit },
+            data: { men: Number(data.body[0].men), ahasce: data.body[0].ahasce },
           }),
         );
       })

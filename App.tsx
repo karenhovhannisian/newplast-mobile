@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SplashScreen from 'react-native-splash-screen';
 import { Provider } from 'react-redux';
@@ -15,10 +16,12 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <SafeAreaProvider>
-          <AppNavigation />
-          <InAppMessage />
-        </SafeAreaProvider>
+        <PaperProvider>
+          <SafeAreaProvider>
+            <AppNavigation />
+            <InAppMessage />
+          </SafeAreaProvider>
+        </PaperProvider>
       </PersistGate>
     </Provider>
   );

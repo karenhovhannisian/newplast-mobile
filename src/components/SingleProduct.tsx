@@ -115,7 +115,7 @@ export const SingleProduct: FC<Props> = ({ onClose, product }) => {
         sdate: new Date(),
         gycod: selectedCustomerId,
         aah: selectedType,
-        spdit: '',
+        ahasce: '',
         apr_cank: [
           {
             aprcod: productInfo?.fCODE || '',

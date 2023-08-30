@@ -23,7 +23,7 @@ export interface IOldOrder {
   patcod: Maybe<string>;
   gycod: Maybe<number>;
   gyanun: Maybe<string>;
-  spdit: Maybe<string>;
+  ahasce: Maybe<string>;
   sgumar: Maybe<number>;
   szgumar: Maybe<number>;
   pahest: Maybe<number>;
@@ -36,7 +36,7 @@ export interface IOldOrder {
 
 export type IOldOrderListItem = Pick<
   IOldOrder,
-  'id' | 'gyanun' | 'gycod' | 'sdate' | 'patcod' | 'spdit'
+  'id' | 'gyanun' | 'gycod' | 'sdate' | 'patcod' | 'ahasce'
 >;
 
 export interface IDebt {
@@ -60,7 +60,7 @@ export interface SendOrderListFetchedData {
   sdate: Date;
   gycod: string;
   aah: string;
-  spdit?: string;
+  ahasce?: string;
   apr_cank: Array<{ aprcod: string; lid: number; qanak: number; marka: string }>;
 }
 
@@ -78,7 +78,7 @@ export interface UpdateBasketFetchedData {
   id: number;
   men?: string;
   aah: string;
-  spdit?: string;
+  ahasce?: string;
 }
 
 export type DeleteOrderFetchedData = Pick<SendOrderListFetchedData, 'id' | 'aah'>;

@@ -42,7 +42,7 @@ export const Basket = () => {
     const updateManagerData = basket.map<UpdateBasketFetchedData>(item => ({
       id: item.id,
       men: selectedManager,
-      spdit: description,
+      ahasce: description,
       aah: item.aah || '',
     }));
 

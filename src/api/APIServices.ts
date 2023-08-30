@@ -84,7 +84,7 @@ export default class APIServices {
   static async getDebtList() {
     return this.getCredentials().then((credentials: any) => {
       const body = new FormData();
-      body.append('sl', `j,${credentials.username},${credentials.password},gynker`);
+      body.append('sl', `j,${credentials.username},${credentials.password},gynker, where 1>0`);
 
       return fetch(configs.apiUrl, {
         method: 'POST',
@@ -109,7 +109,7 @@ export default class APIServices {
   static async getCustomerList() {
     return this.getCredentials().then((credentials: any) => {
       const body = new FormData();
-      body.append('sl', `j,${credentials.username},${credentials.password},gynker`);
+      body.append('sl', `j,${credentials.username},${credentials.password},gynker, where 1>0`);
 
       return fetch(configs.apiUrl, {
         method: 'POST',

@@ -65,7 +65,7 @@ export interface IBasketItem {
   patcod: Maybe<string>;
   gycod: Maybe<number>;
   gyanun: Maybe<string>;
-  spdit: Maybe<string>;
+  ahasce: Maybe<string>;
   sgumar: Maybe<number>;
   szgumar: Maybe<number>;
   pahest: Maybe<number>;

@@ -66,7 +66,7 @@ export const orderSlice = createSlice({
     },
     updateOrder: (
       state,
-      action: PayloadAction<{ id: number; data: { men: number; spdit?: string } }>,
+      action: PayloadAction<{ id: number; data: { men: number; ahasce?: string } }>,
     ) => {
       state.orders = state.orders.map(order => {
         if (order.id === action.payload.id) {
